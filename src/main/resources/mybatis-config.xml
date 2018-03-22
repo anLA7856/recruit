@@ -1,0 +1,12 @@
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- mybatis的一些配置 -->
+	<settings>
+        <!--映射下划线风格到驼峰风格-->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+        
+	</settings>
+</configuration>

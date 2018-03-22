@@ -1,0 +1,1 @@
+WARN qtp1184965604-25 - /view-register.do org.springframework.web.servlet.PageNotFound - No mapping found for HTTP request with URI [/view-register.do] in DispatcherServlet with name 'spring-mvc'
