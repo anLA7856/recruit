@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class IndexController {
+	
+	
     @RequestMapping("/index.do")
-    public String toIndex(Model model, HttpServletRequest request){
-        return "index";
+    public String index(Model model, HttpServletRequest request){
+        //return new ModelAndView("index");
+    	return "index";
     }
 }
