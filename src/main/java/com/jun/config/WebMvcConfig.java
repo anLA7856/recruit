@@ -1,11 +1,9 @@
-package com.jun.springboot;
+package com.jun.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -21,8 +19,6 @@ import org.springframework.web.servlet.view.JstlView;
  */
 @Configuration
 @EnableAutoConfiguration
-@EnableWebMvc // 开启 spring mvc 支持。
-@ComponentScan(basePackages = "com.jun.controller")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
@@ -34,6 +30,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setContentType("text/html");
 		return viewResolver;
 	}
+	
+//	@Bean(name = "mvcHandlerMappingIntrospector")
+//	public HandlerMappingIntrospector mvcHandlerMappingIntrospector() {
+//		ApplicationContext act = new 
+//		return new HandlerMappingIntrospector(this);
+//	}
 	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {

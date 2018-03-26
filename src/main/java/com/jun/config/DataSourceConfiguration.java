@@ -1,4 +1,4 @@
-package com.jun.springboot;
+package com.jun.config;
 
 import javax.sql.DataSource;
 

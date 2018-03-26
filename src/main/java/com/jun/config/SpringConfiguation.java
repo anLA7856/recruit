@@ -1,4 +1,4 @@
-package com.jun.springboot;
+package com.jun.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -23,4 +23,6 @@ public class SpringConfiguation {
 	public ThreadPoolTaskExecutor initialThreadPoolTaskExecutor(){
 		return new ThreadPoolTaskExecutor();
 	}
+	
+	
 }

@@ -12,10 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class IndexController {
 	
-	
+	/**
+	 * 经由spring mvc 对/下跳转，从而进入的这里面
+	 * @param model
+	 * @param request
+	 * @return
+	 */
     @RequestMapping("/index.do")
     public String index(Model model, HttpServletRequest request){
-        //return new ModelAndView("index");
-    	return "index";
+    	String msg =  new String("测试标题测试内容额外信息，只对管理员显示");
+        model.addAttribute("msg", msg);
+    	return "home";
     }
 }
