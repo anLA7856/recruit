@@ -4,7 +4,7 @@
 
 <mapper namespace="com.jun.mapper.UserMapper">
 	<select id="findByUserName"  resultType="com.jun.model.User" parameterType="String">
-	   SELECT * FROM USER u WHERE u.`username`=#{username};
+	   SELECT * FROM user u WHERE u.`username`=#{username};
 	</select>
 
 

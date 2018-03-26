@@ -11,17 +11,19 @@ public class Permission {
 	private String name;
 	private String description;
 	private String url;
+	private String method;
 
 	public Permission() {
 
 	}
 
-	public Permission(Integer id, String name, String description, String url) {
+	public Permission(Integer id, String name, String description, String url, String method) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.url = url;
+		this.method = method;
 	}
 
 	public Integer getId() {
@@ -56,9 +58,18 @@ public class Permission {
 		this.url = url;
 	}
 
+	public String getMethod() {
+		return method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
 	@Override
 	public String toString() {
-		return "Permission [id=" + id + ", name=" + name + ", description=" + description + ", url=" + url + "]";
+		return "Permission [id=" + id + ", name=" + name + ", description=" + description + ", url=" + url + ", method="
+				+ method + "]";
 	}
 
 }

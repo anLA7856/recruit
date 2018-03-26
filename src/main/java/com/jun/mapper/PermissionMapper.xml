@@ -8,7 +8,7 @@
 
 	<select id="findPermissionByUserId" parameterType="int" resultType="com.jun.model.Permission">
 	    SELECT p.* 
-	    FROM USER u,Role r,permission p,role_user ru,role_permission rp
+	    FROM user u,role r,permission p,role_user ru,role_permission rp
 		WHERE r.`id`=#{id}
 		AND r.`id`=ru.`role_id`
 		AND ru.`user_id`=u.`id`
@@ -18,7 +18,7 @@
 	
 	<select id="findPermissionByRoleAndUserId" resultType="com.jun.model.Permission">
 		SELECT p.* 
-		FROM USER u,Role r,permission p,role_user ru,role_permission rp
+		FROM user u,role r,permission p,role_user ru,role_permission rp
 		WHERE r.`id`=#{id}
 		AND r.`id`=ru.`role_id`
 		AND ru.`user_id`=u.`id`
