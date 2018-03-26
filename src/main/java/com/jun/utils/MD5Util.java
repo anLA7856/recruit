@@ -11,7 +11,7 @@ import java.security.MessageDigest;
  */
 public class MD5Util {
 
-    private static final String SALT = "yy";
+    private static final String SALT = "junbao";
    
     private static final String WECAHT_SALT="yy_aa";
     
