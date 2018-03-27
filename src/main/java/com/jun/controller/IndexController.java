@@ -25,7 +25,12 @@ public class IndexController {
         model.addAttribute("msg", msg);
     	return new ModelAndView("home");
     }
-    
+    @RequestMapping("/login")
+    public ModelAndView login(Model model, HttpServletRequest request){
+    	String msg =  new String("测试标题测试内容额外信息，只对管理员显示");
+        model.addAttribute("msg", msg);
+    	return new ModelAndView("login");
+    }
 
 
 }
