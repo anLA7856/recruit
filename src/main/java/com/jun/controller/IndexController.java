@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 
 
@@ -19,18 +20,12 @@ public class IndexController {
 	 * @return
 	 */
     @RequestMapping("/index.do")
-    public String index(Model model, HttpServletRequest request){
+    public ModelAndView index(Model model, HttpServletRequest request){
     	String msg =  new String("测试标题测试内容额外信息，只对管理员显示");
         model.addAttribute("msg", msg);
-    	return "home";
+    	return new ModelAndView("home");
     }
     
-    @RequestMapping("/login")
-    public String login(Model model, HttpServletRequest request){
-    	String msg =  new String("测试标题测试内容额外信息，只对管理员显示");
-        model.addAttribute("msg", msg);
-    	return "login";
-    }
-    
+
 
 }

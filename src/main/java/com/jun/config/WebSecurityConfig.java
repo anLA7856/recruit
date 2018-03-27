@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
@@ -33,23 +34,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/logout").permitAll()
-                .antMatchers("/static/**").permitAll()
+//        http
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/login").permitAll()
+//                .antMatchers("/logout").permitAll()
+//                .antMatchers("/static/*").permitAll()
+//                .antMatchers("/").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry)
+//                .and()
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("/home")  //退出登录后的默认url是"/home"
+//                .invalidateHttpSession(true)
+//                .clearAuthentication(true)
+//                .and()
+//                .httpBasic();
+    	
+        //允许所有用户访问"/"和"/home"
+        http.authorizeRequests()
+                .antMatchers("/home").permitAll()
                 .antMatchers("/").permitAll()
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/static/**").permitAll()
+                //其他地址的访问均需验证权限
                 .anyRequest().authenticated()
                 .and()
-                .sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry)
-                .and()
+                .formLogin()
+                .loginPage("/login")  //指定登录页是"/login"
+                .defaultSuccessUrl("/home")  //登录成功后默认跳转到"list"
+                .permitAll()
                 .and()
                 .logout()
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .and()
-                .httpBasic();
+                .logoutSuccessUrl("/home")  //退出登录后的默认url是"/home"
+                .permitAll();
     }
 
     @Override
@@ -73,4 +93,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         SessionRegistry sessionRegistry=new SessionRegistryImpl();
         return sessionRegistry;
     }
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        //解决静态资源被拦截的问题
+//        web.ignoring().antMatchers("/bootstrap/**");
+//    }
+//    
 }

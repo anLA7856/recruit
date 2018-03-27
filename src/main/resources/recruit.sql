@@ -1,27 +1,26 @@
--- MySQL dump 10.13  Distrib 5.7.21, for Linux (x86_64)
---
--- Host: localhost    Database: recruit
--- ------------------------------------------------------
--- Server version	5.7.21-0ubuntu0.16.04.1
+/*
+SQLyog Ultimate v11.27 (32 bit)
+MySQL - 5.7.20-log : Database - recruit
+*********************************************************************
+*/
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
+
+/*!40101 SET SQL_MODE=''*/;
+
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`recruit` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
---
--- Table structure for table `attachement`
---
+USE `recruit`;
+
+/*Table structure for table `attachement` */
 
 DROP TABLE IF EXISTS `attachement`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `attachement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `news_id` int(11) DEFAULT NULL,
@@ -29,24 +28,13 @@ CREATE TABLE `attachement` (
   `file_name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `attachement`
---
+/*Data for the table `attachement` */
 
-LOCK TABLES `attachement` WRITE;
-/*!40000 ALTER TABLE `attachement` DISABLE KEYS */;
-/*!40000 ALTER TABLE `attachement` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `exam_information`
---
+/*Table structure for table `exam_information` */
 
 DROP TABLE IF EXISTS `exam_information`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `exam_information` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
@@ -64,24 +52,13 @@ CREATE TABLE `exam_information` (
   `serial_num` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `exam_information`
---
+/*Data for the table `exam_information` */
 
-LOCK TABLES `exam_information` WRITE;
-/*!40000 ALTER TABLE `exam_information` DISABLE KEYS */;
-/*!40000 ALTER TABLE `exam_information` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `news`
---
+/*Table structure for table `news` */
 
 DROP TABLE IF EXISTS `news`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) DEFAULT NULL,
@@ -96,47 +73,25 @@ CREATE TABLE `news` (
   `publish_name` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `news`
---
+/*Data for the table `news` */
 
-LOCK TABLES `news` WRITE;
-/*!40000 ALTER TABLE `news` DISABLE KEYS */;
-/*!40000 ALTER TABLE `news` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `news_type`
---
+/*Table structure for table `news_type` */
 
 DROP TABLE IF EXISTS `news_type`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `news_type` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
   `news_type` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `news_type`
---
+/*Data for the table `news_type` */
 
-LOCK TABLES `news_type` WRITE;
-/*!40000 ALTER TABLE `news_type` DISABLE KEYS */;
-/*!40000 ALTER TABLE `news_type` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `permission`
---
+/*Table structure for table `permission` */
 
 DROP TABLE IF EXISTS `permission`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
@@ -147,49 +102,28 @@ CREATE TABLE `permission` (
   `telephone` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `permission`
---
+/*Data for the table `permission` */
 
-LOCK TABLES `permission` WRITE;
-/*!40000 ALTER TABLE `permission` DISABLE KEYS */;
-INSERT INTO `permission` VALUES (1,'PERMISSION_HOME','主页','/',NULL,NULL,NULL),(2,'PERMISSION_ADMIN','管理员页面集','/admin/',NULL,NULL,NULL),(3,'PERMISSION_PUBLISHER','职位发布者页面集','/publisher/',NULL,NULL,NULL),(4,'PERMISSION_USER','普通用户页面集','/user/',NULL,NULL,NULL);
-/*!40000 ALTER TABLE `permission` ENABLE KEYS */;
-UNLOCK TABLES;
+insert  into `permission`(`id`,`name`,`description`,`url`,`method`,`email`,`telephone`) values (1,'PERMISSION_HOME','主页','/',NULL,NULL,NULL),(2,'PERMISSION_ADMIN','管理员页面集','/admin/',NULL,NULL,NULL),(3,'PERMISSION_PUBLISHER','职位发布者页面集','/publisher/',NULL,NULL,NULL),(4,'PERMISSION_USER','普通用户页面集','/user/',NULL,NULL,NULL);
 
---
--- Table structure for table `position_exam`
---
+/*Table structure for table `position_exam` */
 
 DROP TABLE IF EXISTS `position_exam`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `position_exam` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `exam_information_id` int(11) DEFAULT NULL,
   `position_info_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `position_exam`
---
+/*Data for the table `position_exam` */
 
-LOCK TABLES `position_exam` WRITE;
-/*!40000 ALTER TABLE `position_exam` DISABLE KEYS */;
-/*!40000 ALTER TABLE `position_exam` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `position_info`
---
+/*Table structure for table `position_info` */
 
 DROP TABLE IF EXISTS `position_info`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `position_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
@@ -218,48 +152,27 @@ CREATE TABLE `position_info` (
   `cell_phone` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `position_info`
---
+/*Data for the table `position_info` */
 
-LOCK TABLES `position_info` WRITE;
-/*!40000 ALTER TABLE `position_info` DISABLE KEYS */;
-/*!40000 ALTER TABLE `position_info` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `role`
---
+/*Table structure for table `role` */
 
 DROP TABLE IF EXISTS `role`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `role`
---
+/*Data for the table `role` */
 
-LOCK TABLES `role` WRITE;
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'ROLE_ADMIN'),(2,'ROLE_PUBLISHER'),(3,'ROLE_USER');
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
-UNLOCK TABLES;
+insert  into `role`(`id`,`name`) values (1,'ROLE_ADMIN'),(2,'ROLE_PUBLISHER'),(3,'ROLE_USER');
 
---
--- Table structure for table `role_permission`
---
+/*Table structure for table `role_permission` */
 
 DROP TABLE IF EXISTS `role_permission`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `role_permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) DEFAULT NULL,
@@ -270,25 +183,15 @@ CREATE TABLE `role_permission` (
   CONSTRAINT `fk_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`),
   CONSTRAINT `fk_role_permission_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `role_permission`
---
+/*Data for the table `role_permission` */
 
-LOCK TABLES `role_permission` WRITE;
-/*!40000 ALTER TABLE `role_permission` DISABLE KEYS */;
-INSERT INTO `role_permission` VALUES (1,1,2),(2,2,3),(3,3,4);
-/*!40000 ALTER TABLE `role_permission` ENABLE KEYS */;
-UNLOCK TABLES;
+insert  into `role_permission`(`id`,`role_id`,`permission_id`) values (1,1,2),(2,2,3),(3,3,4);
 
---
--- Table structure for table `role_user`
---
+/*Table structure for table `role_user` */
 
 DROP TABLE IF EXISTS `role_user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `role_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) DEFAULT NULL,
@@ -299,25 +202,15 @@ CREATE TABLE `role_user` (
   CONSTRAINT `fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`),
   CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `role_user`
---
+/*Data for the table `role_user` */
 
-LOCK TABLES `role_user` WRITE;
-/*!40000 ALTER TABLE `role_user` DISABLE KEYS */;
-INSERT INTO `role_user` VALUES (1,1,1),(2,2,2),(3,3,3);
-/*!40000 ALTER TABLE `role_user` ENABLE KEYS */;
-UNLOCK TABLES;
+insert  into `role_user`(`id`,`role_id`,`user_id`) values (1,1,1),(2,2,2),(3,3,3);
 
---
--- Table structure for table `user`
---
+/*Table structure for table `user` */
 
 DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
@@ -328,25 +221,12 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `user`
---
+/*Data for the table `user` */
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'junbao','3b948e1af0335453f6b329ea823e3510',1,NULL,NULL),(2,'tom','3b948e1af0335453f6b329ea823e3510',1,NULL,NULL),(3,'dog','3b948e1af0335453f6b329ea823e3510',1,NULL,NULL);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+insert  into `user`(`id`,`username`,`password`,`u_enabled`,`email`,`telephone`) values (1,'junbao','3b948e1af0335453f6b329ea823e3510',1,NULL,NULL),(2,'tom','3b948e1af0335453f6b329ea823e3510',1,NULL,NULL),(3,'dog','3b948e1af0335453f6b329ea823e3510',1,NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2018-03-26 23:33:36
