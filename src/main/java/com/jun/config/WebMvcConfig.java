@@ -43,14 +43,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
         configurer.enable();
     }
     
-    /**
-     * 用于映射首页
-     * @return
-     */
-    @RequestMapping(value="/", method = RequestMethod.GET)
-    public String getHomePage(){
-        return "index";
-    }
+
     
     /**
      * 映射静态文件

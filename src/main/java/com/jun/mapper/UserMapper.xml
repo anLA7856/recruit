@@ -7,5 +7,11 @@
 	   SELECT * FROM user u WHERE u.`username`=#{username};
 	</select>
 
+	<insert id="addNewUser" parameterType="String">
+		insert into user(username,password,u_enabled) values(#{username},#{password},0,#{validate});
+	</insert>
 
+	<select id="selectUsernameCount" resultType="java.lang.Integer" parameterType="String">
+		select count(*) from user u where u.username=#{username};
+	</select>
 </mapper>

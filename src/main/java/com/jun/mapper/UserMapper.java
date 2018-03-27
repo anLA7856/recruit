@@ -13,4 +13,6 @@ import com.jun.model.User;
 @Mapper
 public interface UserMapper {
 	public User findByUserName(String username);
+	public int addNewUser(String username,String password,String validate);
+	public int selectUsernameCount(String username);
 }
