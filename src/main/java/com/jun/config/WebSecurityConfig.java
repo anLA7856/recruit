@@ -55,10 +55,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	
         //允许所有用户访问"/"和"/home"
         http.authorizeRequests()
-                .antMatchers("/home").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/css/**").permitAll()
-                .antMatchers("/static/**").permitAll()
+                .antMatchers("/font/**").permitAll()
+                .antMatchers("/headPicLocation/**").permitAll()
+                .antMatchers("/img/**").permitAll()
+                .antMatchers("/js/**").permitAll()
                 //其他地址的访问均需验证权限
                 .anyRequest().authenticated()
                 .and()
