@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -28,7 +29,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
     @Bean  
     public InternalResourceViewResolver viewResolver(){  
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();  
-        viewResolver.setPrefix("/templates/");  
+        //viewResolver.setPrefix("/templates/");  
         //viewResolver.setSuffix(".html");  
         viewResolver.setViewClass(JstlView.class);  
         return  viewResolver;  
@@ -49,5 +50,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String getHomePage(){
         return "index";
+    }
+    
+    /**
+     * 映射静态文件
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
     }
 }
