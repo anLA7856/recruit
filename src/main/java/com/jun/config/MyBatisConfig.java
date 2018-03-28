@@ -34,14 +34,7 @@ public class MyBatisConfig {
 		configuration.setLogImpl(org.apache.ibatis.logging.log4j.Log4jImpl.class);//use log4j log
 		sessionFactory.setConfiguration(configuration);
 		sessionFactory.setMapperLocations(applicationContext.getResources("classpath:com/jun/mapper/*.xml"));
-//
-//		Properties prop = new Properties();
-//		prop.setProperty("supportMethodsArguments","true");
-//		prop.setProperty("rowBoundsWithCount", "true");
-//		prop.setProperty("params","pageNum=pageNum;pageSize=pageSize;");
-//		PageInterceptor pi = new PageInterceptor();
-//		pi.setProperties(prop);
-//		sessionFactory.setPlugins(new Interceptor[]{pi});
+
 
 		return sessionFactory;
 	}
