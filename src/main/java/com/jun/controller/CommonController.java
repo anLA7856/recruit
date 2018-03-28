@@ -30,14 +30,15 @@ public class CommonController {
 
     @RequestMapping(value="/view-login", method = RequestMethod.GET)
     public ModelAndView viewLogin(Model model, HttpServletRequest request){
-    	return new ModelAndView("login");
+    	return new ModelAndView("/common/view-login");
     }
     @RequestMapping(value="/veiw-register", method = RequestMethod.GET)
     public ModelAndView viewRegister(Model model, HttpServletRequest request){
-    	return new ModelAndView("register");
+    	return new ModelAndView("/common/view-register");
     }
     
-    @RequestMapping(value="/register", method = RequestMethod.POST)
+    @RequestMapping(value="/register", method = RequestMethod.POST,produces="text/html; charset=UTF-8")
+ //   @RequestMapping(value="/register", method = RequestMethod.POST)
     @ResponseBody
     public String register(Model model, HttpServletRequest request,@RequestParam String username,@RequestParam String password){
     	String result = loginService.addUser(username, password);

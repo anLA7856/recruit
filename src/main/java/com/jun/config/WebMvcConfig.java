@@ -1,10 +1,13 @@
 package com.jun.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -21,6 +24,16 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/home").setViewName("/home");
 	}
+	
+//	@Bean(name="stringHttpMessageConverter")
+//	public StringHttpMessageConverter stringHttpMessageConverter(){
+//		StringHttpMessageConverter stringHttpMessageConverter = new StringHttpMessageConverter();
+//		List<MediaType> list = new ArrayList<>();
+//		//list.add(new MediaType("text html; charset=UTF-8"));
+//		stringHttpMessageConverter.setSupportedMediaTypes(list);
+//		return stringHttpMessageConverter;
+//	}
+	
 	
 	/**
 	 * 配置视图解析器

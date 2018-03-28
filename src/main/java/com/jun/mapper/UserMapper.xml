@@ -8,7 +8,7 @@
 	</select>
 
 	<insert id="addNewUser" parameterType="String">
-		insert into user(username,password,u_enabled) values(#{username},#{password},0,#{validate});
+		insert into user(username,password,u_enabled,validate) values(#{username},#{password},0,#{validate});
 	</insert>
 
 	<select id="selectUsernameCount" resultType="java.lang.Integer" parameterType="String">
