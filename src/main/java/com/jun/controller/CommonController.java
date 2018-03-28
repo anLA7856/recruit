@@ -41,11 +41,18 @@ public class CommonController {
     	return new ModelAndView("/common/view-register");
     }
     
+    /**
+     * 登录用户。
+     * @param model
+     * @param request
+     * @param username
+     * @param password
+     * @return
+     */
     @RequestMapping(value="/register", method = RequestMethod.POST,produces="text/html; charset=UTF-8")
     @ResponseBody
     public String register(Model model, HttpServletRequest request,@RequestParam String username,@RequestParam String password){
-    	String result = loginService.addUser(username, password);
-    	return result;
+    	return "";
     }
     /**
      * 用于激活帐号
