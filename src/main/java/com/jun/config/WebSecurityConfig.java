@@ -6,14 +6,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.jun.security.UrlUserService;
+import com.jun.security.CustomUserService;
 import com.jun.utils.MD5Util;
 
 
@@ -28,7 +27,7 @@ import com.jun.utils.MD5Util;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UrlUserService urlUserService;
+    private CustomUserService customerUserService;
     @Autowired
     SessionRegistry sessionRegistry;
 
@@ -58,8 +57,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(urlUserService).passwordEncoder(new PasswordEncoder() {
+    	//首先auth，去urlUserService检查权限。
+        auth.userDetailsService(customerUserService).passwordEncoder(new PasswordEncoder() {
 
+        	/**
+        	 * 小写。
+        	 */
             @Override
             public String encode(CharSequence rawPassword) {
                 return MD5Util.encode((String) rawPassword);
@@ -72,15 +75,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         });
     }
 
+    /**
+     * session 注册
+     * @return
+     */
     @Bean
     public SessionRegistry getSessionRegistry(){
         SessionRegistry sessionRegistry=new SessionRegistryImpl();
         return sessionRegistry;
     }
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        //解决静态资源被拦截的问题
-//        web.ignoring().antMatchers("/bootstrap/**");
-//    }
-//    
+
 }

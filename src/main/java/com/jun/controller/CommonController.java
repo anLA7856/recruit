@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.jun.service.LoginService;
+import com.jun.service.UserService;
 
 /**
  * 共用页面，用来登录注册，以及查看新闻的。
@@ -27,6 +28,9 @@ public class CommonController {
 	
 	@Autowired
 	LoginService loginService;
+	
+	@Autowired
+	UserService userService;
 
     @RequestMapping(value="/view-login", method = RequestMethod.GET)
     public ModelAndView viewLogin(Model model, HttpServletRequest request){
@@ -38,10 +42,28 @@ public class CommonController {
     }
     
     @RequestMapping(value="/register", method = RequestMethod.POST,produces="text/html; charset=UTF-8")
- //   @RequestMapping(value="/register", method = RequestMethod.POST)
     @ResponseBody
     public String register(Model model, HttpServletRequest request,@RequestParam String username,@RequestParam String password){
     	String result = loginService.addUser(username, password);
     	return result;
     }
+    /**
+     * 用于激活帐号
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value="/activate", method = RequestMethod.GET)
+    public ModelAndView activate(Model model, HttpServletRequest request,@RequestParam String code){
+    	String result = userService.validateAndSetRole(code);
+    	model.addAttribute("result", result);
+    	return new ModelAndView("/common/validate-result");   
+    }
+    
+    @RequestMapping(value="/login", method = RequestMethod.POST,produces="text/html; charset=UTF-8")
+    public String login(Model model, HttpServletRequest request,@RequestParam String username,@RequestParam String password){
+    	String result = loginService.addUser(username, password);
+    	return result;
+    }
+    
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.jun.async.MailTask;
 import com.jun.mapper.UserMapper;
 import com.jun.utils.CommonUtil;
+import com.jun.utils.MD5Util;
 
 @Service
 public class LoginService {
@@ -42,12 +43,13 @@ public class LoginService {
 			return "该邮箱已被注册~";
 		}
 		String validate = CommonUtil.createActivateCode();
-
+		// 向数据库插入记录
+		password = MD5Util.encode(password);
+		userMapper.addNewUser(username, password, validate);
 		// 发送邮件
 		taskExecutor.execute(new MailTask(validate, username, javaMailSender, 1));
 
-		// 向数据库插入记录
-		userMapper.addNewUser(username, password, validate);
+		
 
 		return "ok";
 	}

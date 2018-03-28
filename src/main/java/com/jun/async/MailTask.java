@@ -37,7 +37,7 @@ public class MailTask implements Runnable {
                 sb.append("<html><head></head><body>");
 
                 if(operation==1){
-                    sb.append("<a href="+Model.DOMAIN_NAME+"activate.do?code=");
+                    sb.append("<a href="+Model.DOMAIN_NAME+"/common/activate.do?code=");
                     sb.append(code);
                     sb.append(">点击激活</a></body>");
                 }else{
