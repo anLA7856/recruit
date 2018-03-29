@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();       //将csrf校验关闭。
     	http.authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/index.do").permitAll()     //首页
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/font/**").permitAll()
                 .antMatchers("/headPicLocation/**").permitAll()
@@ -46,12 +46,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")  //指定登录页是"/login"
-                .defaultSuccessUrl("/")  //登录成功后默认跳转到"list"
-                .permitAll()
+                .loginPage("/common/view-login")  //指定登录页是"/login"
+                .defaultSuccessUrl("/index.do")  //登录成功后默认跳转到"list"
                 .and()
                 .logout()
-                .logoutSuccessUrl("/")  //退出登录后的默认url是"/home"
+                .logoutUrl("/common/view-logout")
+                .logoutSuccessUrl("/common/view-login")  //退出登录后的默认url是"/home"
                 .permitAll();
     }
 
@@ -59,7 +59,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     	//首先auth，去urlUserService检查权限。
         auth.userDetailsService(customerUserService).passwordEncoder(new PasswordEncoder() {
-
         	/**
         	 * 小写。
         	 */

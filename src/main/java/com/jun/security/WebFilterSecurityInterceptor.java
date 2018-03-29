@@ -26,13 +26,13 @@ import java.io.IOException;
 @Service
 public class WebFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
-
+	//配置文件注入
     @Autowired
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
     @Autowired
-    public void setMyAccessDecisionManager(WebAccessDecisionManager myAccessDecisionManager) {
-        super.setAccessDecisionManager(myAccessDecisionManager);
+    public void setWebAccessDecisionManager(WebAccessDecisionManager webAccessDecisionManager) {
+        super.setAccessDecisionManager(webAccessDecisionManager);
     }
 
 
@@ -40,7 +40,7 @@ public class WebFilterSecurityInterceptor extends AbstractSecurityInterceptor im
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
-
+   //登陆后，每次访问资源都通过这个拦截器拦截
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
