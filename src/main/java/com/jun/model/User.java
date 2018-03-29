@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User implements UserDetails {
 	private Integer id;
 	private String username;
+	private String name;
 	private String password;
 	private Integer uEnabled;
 	private String email;
@@ -125,5 +126,14 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 
 }

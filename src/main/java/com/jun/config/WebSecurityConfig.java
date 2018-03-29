@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();       //将csrf校验关闭。
     	http.authorizeRequests()
-                .antMatchers("/index.do").permitAll()     //首页
+                .antMatchers("/").permitAll()     //首页
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/font/**").permitAll()
                 .antMatchers("/headPicLocation/**").permitAll()
@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/common/view-login")  //指定登录页是"/login"
-                .defaultSuccessUrl("/index.do")  //登录成功后默认跳转到"list"
+                .defaultSuccessUrl("/")  //登录成功后默认跳转到"list"
                 .and()
                 .logout()
                 .logoutUrl("/common/view-logout")

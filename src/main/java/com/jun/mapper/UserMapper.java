@@ -1,9 +1,12 @@
 package com.jun.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.jun.model.Role;
 import com.jun.model.User;
 
 /**
@@ -49,4 +52,23 @@ public interface UserMapper {
 	 */
 	@Select("select * from user where validate=#{0}")
 	public User findByValidate(String code);
+	
+	@Update("update user set name=#{0},telephone=#{1} where username=#{2}")
+	public int updateNameAndTelephoneByUserName(String name,String telephone,String username);
+	
+	/**
+	 * 用于数据库中分页显示。
+	 * @param start
+	 * @param length
+	 * @return
+	 */
+	@Select("select * from user limit #{0},#{1}")
+	public List<User> getLimitUsers(Integer start,Integer length);
+	
+	/**
+	 * 获得本表所有用户。
+	 * @return
+	 */
+	@Select("select count(*) from user")
+	public int allUserNumbers();
 }

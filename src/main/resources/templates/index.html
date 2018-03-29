@@ -34,9 +34,9 @@ body {
 		<h3 th:if="${#authorization.expression('isAuthenticated()')}" >欢迎您：</h3><h3 th:if="${#authorization.expression('isAuthenticated()')}" sec:authentication ='principal.username'></h3>
 		
 		
-		<a th:href="@{/admin/info}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">admin_我的工作台</a>
-		<a th:href="@{/admin/info}" th:if="${#authorization.expression('hasRole(''ROLE_PUBLISHER'')')}">publisher_我的工作台</a>
-		<a th:href="@{/admin/info}" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">user_我的工作台</a>
+		<a th:href="@{/admin/index}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">admin_我的工作台</a>
+		<a th:href="@{/admin/index}" th:if="${#authorization.expression('hasRole(''ROLE_PUBLISHER'')')}">publisher_我的工作台</a>
+		<a th:href="@{/admin/index}" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">user_我的工作台</a>
 		<input  th:value="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"/>
 		
 		<a th:href="@{/admin/info}" th:if="${#authorization.expression('hasRole(''PERMISSION_ADMIN'')')}">PERMISSION_ADMIN_我的工作台</a>

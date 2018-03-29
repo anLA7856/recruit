@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta content="text/html;charset=UTF-8" />
+<title>用户信息列表</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap/3.3.1/css/bootstrap.min.css}" />
+<!-- jquery -->
+<script type='text/javascript' th:src='@{/js/jquery/1.11.3/jquery.min.js}'></script>
+<style type="text/css">
+body {
+	padding-top: 50px;
+}
+
+.starter-template {
+	padding: 40px 15px;
+	text-align: center;
+}
+</style>
+<script type="text/javascript">
+	function modify(){
+		var username=$("#username").val();
+		var name=$("#name").val();
+		var telephone=$("#telephone").val();
+		
+		if(name == "" || telephone==null){
+			alert("请填写完整");
+		}
+		
+		 $.post(
+				 "/admin/update-person-info",
+		 	{
+		 		username:username,
+		 		name:name,
+		 		telephone:telephone
+		 	},function(date){
+		 		alert(date);
+		 		
+		 	}	 
+		 
+		 );
+		
+	}
+</script>
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">公务员报考系统</a>
+			</div>
+			
+		</div>
+	</nav>
+	<div>
+		<a href="/admin/index">个人信息</a>
+		<a href="/admin/user-list">人员信息</a>
+	</div>
+
+	<div>
+		<h3>用户列表：</h3>
+		<table>
+			<tr>
+				<th>序号</th>
+				<th>姓名</th>
+				<td>邮箱</td>
+				<td>电话</td>
+				<td>操作</td>
+			</tr>
+			<tr  th:each="user,userStat :${list}">  
+                <td th:text="${userStat.index}">序号</td>  
+                <td th:text="${user.name}">用户姓名</td>  
+                <td th:text="${user.username}">邮箱</td>  
+                <td th:text="${user.telephone}">电话号码</td>  
+                <td><a th:href="${'/admin/user-modify/'+user.username}">设置</a></td>
+            </tr>  
+		</table>
+	</div>
+
+
+
+	<div style="float: right;">
+		<!-- 没有登录，显示登录注册，否则显示欢迎您 -->
+		<a th:href="@{/common/view-login}" th:if="${!#authorization.expression('isAuthenticated()')}">登录</a>
+		<a th:href="@{/common/veiw-register}" th:if="${!#authorization.expression('isAuthenticated()')}">注册</a>
+		<a th:href="@{/common/view-logout}" th:if="${#authorization.expression('isAuthenticated()')}">注销登录</a>
+		
+	</div>
+	
+	
+	
+	
+</body>
+</html>

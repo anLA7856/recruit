@@ -19,4 +19,13 @@ public class CommonUtil {
     public static String createActivateCode(){
         return new Date().getTime() + UUID.randomUUID().toString().replace("-","");
     }
+    
+    public static boolean checkIfNull(Object... args){
+    	for(Object o: args){
+    		if(o == null){
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 }
