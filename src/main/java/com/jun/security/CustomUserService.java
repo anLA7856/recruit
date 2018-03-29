@@ -13,9 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.jun.mapper.PermissionMapper;
+import com.jun.mapper.RoleUserMapper;
 import com.jun.mapper.UserMapper;
-import com.jun.model.Permission;
-import com.jun.utils.Model;
+import com.jun.model.Role;
 
 
 /**
@@ -31,16 +31,18 @@ public class CustomUserService implements UserDetailsService { //自定义UserDe
     UserMapper userMapper;
     @Autowired
     PermissionMapper permissionMapper;
+    @Autowired
+    RoleUserMapper roleUserMapper;
 
     public UserDetails loadUserByUsername(String username) {
         com.jun.model.User user = userMapper.findByUserName(username);
         if (user != null) {
-        	//获取用户所有权限。
-            List<Permission> permissions = permissionMapper.findPermissionByRoleAndUserId(user.getId(), Model.ROLE_USER);
+        	//获取用户所有角色
+            List<Role> roles = roleUserMapper.findRolesByUserId(user.getId());
             List<GrantedAuthority> grantedAuthorities = new ArrayList <>();
-            for (Permission permission : permissions) {
-                if (permission != null && permission.getName()!=null) {
-                GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(permission.getName());
+            for (Role role : roles) {
+                if (role != null && role.getName()!=null) {
+                GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getName());
                 grantedAuthorities.add(grantedAuthority);
                 }
             }

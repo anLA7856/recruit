@@ -13,10 +13,21 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class IndexController {
 	
     /**
-     * 用于映射首页
+     * 用于进入系统后，没有后缀的直接映射。
      * @return
      */
     @RequestMapping(value="/", method = RequestMethod.GET)
+    public String index(){
+        return "index";
+    }
+	
+	
+	
+    /**
+     * 用于登录成功后的跳转
+     * @return
+     */
+    @RequestMapping(value="/index.do", method = RequestMethod.GET)
     public String getHomePage(){
         return "index";
     }
