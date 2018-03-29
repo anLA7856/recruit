@@ -43,9 +43,9 @@ public class CommonController {
 	 * @param request
 	 * @return
 	 */
-    @RequestMapping(value="/view-login", method = RequestMethod.GET)
+    @RequestMapping(value="/login", method = RequestMethod.GET)
     public ModelAndView viewLogin(Model model, HttpServletRequest request){
-    	return new ModelAndView("/common/view-login");
+    	return new ModelAndView("/login");
     }
     /**
      * 仅仅返回一个注册界面

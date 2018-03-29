@@ -1,0 +1,156 @@
+@charset "utf-8";
+/* CSS Document Updated~ by guozheng 2013-06-08*/
+
+
+
+em{font-family:Arial,Helvetica,sans-serif;font-style:normal;}
+.container{font-size:12px;width:100%;}
+.hide{display:none;}
+.sep{border-bottom:1px #EAEAEA dashed;}
+.vsep{border-right:1px #EAEAEA dashed;}
+
+
+/*城市，搜索安钮*/
+
+#lunar{height:24px;padding:0 5px;}
+#city{height:25px;padding:0 5px;}
+#city-name{font-size:14px; font-size:15px; position:relative; }/*添加了新样式*/
+#city-name .en{display: none;}
+#city-btn{width:18px;height:18px;padding:2px;margin-right:5px;border-radius:5px;background-color:#b6b8c5; position:relative;top:-2px; }
+#city input{height:16px;width:100px;}
+/*实况*/
+#rt{height:78px;}
+#rt table{width:100%;height:100px;border:0 none;}
+#rt table td{border:0 none;padding:0; white-space:nowrap;}
+#rt-symbol{text-align:center;width:50%;}
+#rt table td#rt-temp{vertical-align:top;height:22px;overflow:hidden;font-family:Arial,Helvetica,sans-serif;}
+#rt-temp-value{font-size:24px;line-height:28px;float:left;height:24px;}
+#rt-temp-unit{vertical-align:super;font-family:'微软雅黑'; position:relative; top:2px; left:6px;}/*添加了新样式*/
+#rt-scene{font-size:14px;height:18px;}
+#rt-wind{height:14px;}
+#rt-wind span{float:left;}
+#rt-hum{font-family: 'Arial'; font-size: 12px;}
+#rt-hum span{float:left;height:12px;}
+
+/*新添加的样式:调节温度字母之间的细节*/
+.temp{font-family:Arial;position:relative;top:2px;left:6px;}
+#rt-symbol a{ position:relative;left:-4px; top:2px;}
+#rt-scene span{position:relative; left:7px; top:1px;}
+#rt-wind span{position:relative; left:7px; top:1px;}
+#rt-hum span{position:relative; left:7px;}
+.p_t{position:relative; top:-2px; }
+.p_m{position:relative; top:-2px;}
+.p_h{position:relative; top:-2px;}
+.l_range{font-family:Arial; letter-spacing:-1px; position:relative; left:0px;font-family:'微软雅黑'; }
+.h_range{font-family:Arial;letter-spacing:-1px; margin-left:-2px; position:relative; left:0px;font-family:'微软雅黑'; }
+/*新添加的样式 结束*/
+
+/*预报*/
+#fc{height:87px;}
+#fc table{height:85px;}
+#fc table td{border:0 none;text-align:center;}
+#fc table tr#symbols{height:56px;}
+/*字幕*/
+#slider{height:24px;padding:0 5px;}
+#slider a{color:#6699FF;}
+/* !!!!!!!!!!!!Css Hacks!!!!!!!!!!!!!!!!!!!!*号处理IE7,_下划线处理IE6 */
+#city{*height:25px;}
+#city-btn{background-image:-ms-linear-gradient(top,#b6b8c5,#8b90a6);background-image:-moz-linear-gradient(top,#b6b8c5,#8b90a6);background-image:-o-linear-gradient(top,#b6b8c5,#8b90a6);background-image:-webkit-gradient(linear,0 0,0 100%,from(#b6b8c5),to(#8b90a6));}
+#lunar{*height:24px;}
+#rt{*height:78px;}
+#rt-temp{*line-height:22px;*vertical-align:top;}
+#rt-temp-value{*line-height:28px;*height:20px;}
+#rt-scene{*height:14px;}
+#rt-wind{*height:14px;}
+#rt-wind span{*height:14px;}
+#rt-hum span{*height:18px;}
+#fc{*height:86px;}
+#slider{*height:24px;}
+
+
+/*天气图标*/
+.symbol-big{width:56px;height:56px; display:inline-block;}
+.symbol-small{width:36px;height:36px;display:inline-block;}
+.symbol-mini{width:20px;height:20px;display:inline-block;}
+/*小符号*/
+.symbol-small-cloudy{background-position:-36px 0;}
+.symbol-small-dustblowing{background-position:-144px -108px;}
+.symbol-small-duststorm{background-position:-72px -108px;}
+.symbol-small-floatingdust{background-position:-108px -108px;}
+.symbol-small-fog{background-position:-36px -108px;}
+.symbol-small-freezingrain{background-position:-36px -72px;}
+.symbol-small-hail{background-position:-180px 0;}
+.symbol-small-heavyrain{background-position:-180px -36px;}
+.symbol-small-heavysnow{background-position:-180px -72px;}
+.symbol-small-lightrain{background-position:-36px -36px;}
+.symbol-small-lightsnow{background-position:-108px -72px;}
+.symbol-small-moderaterain{background-position:-72px -36px;}
+.symbol-small-moderatesnow{background-position:-144px -72px;}
+.symbol-small-overcast{background-position:-72px 0;}
+.symbol-small-rain{background-position:-108px -36px;}
+.symbol-small-shower{background-position:-108px 0;}
+.symbol-small-sleet{background-position:0 -36px;}
+.symbol-small-snow{background-position:0 -108px;}
+.symbol-small-snowshower{background-position:-72px -72px;}
+.symbol-small-sunny{background-position:0 0;}
+.symbol-small-thundershower{background-position:-144px 0;}
+.symbol-small-torrentialrain{background-position:-144px -36px;}
+.symbol-small-twister{background-position:-180px -108px;}
+.symbol-small-xrain{background-position:0 -72px;}
+/*微符号*/
+.symbol-mini-cloudy{background-position:-20px 0;}
+.symbol-mini-dustblowing{background-position:-80px -60px;}
+.symbol-mini-duststorm{background-position:-40px -60px;}
+.symbol-mini-floatingdust{background-position:-60px -60px;}
+.symbol-mini-fog{background-position:-20px -60px;}
+.symbol-mini-freezingrain{background-position:-20px -40px;}
+.symbol-mini-hail{background-position:-180px 0;}
+.symbol-mini-heavyrain{background-position:-180px -20px;}
+.symbol-mini-heavysnow{background-position:-180px -40px;}
+.symbol-mini-lightrain{background-position:-20px -20px;}
+.symbol-mini-lightsnow{background-position:-100px -40px;}
+.symbol-mini-moderaterain{background-position:-40px -20px;}
+.symbol-mini-moderatesnow{background-position:-80px -40px;}
+.symbol-mini-overcast{background-position:-40px 0;}
+.symbol-mini-rain{background-position:-60px -20px;}
+.symbol-mini-shower{background-position:-60px 0;}
+.symbol-mini-sleet{background-position:0 -20px;}
+.symbol-mini-snow{background-position:0 -60px;}
+.symbol-mini-snowshower{background-position:-40px -40px;}
+.symbol-mini-sunny{background-position:0 0;}
+.symbol-mini-thundershower{background-position:-80px 0;}
+.symbol-mini-torrentialrain{background-position:-80px -20px;}
+.symbol-mini-twister{background-position:-180px -60px;}
+.symbol-mini-xrain{background-position:0 -40px;}
+
+
+/*流行版*/
+.pop .symbol-mini{background-image:url(/oasrc/Portal/images/weather/mini.png); background-repeat:no-repeat;}
+.pop .symbol-small{background-image:url(/oasrc/Portal/images/weather/small.png); background-repeat:no-repeat;}
+.pop .symbol-big-cloudy{background:url(/oasrc/Portal/images/weather/cloudy.png);}
+.pop .symbol-big-dustblowing{background:url(/oasrc/Portal/images/weather/dustblowing.png);}
+.pop .symbol-big-duststorm{background:url(/oasrc/Portal/images/weather/duststorm.png);}
+.pop .symbol-big-floatingdust{background:url(/oasrc/Portal/images/weather/floatingdust.png);}
+.pop .symbol-big-fog{background:url(/oasrc/Portal/images/weather/fog.png);}
+.pop .symbol-big-freezingrain{background:url(/oasrc/Portal/images/weather/freezingrain.png);}
+.pop .symbol-big-hail{background:url(/oasrc/Portal/images/weather/hail.png);}
+.pop .symbol-big-heavyrain{background:url(/oasrc/Portal/images/weather/heavyrain.png);}
+.pop .symbol-big-heavysnow{background:url(/oasrc/Portal/images/weather/heavysnow.png);}
+.pop .symbol-big-lightrain{background:url(/oasrc/Portal/images/weather/lightrain.png);}
+.pop .symbol-big-lightsnow{background:url(/oasrc/Portal/images/weather/lightsnow.png);}
+.pop .symbol-big-moderaterain{background:url(/oasrc/Portal/images/weather/moderaterain.png);}
+.pop .symbol-big-moderatesnow{background:url(/oasrc/Portal/images/weather/moderatesnow.png);}
+.pop .symbol-big-overcast{background:url(/oasrc/Portal/images/weather/overcast.png);}
+.pop .symbol-big-rain{background:url(/oasrc/Portal/images/weather/rain.png);}
+.pop .symbol-big-shower{background:url(/oasrc/Portal/images/weather/shower.png);}
+.pop .symbol-big-sleet{background:url(/oasrc/Portal/images/weather/sleet.png);}
+.pop .symbol-big-snow{background:url(/oasrc/Portal/images/weather/snow.png);}
+.pop .symbol-big-snowshower{background:url(/oasrc/Portal/images/weather/snowshower.png);}
+.pop .symbol-big-sunny{background:url(/oasrc/Portal/images/weather/sunny.png);}
+.pop .symbol-big-thundershower{background:url(/oasrc/Portal/images/weather/thundershower.png);}
+.pop .symbol-big-torrentialrain{background:url(/oasrc/Portal/images/weather/torrentialrain.png);}
+.pop .symbol-big-twister{background:url(/oasrc/Portal/images/weather/twister.png);}
+.pop .symbol-big-xrain{background:url(/oasrc/Portal/images/weather/xrain.png);}
+
+/* Css Hacks */
+[class^="symbol-"],[class*=" symbol-"]{*display:block;}

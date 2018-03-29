@@ -17,7 +17,7 @@ import com.jun.utils.MD5Util;
 
 
 /**
- * 
+ * 很好的文章https://blog.csdn.net/u013516966/article/details/46688765
  * @author jun
  * @date 2018年3月26日 : 下午9:15:50
  *
@@ -35,23 +35,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();       //将csrf校验关闭。
     	http.authorizeRequests()
-                .antMatchers("/index.do").permitAll()     //首页
-                .antMatchers("/css/**").permitAll()
-                .antMatchers("/font/**").permitAll()
-                .antMatchers("/headPicLocation/**").permitAll()
-                .antMatchers("/img/**").permitAll()
-                .antMatchers("/js/**").permitAll()
-                .antMatchers("/common/**").permitAll()   //用于一些通用请求，例如登录注册，新闻详情查看
+                .antMatchers("/").permitAll()     //首页
+                .antMatchers("/cdn/**").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/logout").permitAll()
                 //其他地址的访问均需验证权限
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/common/view-login")  //指定登录页是"/login"
-                .defaultSuccessUrl("/index.do")  //登录成功后默认跳转到"list"
+                .loginPage("/login")  //指定登录页是"/login"
+                .defaultSuccessUrl("/")  //登录成功后默认跳转到"首页"
                 .and()
                 .logout()
-                .logoutUrl("/common/view-logout")
-                .logoutSuccessUrl("/common/view-login")  //退出登录后的默认url是"/home"
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")  //退出登录后的默认url是"/home"
                 .permitAll();
     }
 

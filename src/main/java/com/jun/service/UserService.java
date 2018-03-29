@@ -48,4 +48,9 @@ public class UserService {
 		String result = roleUserMapper.addNewRoleAndUser(user.getId(), role.getId()) == 1 ? "激活成功" : "激活失败，数据库出错";
 		return result;
 	}
+	
+	
+	public User getUserByUsername(String username){
+		return userMapper.findByUserName(username);
+	}
 }

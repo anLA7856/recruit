@@ -1,12 +1,6 @@
 package com.jun.config;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -42,8 +36,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
     @Bean  
     public InternalResourceViewResolver viewResolver(){  
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();  
-        //viewResolver.setPrefix("/templates/");  
-        //viewResolver.setSuffix(".html");  
+        //viewResolver.setPrefix("/content/");  
+        viewResolver.setSuffix(".jsp");  
         viewResolver.setViewClass(JstlView.class);  
         return  viewResolver;  
     }  
@@ -63,6 +57,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+        //registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
     }
 }

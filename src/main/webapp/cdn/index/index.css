@@ -1,0 +1,137 @@
+@charset "utf-8";
+/* CSS reset */
+.backlog{height: 77px;background: #FFFFFF;margin-top: 10px;color: #666666;}
+.backlog .province{float: left;display: inline;width: 110px;padding-left: 10px;line-height: 75px;height: 75px;font-size: 1.6em;}
+.backlog .provinceList{width: 360px;display: inline;float: left;margin-top: 9px;}
+.backlog .provinceList li{float: left;width: 110px;display: inline;height: 28px;line-height: 28px;font-size: 1.2em;}
+.backlog .provinceList li a{color: #666666;display: block;height: 28px;padding-left: 10px;width: 100px;}
+.backlog .provinceList li a:hover{background: #F4F4F4;border-radius: 14px;}
+.backlog .provinceList li a span{color: #FE4B1F;}
+.backlog .city{float: left;display: inline;width: 110px;line-height: 75px;height: 75px;position: relative;z-index: 4;}
+.backlog .city .cityContent{position: relative;z-index: 20;width: 120px;padding-left: 10px;height: 75px;border: 2px solid #FFFFFF;border-bottom: none;cursor: pointer;}
+.backlog .city .cityClick{background: #FFF3EB;border: 2px solid #ECE0D8;border-bottom: none;}
+.backlog .city .cityContent span{font-size: 1.6em;float: left;display: inline;}
+.backlog .city .cityContent img{float: left;display: inline;margin:30px 0 0 5px;_margin:30px 0 0 3px;}
+.backlog .city .newImg{background: url("images/city_new.gif") no-repeat;width: 67px;height: 25px;line-height: 20px;color: #FFFFFF;text-align: center;font-size: 1.2em;right: -13px;top:3px;position: absolute;}
+.backlog .city div.newList{position: absolute;z-index: 19;top:75px;border: 2px solid #ECE0D8;background: #FFF3EB;width: 517px;left: 0px;height: 258px;display: none;}
+.backlog .city div.newList ul{float: left;color: #393939;height: 205px;width: 88px;margin-top: 20px;}
+.backlog .city div.newList ul li{text-align: center;height: 20px;line-height: 20px;margin-bottom: 20px;font-size: 1.2em;}
+.backlog .city div.newList a{color: #393939;}
+.backlog .city div.newList a:hover{ text-decoration:underline;}
+.backlog .city div.newList dl{float: left;color: #393939;height: 205px;width: 121px;margin-top: 20px;border-left: 1px dashed #F0E5DD;padding-left: 20px;line-height: 20px;font-size: 1.2em;}
+.backlog .city div.newList dl dt,.backlog .city div.newList dl dd{height: 20px;margin-bottom:10px;position: relative;}
+.backlog .city div.newList dl dd{font-weight: normal;}
+.backlog .city div.newList dl a{float: left;display: inline;}
+.backlog .city div.newList dl a:hover{ text-decoration:underline;}
+.backlog .city div.newList dl .newIcon{float: left;display: inline;background: url("images/icon_new.gif") no-repeat;width: 36px;height: 17px;position: absolute;margin-left: 3px;}
+.backlog .city div.newList .setting{position: absolute;background: #FFFBF9;right: 10px;bottom: 10px;height: 32px;line-height: 32px;width: 105px;text-align: center;border-radius: 16px;}
+.backlog .city div.newList .setting img{vertical-align: middle;margin-left: 5px;}
+.backlog .cityList{display: inline;float: left;margin: 10px 0 0 40px;width: 360px;_width: 360px;_margin-left:20px;}
+.backlog .cityList li{float: left;width:90px;display: inline;height: 28px;line-height: 28px;font-size: 1.2em;}
+.backlog .cityList li a{color: #666666;display: block;height: 28px;width: 90px;_width: 80px;text-align: center;_text-align: left;_padding-left:10px;}
+.backlog .cityList li a:hover{background: #F4F4F4;border-radius: 14px;}
+.backlog .cityList li a span{color: #FE4B1F;}
+/* 轮播 */
+.wheels{height: 250px;background: #FFFFFF;margin-top: 10px;}
+.wheels .news{height: 245px;width: 475px;overflow: hidden;position: relative;margin: 2px;float: left;padding-top: 1px;display: inline;border-radius:5px;}
+.wheels .news .title{height: 27px;color: #666666;font-size: 1.4em;padding-left:10px;border-bottom:1px solid rgb(238, 238, 238);}
+.wheels .news ul.contents{height: 100%;width: 475px;overflow: hidden;padding-top:10px;}
+.wheels .news ul.contents li{height: 210px;width: 450px;}
+.wheels .news ul.contents li dl em{font-style: normal;color: #666666;line-height:22px;font-size:0.8em;}
+.wheels .news ul.contents li dl dt{height: 70px;line-height: 33px;position: relative;border-bottom: 1px dashed #D6D4D4;}
+.wheels .news ul.contents li dl dt a{font-size: 1.3em;}
+.wheels .news ul.contents li dl dd{border-top:1px dashed #D6D4D4;height: 44px;width:455px;_width:475px;background: url("images/bj_list.gif") no-repeat 0 -13px;padding-top:3px;padding-left: 20px;}
+.wheels .news ul.contents li dl dd.hover{background:#F2F2F2;}
+.wheels .news ul.contents li dl dd a{font-weight:bolder;}
+.wheels .news ul.contents li dl dd em{float:right;padding-right:15px;}
+.wheels .news ul.contents li dl dd p{height: 20px;padding-top:2px;}
+.wheels .news ul.contents li dl dd p a{font-size: 1.29em;_font-size: 1.2em;}
+.wheels .news ul.sums{height: 15px;position: absolute;bottom:0px;left: 50%;}
+.wheels .news ul.sums li{height: 15px;width: 15px;cursor: pointer;float: left;display: inline;background: url("images/bj_wheel.gif");}
+.wheels .news ul.sums li.click{background-position: 0 -15px;}
+.wheels .imgNews{height: 250px;width: 520px;overflow: hidden;position: relative;float: right;display: inline;z-index: 1;}
+.wheels .imgNews ul.contents{width: 520px;height: 250px;position: absolute;left: 0;top: 0;}
+.wheels .imgNews ul.contents li{float: left;height: 250px;width: 520px;overflow: hidden;}
+.wheels .imgNews ul.contents li img{width: 520px;}
+.wheels .imgNews ul.contents li p{position: absolute;z-index: 2;left: 15px;bottom: 10px;}
+.wheels .imgNews ul.contents li p a{font-size: 1.2em;color: #FFFFFF;}
+.wheels .imgNews .texts{position: absolute;height: 40px;background: rgb(90, 75, 75);bottom: 0;left: 0;width: 520px;z-index: 1;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8;opacity: 0.8;}
+.wheels .imgNews ul.sums{position: absolute;z-index: 3;right: 6px;bottom: 17px;_bottom: 13px;height: 5px;}
+.wheels .imgNews ul.sums li{float: left;height: 5px;width: 16px;margin-left: 5px;background: #FFFFFF;cursor: pointer;display: inline;}
+.wheels .imgNews ul.sums li.click{background: #FF6600;}
+.resource{float: left;height: 380px;width: 260px;background: #FFFFFF;display: inline;}
+.resource h2{height: 35px;line-height: 35px;background: #FF6600;color: #FFFFFF;font-size: 1.3em;padding-left: 10px;font-weight: bold;}
+.resource dl{height: 399px;_height:300px;}
+.resource dl span,.resource dl em{float: left;display: block;}
+.resource dl span{margin-left: 10px;}
+.resource dl em{width: 25px;height: 25px;background: url("images/icon_resource.png") no-repeat;}
+.resource dl em.recommend{background-position: 0 -174px;}
+.resource dl em.production{background-position: 0 -211px;}
+.resource dl em.manage{background-position: 0 -245px;}
+.resource dl em.more{background-position: 0 -268px;float: right;}
+.resource dl dt{height: 45px;background: #FAFAFA;position: relative;border: 1px solid #FFFFFF;border-left-color:#FAFAFA;border-right-color:#FAFAFA;width: 258px;z-index: 1;}
+.resource dl dt a{display: block;width: 236px;height: 25px;padding:8px 12px 8px 22px;line-height: 25px;font-size: 1.3em;color: #232323;_padding-left: 10px;}
+.resource dl dt strong{height: 41px;position: absolute;width: 10px;background: #FFFFFF;top: 0;right: -5px;display: none;z-index: 2;_width:1px;}
+.resource dl dt.hover{border:1px solid #ECE0D8;background: #FFF3EB;border-right:none; box-shadow:0px 0px 8px #ddd; box-webkit-box-shadow:0px 0px 8px #ddd;-moz-box-shadow:0px 0px 8px #ddd; }
+.resource dl dt.hover strong{display: block;background: #FFF3EB;}
+.resource dl dt ul{position: absolute;left: 259px;background: #FFF3EB;box-shadow:0px 0px 8px #ddd; box-webkit-box-shadow:0px 0px 8px #ddd;-moz-box-shadow:0px 0px 8px #ddd;border: 1px solid #CCCCCC;z-index: 1;width: 300px;display: none;z-index: 1;zoom: 1;_bottom:0px; padding:10px 0 15px 0;}
+.resource dl dt ul li{border-bottom: 1px dashed #e7d9cf;height: 32px; font-size:1.2em; line-height:32px;}
+.resource dl dt ul li a{font-size: 1em;background: url("images/bj_list.gif") no-repeat 0 -60px;display: block;font-weight: normal;height: 30px;line-height: 30px;margin: 0 5px;padding: 0 0 0 15px;float: left;width: auto}
+.resource dl dt ul li a:hover{ text-decoration:underline;}
+.resource dl dd{height: 32px;border-top: 1px solid #FFFFFF;border-bottom: 1px solid #FFFFFF;position: relative;line-height: 32px;}
+.resource dl dd a{display: block;height: 32px;width: 255px;}
+.resource dl dd a:hover{background: #F4F4F4;}
+.resource dl dd strong{width: 70px;position: absolute;left: -5px;top: 0;height: 32px;margin:0;filter:alpha(Opacity=40);-moz-opacity:0.4;opacity: 0.4;}
+.resource dl dd span{margin-left: 75px;font-size: 1.1em;display: inline;_margin-left: 110px;}
+.resource dl dd a:hover strong{filter:alpha(Opacity=100);-moz-opacity:1;opacity: 1;}
+.resource dl dd a:hover span{ color:#232323;}
+.resource dl dd strong.manage{background: #fc8621;}
+.resource dl dd strong.manage em{background-position: 0 7px;margin-left: 35px;}
+.resource dl dd strong.phone{background: #1aa1e2;}
+.resource dl dd strong.phone em{background-position: 0 -28px;margin-left: 35px;}
+.resource dl dd strong.video{background: #5E5CA6;}
+.resource dl dd strong.video em{background-position: 0 -63px;margin-left: 35px;}
+.resource dl dd strong.client{background: #CD4F42;}
+.resource dl dd strong.client em{background-position: 0 -97px;margin-left: 35px;}
+.resource dl dd strong.cost{background: #adc228;}
+.resource dl dd strong.cost em{background-position: 0 -134px;margin-left: 35px;}
+.new{float: right;width: 730px;height: 380px;background: #FFFFFF;display: inline;}
+.new .title{border-top: 2px solid #FF6600;background: #FFFFFF;height: 33px;line-height: 33px;color: #666666;font-size: 1.2em;padding-left:12px;position: relative;z-index: 0;}
+.new .title strong{font-size: 1.1em;float: left;font-weight:lighter;}
+.new .title a{float: right;color: #666666;font-weight: bold; position:absolute; padding:0 5px; right:0;}
+.new .title a em{color: #FF6600; margin: 0 3px; font-style:normal; font-size:1.2em; font-family:"Arial";}
+.new .title ul{height: 33px;width:630px;_width:640px;float:left; display: inline; padding-left:1.2em;}
+.new .title ul li{ font-size:0.8em; float:left;width: 68px;text-align: center;cursor: pointer;margin-left:5px;display: inline;height: 33px;}
+.new .title ul li.child1{}
+.new .title ul li.child2{}
+.new .title ul li.child3{}
+.new .title ul li.child4{}
+.new .title ul li.child5{}
+.new .title ul li.child6{}
+.new .title ul li.child7{}
+.new .title ul li.click{background-color: #FF6600;color: #FFFFFF;font-weight: bold;}
+a.newsall:hover{ color:#f60; background:#f4f4f4;}
+.new .newList ul{height: 299px;padding: 0 10px;}
+.new .newList ul li{border-top:1px dashed #D6D4D4;height: 32px;*height: auto;line-height: 32px;_line-height:30px;background: url("images/bj_list.gif") no-repeat 0 -55px;padding-left: 20px;}
+.new .newList ul li.hover{background:#F2F2F2;font-weight:bolder;}
+.new .newList ul li.first{border-top: none;}
+.new .newList ul li a{font-size: 1.2em;color: #666666;float:left;}
+.new .newList ul li span{margin-left: 10px;color: #666666;float:right;font-size:0.8em;}
+.weather{height: 308px;width: 260px;background: #FFFFFF;float: left;}
+.weather h2{height: 35px;line-height: 35px;background: #92A41A;color: #FFFFFF;font-size: 1.3em;padding-left: 10px;font-weight: bold;}
+.weather .forecast{height: 273px;overflow: hidden;}
+.periodical{float: right;width: 730px;height: 308px;background: #FFFFFF;position: relative;}
+.periodical .title{border-top: 2px solid #92A41A;background: #F6F8FB;border-bottom:1px solid #E3E3E1;height: 33px;line-height: 33px;color: #232323;font-size: 1.3em;padding-left:12px;position: relative;}
+.periodical .periodicalLeft,.periodical .periodicalRight{position: absolute;background: url("images/leftandright.gif") no-repeat; height: 25px;width: 25px;top: 145px; cursor: pointer;}
+.periodical .periodicalLeft{left: 10px;}
+.periodical .periodicalLeft:hover{background-position: 0 -26px;}
+.periodical .periodicalRight{right: 10px;background-position: 0 -54px;}
+.periodical .periodicalRight:hover{background-position: 0 -80px;}
+.periodical .sumsbj{background: url("images/bj_periodical.jpg") no-repeat;height:30px;width: 701px;position: absolute;top: 240px;left: 14px; }
+.periodical .view{width: 660px;height: 126px;position: absolute;top: 90px;left: 35px;overflow: hidden;}
+.periodical .view ul.contents{position: absolute;height: 120px;}
+.periodical .view ul.contents li{height: 120px;width: 90px;float: left;margin: 3px 10px;-webkit-box-shadow:0px 0px 6px #666666;-moz-box-shadow:0px 0px 6px #666666;display: inline;position: relative;}
+.periodical .view ul.contents li p{background: #000000;height: 22px;line-height: 22px;color: #FFFFFF;bottom: 0;left: 0;position: absolute;width: 100%;text-align: center;font-size: 0.9em;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8;opacity: 0.8;}
+.periodical .sumsbj ul.sums{position: absolute;height: 15px;top: 2px;}
+.periodical .sumsbj ul.sums li{float: left;background: url("images/bj_wheel.gif") no-repeat -3px 0;width: 8px;height: 15px;cursor: pointer;margin: 0 3px;display: inline;}
+.periodical .sumsbj ul.sums li.click{background-position: -3px -30px;}
