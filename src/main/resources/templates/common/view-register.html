@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head >
+<head th:replace="/common/fragment::header" ></head>
     <meta charset="UTF-8"/>
     <title>注册</title>
     <style type="text/css">
@@ -13,16 +13,8 @@
             text-align: center;
         }
     </style>
-</head>
 <body>
-<link rel="stylesheet" th:href="@{/css/bootstrap/3.3.1/css/bootstrap.min.css}"/>
 
-<!-- jquery -->
-<script type='text/javascript' th:src='@{/js/jquery/1.11.3/jquery.min.js}'></script>
-<!-- bootstrap -->
-<script type='text/javascript'
-	th:src='@{/css/bootstrap/3.3.6/js/bootstrap.min.js}'></script>
-	
 <script type="text/javascript">
 	
 	 $(function () {
