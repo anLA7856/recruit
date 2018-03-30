@@ -39,4 +39,20 @@ public class Role {
 		return "Role [id=" + id + ", name=" + name + "]";
 	}
 
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Role)){
+			return false;
+		}
+		Role cpRole = (Role)obj;
+		if((cpRole.getId() == this.getId()) && (cpRole.getName().equals(this.getName()))){
+			return true;
+		}
+		return false;
+	}
 }
+
+
+
+

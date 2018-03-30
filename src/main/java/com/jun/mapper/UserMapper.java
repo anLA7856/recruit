@@ -3,6 +3,7 @@ package com.jun.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -62,8 +63,8 @@ public interface UserMapper {
 	 * @param length
 	 * @return
 	 */
-	@Select("select * from user limit #{0},#{1}")
-	public List<User> getLimitUsers(Integer start,Integer length);
+	//@Select("select * from user where username like %#{searchEmail}% and name like %#{searchName}% limit #{start},#{length}")
+	public List<User> getLimitUsers(@Param("start") Integer start,@Param("length") Integer length,@Param("searchEmail") String searchEmail,@Param("searchName") String searchName);
 	
 	/**
 	 * 获得本表所有用户。
@@ -71,4 +72,7 @@ public interface UserMapper {
 	 */
 	@Select("select count(*) from user")
 	public int allUserNumbers();
+	
+	
+	public int getAllFilterUsers(@Param("searchEmail") String searchEmail,@Param("searchName") String searchName);
 }

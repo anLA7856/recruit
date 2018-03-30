@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="/common/fragment::header"></head>
+<meta content="text/html;charset=UTF-8" />
+<title>修改用户信息</title>
+
+<!-- jquery -->
+<style type="text/css">
+body {
+	padding-top: 50px;
+}
+
+.starter-template {
+	padding: 40px 15px;
+	text-align: center;
+}
+</style>
+<script type="text/javascript">
+	function modify() {
+		debugger;
+		var username = $("#username").val();
+		var name = $("#name").val();
+		var telephone = $("#telephone").val();
+		var uEnabled = $("#uEnabled").val();
+		var role = new Array();
+		
+		
+		$.each($('input:checkbox:checked'),function(){
+			
+			role.push($(this).val());
+        });
+		
+		
+		if (name == "" || telephone == null) {
+			alert("请填写完整");
+			return;
+		}
+
+		$.post("/admin/save-user-info", {
+			username : username,
+			name : name,
+			telephone : telephone,
+			role:role,
+			uEnabled:uEnabled
+		}, function(date) {
+			alert(date);
+
+		}
+
+		);
+
+	}
+</script>
+
+<body>
+	<div th:replace="/common/fragment::top"></div>
+	<div class="row-fluid">
+		<div th:replace="/common/fragment::menu"></div>
+		<!-- start of main -->
+		<section id="m-main" class="col-md-10 col-md-offset-2"
+			style="margin-top: 35px;">
+			<div class="panel panel-default">
+				<div class="panel-heading">维护信息</div>
+				<div class="panel-body">
+					<form id="pimRemindForm" method="post" action="save-user-info"
+						class="form-horizontal">
+						<div class="form-group">
+							<label class="control-label col-md-1" for="pimRemind_repeatType">用户邮箱</label>
+							<div class="col-sm-5">
+								<label class="control-label" th:text="${getUser.username}"></label>
+								<input id="username" type="hidden" th:value="${getUser.username}" name="username" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-1" for="pimRemind_repeatType">用户姓名</label>
+							<div class="col-sm-5">
+								<input id="name" type="text" name="name"
+									th:value="${getUser.name}" class="form-control required"
+									minlength="2" maxlength="50" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-1" for="pimRemind_description">用户电话</label>
+							<div class="col-sm-5">
+								<input id="telephone" type="text" name="telephone"
+									th:value="${getUser.telephone}" class="form-control required"
+									minlength="2" maxlength="50" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-1" for="pimRemind_description">账户是否可用</label>
+							<div class="col-sm-5">
+								<div class="radio" th:if="${getUser.uEnabled==1}">
+									<label><input type="radio" name="uEnabled" value="1" checked="checked" />可用 </label>
+									<label><input type="radio" name="uEnabled" value="2" />不可用</label>
+								</div>
+								<div class="radio" th:if="${getUser.uEnabled==0}">
+									<input type="radio" name="uEnabled" value="1" id="uEnabled" />可用 
+									<input type="radio" name="uEnabled" value="2" id="uEnabled" checked="checked"/>不可用
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="form-group">
+							<label class="control-label col-md-1" for="pimRemind_description">用户权限</label>
+							<div class="col-sm-5">
+								
+								<div class="checkbox">
+								
+								    <label th:each="roleDto,roleStat : ${listRole}">
+								    	<input type="checkbox" name="role" id="role" th:value="${roleDto.role.name}" th:text="${roleDto.role.name}" th:if="${roleDto.target==1}" checked="checked"/> 
+								    	<input type="checkbox" name="role" id="role" th:value="${roleDto.role.name}" th:text="${roleDto.role.name}" th:if="${roleDto.target!=1}"/> 
+								    </label>
+								</div>
+								
+								
+							</div>
+						</div>
+						
+						
+						
+						<div class="form-group">
+							<div class="col-md-offset-1 col-md-11">
+								<button type="button" class="btn btn-default a-submit" onclick="modify()">
+									保存
+								</button>
+								&nbsp;
+								<button type="button" class="btn btn-link a-cancel"
+									onclick="history.back();">
+									返回
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+			</div>
+
+		</section>
+		<!-- end of main -->
+	</div>
+
+</body>
+</html>

@@ -16,4 +16,20 @@
 	</select>
 	
 	
+	<select id="getLimitUsers" resultType="com.jun.model.User" >
+		select * 
+		from user 
+		where username like "%"#{searchEmail}"%"
+		and name like "%"#{searchName}"%" 
+		limit #{start},#{length}
+	</select>
+	
+	
+	
+	<select id="getAllFilterUsers" resultType="java.lang.Integer" >
+		select count(*) 
+		from user 
+		where username like "%"#{searchEmail}"%"
+		and name like "%"#{searchName}"%" 
+	</select>
 </mapper>

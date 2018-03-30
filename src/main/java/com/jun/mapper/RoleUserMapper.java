@@ -35,6 +35,11 @@ public interface RoleUserMapper {
 	@Select("select * from role where name=#{0}")
 	public Role findRoleByRoleName(String roleName);
 	
+	/**
+	 * 找出该用户所有角色
+	 * @param id
+	 * @return
+	 */
 	@Select("SELECT role.* FROM role,role_user WHERE role.`id`=role_user.`role_id` AND role_user.`user_id`=#{0}")
 	public List<Role> findRolesByUserId(Integer id);
 }

@@ -1,5 +1,6 @@
 package com.jun.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,15 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.jun.controller.dto.RoleDto;
+import com.jun.controller.vo.RoleVo;
+import com.jun.mapper.RolePermissionMapper;
 import com.jun.mapper.UserMapper;
+import com.jun.model.Role;
 import com.jun.model.User;
 import com.jun.utils.CommonUtil;
 
@@ -23,10 +30,13 @@ import com.jun.utils.CommonUtil;
 @RequestMapping("/admin/")
 @EnableWebMvc
 public class AdminController {
-	
 	@Autowired
 	UserMapper userMapper;
 	
+	@Autowired
+	RolePermissionMapper rolePermissionMapper;
+	
+		
 	@RequestMapping(value="/index", method = RequestMethod.GET)
 	public String index(Model model, HttpServletRequest request){
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -61,11 +71,19 @@ public class AdminController {
 	 * @param target  标志变量，1代表前一页，2代表后一页，3代表首页，4代表尾页。
 	 * @return
 	 */
-	@RequestMapping(value="/user-list", method = RequestMethod.GET)
-	public String usreList(Model model, HttpServletRequest request,Integer nowPages,Integer target){
+	@RequestMapping(value="/user-list")
+	public String usreList(Model model, HttpServletRequest request,Integer nowPages,Integer target,String searchEmail,String searchName){
+		if(searchEmail == null){
+			searchEmail = "";
+		}
+		if(searchName == null){
+			searchName = "";
+		}
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userMapper.findByUserName(username);
 		int start = nowPages == null? 0 : nowPages*20;
 		int length = 20;
-		int totalSize = userMapper.allUserNumbers();
+		int totalSize = userMapper.getAllFilterUsers(searchEmail, searchName);
 		if(target == null){
 			target = new Integer(1);//初始值为1
 		}
@@ -86,23 +104,86 @@ public class AdminController {
 		default:
 			break;
 		}
-		List<User> list = userMapper.getLimitUsers(start, length);
+
+		List<User> list = userMapper.getLimitUsers(start, length,searchEmail,searchName);
 		model.addAttribute("list", list);
-		model.addAttribute("nowPages", nowPages == null? 1:nowPages+1);
+		model.addAttribute("nowPages", nowPages);
+		model.addAttribute("user", user);
+		model.addAttribute("totalSize", totalSize);
+		model.addAttribute("startPoint", start+1);
+		int endPoint = start+length > totalSize ? totalSize:start+length;
+		model.addAttribute("endPoint", endPoint);
+		model.addAttribute("currentPagesSize", endPoint-start);
+		if(searchEmail!=null){
+			model.addAttribute("searchEmail", searchEmail);
+		}
+		if(searchName != null){
+			model.addAttribute("searchName", searchName);
+		}
 		return "/admin/user-list";
 	}
 	
 	/**
 	 * 用于超级管理员管理某个用户，赋予权限等等。
+	 * 获取赋予权限页面
 	 * @param model
 	 * @param request
 	 * @param username
 	 * @return
 	 */
-	@RequestMapping(value="/user-modify/{username}",method=RequestMethod.POST)
+	@RequestMapping(value="/user-modify/{username}",method=RequestMethod.GET)
 	public String userModify(Model model,HttpServletRequest request,@PathVariable String username){
+		String concurrentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userMapper.findByUserName(concurrentUsername);
 		
+		User getUser = userMapper.findByUserName(username);
+		
+		model.addAttribute("user", user);
+		model.addAttribute("getUser", getUser);
+		//找出所有用户角色
+		List<Role> allRoles = rolePermissionMapper.getAllRoles();
+		
+		//找出username用户所拥有的的角色。
+		List<Role> haveRoles = rolePermissionMapper.getAllRolesByUsername(getUser.getUsername());
+		
+		//用于传递出去
+		List<RoleDto> listRole = new ArrayList<>();
+		//遍历allRole，因为要把所有role都放出来看
+		for(Role r : allRoles){
+			RoleDto rDto = new RoleDto();
+			if(haveRoles.contains(r)){	
+				rDto.setTarget(1);
+			}else{
+				rDto.setTarget(0);
+			}
+			rDto.setRole(new Role(r.getId(),r.getName()));
+			listRole.add(rDto);
+		}
+		model.addAttribute("listRole", listRole);
 		return "/admin/user-modify";
 	}
+	
+	/**
+	 * 用于管理员，提交修改任何页面的请求
+	 * @param model
+	 * @param request
+	 * @param name
+	 * @param telephone
+	 * @param username
+	 * @return
+	 */
+	@RequestMapping(value="/save-user-info",method = RequestMethod.POST,produces="text/html; charset=UTF-8")
+	@ResponseBody
+	public String saveUserInfo(Model model, HttpServletRequest request,@RequestParam RoleVo roleVo){
+		//首先修改用户个人信息
+		
+		int result = userMapper.updateNameAndTelephoneByUserName(roleVo.getName(), roleVo.getTelephone(), roleVo.getUsername());
+		if(result == 1){
+			return "修改成功";
+		}else{
+			return "修改失败";
+		}
+	}
+	
 	
 }
