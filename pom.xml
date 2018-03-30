@@ -8,75 +8,75 @@
 	<name>recruit Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
-	 <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.3.RELEASE</version>
-    </parent>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.3.RELEASE</version>
+	</parent>
 
-    <properties>
-        <start-class>com.us.Application</start-class>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+	<properties>
+		<start-class>com.us.Application</start-class>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
 
-        <mybatis.version>3.4.0</mybatis.version>
-        <mybatis-spring.version>1.3.0</mybatis-spring.version>
-    </properties>
+		<mybatis.version>3.4.0</mybatis.version>
+		<mybatis-spring.version>1.3.0</mybatis-spring.version>
+	</properties>
 
-    <dependencies>
-        <!--springboot-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+	<dependencies>
+		<!--springboot -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 
 		<!-- thymeleaf模板引擎 -->
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
-        </dependency>
-        <!--db-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.41</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.5.2</version>
-        </dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+		</dependency>
+		<!--db -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.41</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.2</version>
+		</dependency>
 
-        <!--mybatis-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>${mybatis.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-            <version>${mybatis-spring.version}</version>
-        </dependency>
-        <dependency>
-		   <groupId>org.apache.tomcat.embed</groupId>
-		   <artifactId>tomcat-embed-jasper</artifactId>
-		   <scope>provided</scope>
+		<!--mybatis -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis-spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- 热部署 -->
 		<dependency>
-			 <groupId>org.springframework.boot</groupId>
-			 <artifactId>spring-boot-devtools</artifactId>
-			 <optional>true</optional> <!-- 这个需要为 true 热部署才有效 -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional> <!-- 这个需要为 true 热部署才有效 -->
 		</dependency>
 		<!-- 邮件 -->
 		<dependency>
@@ -84,48 +84,29 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
-	
+
 		<!-- spring context support mail中用 -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-context-support</artifactId>
-		    <version>4.3.5.RELEASE</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.3.5.RELEASE</version>
 		</dependency>
-		
+
 		<!-- jackson -->
 		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-core</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
-    </dependencies>
+	</dependencies>
 
 
 	<build>
 		<finalName>recruit</finalName>
 		<plugins>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.5.v20120716</version>
-				<configuration>
-					<connectors>
-						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>8080</port> <!-- 访问端口,默认8080 -->
-						</connector>
-					</connectors>
-					<stopPort>9966</stopPort>
-					<stopKey>foo</stopKey>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<webApp>
-						<!-- web项目根路径 -->
-						<contextPath>/</contextPath>
-					</webApp>
-				</configuration>
-			</plugin>
 
 
 			<!--编码配置 -->
@@ -139,30 +120,10 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-
-
-
 		</plugins>
-		
-		
-		<resources>  
-            <resource>  
-                <directory>src/main/java</directory>  
-                <includes>  
-                    <include>**/*.properties</include>  
-                    <include>**/*.xml</include>  
-                </includes>  
-                <filtering>false</filtering>  
-            </resource>  
-            <resource>  
-                <directory>src/main/resources</directory>  
-                <includes>  
-                    <include>**/*.properties</include>  
-                    <include>**/*.xml</include>  
-                </includes>  
-                <filtering>false</filtering>  
-            </resource>  
-        </resources>  
+
+
+
 	</build>
 
 </project>

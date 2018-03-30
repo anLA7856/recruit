@@ -1,12 +1,7 @@
 package com.jun.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;

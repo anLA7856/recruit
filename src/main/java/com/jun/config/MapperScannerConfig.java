@@ -16,7 +16,7 @@ public class MapperScannerConfig {
 	@Bean
 	public MapperScannerConfigurer mapperScannerConfigurer() {
 		MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-		mapperScannerConfigurer.setBasePackage("**.mapper");
+		mapperScannerConfigurer.setBasePackage("com.jun.mapper");
 		mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
 		return mapperScannerConfigurer;
 	}

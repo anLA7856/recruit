@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +29,7 @@ import com.jun.mapper.UserMapper;
 import com.jun.model.Role;
 import com.jun.model.User;
 import com.jun.utils.CommonUtil;
+import com.jun.utils.MD5Util;
 
 @Controller
 @RequestMapping("/admin/")
@@ -200,7 +204,7 @@ public class AdminController {
 		int result3 = 0;
 		for(String str : roleVo.getRole()){
 			Integer id = Integer.parseInt(str);
-			result3 = roleUserMapper.addNewRoleAndUser(modifyUser.getId(), id);
+			result3 = roleUserMapper.addNewRoleAndUser(id,modifyUser.getId());
 			if(result3 == 0){
 				return "修改失败";
 			}
@@ -211,5 +215,42 @@ public class AdminController {
 			return "修改失败";
 		}
 	}
+	/**
+	 * 
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/modify-password", method = RequestMethod.POST,produces = "text/html; charset=UTF-8")
+	@ResponseBody
+	public String modifyPassword(Model model,HttpServletResponse response, HttpServletRequest request,String oldPassword,String newPassword) {
+		if(!CommonUtil.checkIfNull(oldPassword,newPassword)){
+			return "error";
+		}
+		String concurrentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		newPassword = MD5Util.encode(newPassword);
+		oldPassword = MD5Util.encode(oldPassword);
+		
+		int result = userMapper.updatePasswordByUsername(newPassword, concurrentUsername, oldPassword);
+		
+		if(result == 1){
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    	if (auth != null){    
+	    	    new SecurityContextLogoutHandler().logout(request, response, auth);
+	    	}
+	    	return "ok";
+		}else{
+			return "修改失败";
+		}
+
+	}
+	
+    @RequestMapping(value="/view-modify-password", method = RequestMethod.GET)
+    public String viewRegister(Model model, HttpServletRequest request){
+    	String concurrentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userMapper.findByUserName(concurrentUsername);
+		model.addAttribute("user", user);
+    	return "/admin/view-modify-password";
+    }
 
 }

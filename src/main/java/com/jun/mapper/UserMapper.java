@@ -76,4 +76,7 @@ public interface UserMapper {
 	
 	
 	public int getAllFilterUsers(@Param("searchEmail") String searchEmail,@Param("searchName") String searchName);
+	
+	@Update("update user set password=#{0} where username=#{1} and password=#{2}")
+	public int updatePasswordByUsername(String newPassword,String username,String oldPassword);
 }
