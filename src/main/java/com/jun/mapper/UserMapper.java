@@ -79,4 +79,7 @@ public interface UserMapper {
 	
 	@Update("update user set password=#{0} where username=#{1} and password=#{2}")
 	public int updatePasswordByUsername(String newPassword,String username,String oldPassword);
+	
+	@Update("update user set pic=#{0} where username=#{1}")
+	public int updatePicByUsername(String pic,String username);
 }

@@ -1,5 +1,7 @@
 package com.jun.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.jun.controller.dto.RoleDto;
@@ -246,11 +250,60 @@ public class AdminController {
 	}
 	
     @RequestMapping(value="/view-modify-password", method = RequestMethod.GET)
-    public String viewRegister(Model model, HttpServletRequest request){
+    public String viewModifyPassword(Model model, HttpServletRequest request){
     	String concurrentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(concurrentUsername);
 		model.addAttribute("user", user);
     	return "/admin/view-modify-password";
     }
+    
+    
+    @RequestMapping(value="/view-change-pic", method = RequestMethod.GET)
+    public String viewChangePic(Model model, HttpServletRequest request){
+    	String concurrentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userMapper.findByUserName(concurrentUsername);
+		model.addAttribute("user", user);
+    	return "/admin/view-change-pic";
+    }
+    
+    
+    @RequestMapping(value="/change-pic", method = RequestMethod.POST)
+    public String changePic(Model model, HttpServletRequest request,
+            @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException{
+    	String concurrentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userMapper.findByUserName(concurrentUsername);
+		model.addAttribute("user", user);
+		
+        if(!file.isEmpty()) {
+            //上传文件路径
+            String path = request.getServletContext().getRealPath("/headPicLocation/");
+            //上传文件名
+            String filename = file.getOriginalFilename();
+            
+            if(!(filename.endsWith(".jpg")||filename.endsWith("jpeg")||filename.endsWith(".png"))){
+            	model.addAttribute("info", "文件格式不正确！");
+                return "/admin/view-change-pic";
+            }
+            
+            File filepath = new File(path,filename);
+            //判断路径是否存在，如果不存在就创建一个
+            if (!filepath.getParentFile().exists()) { 
+                filepath.getParentFile().mkdirs();
+            }
+            //将上传文件保存到一个目标文件当中
+            file.transferTo(new File(path + File.separator + filename));
+            //往user表中插入一份数据。
+            userMapper.updatePicByUsername(filename, concurrentUsername);
+            return "redirect:/admin/view-change-pic";
+        } else {
+        	model.addAttribute("info", "上传失败！");
+            return "/admin/view-change-pic";
+        }
+		
+    	
+    }
+    
+
+    
 
 }

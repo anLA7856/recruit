@@ -3,7 +3,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="/common/fragment::header"></head>
 <meta content="text/html;charset=UTF-8" />
-<title>管理员</title>
+<title>更改头像</title>
 
 <!-- jquery -->
 <style type="text/css">
@@ -49,38 +49,30 @@ body {
 		<section id="m-main" class="col-md-10 col-md-offset-2"
 			style="margin-top: 35px;">
 			<div class="panel panel-default">
-				<div class="panel-heading">维护信息</div>
+				<div class="panel-heading">维护信息 (支持jpeg，jpg，png格式)</div>
 				<div class="panel-body">
-					<form id="pimRemindForm" method="post" action="my-info-save.do"
+					<form id="pimRemindForm" method="post" action="/admin/change-pic" enctype="multipart/form-data"
 						class="form-horizontal">
 						<div class="form-group">
-							<label class="control-label col-md-1" for="pimRemind_repeatType">用户邮箱</label>
+							<label class="control-label col-md-1" for="pimRemind_repeatType">用户头像</label>
 							<div class="col-sm-5">
-								<label class="control-label" th:text="${user.username}"></label>
-								<input id="username" type="hidden" th:value="${user.username}" name="username" />
+								<img th:src="${'/common/avatar?username='+user.username}" style="width: 320px; height: 320px;" class="img-circle" /> 
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-md-1" for="pimRemind_repeatType">用户姓名</label>
+							<label class="control-label col-md-1" for="pimRemind_repeatType">上传头像</label>
 							<div class="col-sm-5">
-								<input id="name" type="text" name="name"
-									th:value="${user.name}" class="form-control required"
+								<input id="file" type="file" name="file"
+									class="form-control required"
 									minlength="2" maxlength="50" />
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="control-label col-md-1" for="pimRemind_description">用户电话</label>
-							<div class="col-sm-5">
-								<input id="telephone" type="text" name="telephone"
-									th:value="${user.telephone}" class="form-control required"
-									minlength="2" maxlength="50" />
-							</div>
-						</div>
+						
 						<div class="form-group">
 							<div class="col-md-offset-1 col-md-11">
-								<button type="button" class="btn btn-default a-submit" onclick="modify()">
+								<button type="submit" class="btn btn-default a-submit" >
 									保存
-								</button>
+								</button>  <label class="control-label col-md-1" for="pimRemind_repeatType" th:text="${info}" th:if="${info!=null}">用户头像</label>
 								&nbsp;
 								<button type="button" class="btn btn-link a-cancel"
 									onclick="history.back();">
