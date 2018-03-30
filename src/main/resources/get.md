@@ -8,3 +8,7 @@
        注意元素闭合问题
    https://blog.csdn.net/whatlookingfor/article/details/78321451
    https://blog.csdn.net/pdw2009/article/details/44679409
+   
+3、thymeleaf中的th:if判断表达式取值
+	注意 <>，不能直接写，要写成lt，gt
+	https://blog.csdn.net/qq_31424825/article/details/79052192
