@@ -12,6 +12,7 @@ public class RoleVo {
 	private String username;
 	private String name;
 	private String telephone;
+	private String uEnabled;
 	private String[] role;
 
 	public String getUsername() {
@@ -46,10 +47,18 @@ public class RoleVo {
 		this.role = role;
 	}
 
+	public String getuEnabled() {
+		return uEnabled;
+	}
+
+	public void setuEnabled(String uEnabled) {
+		this.uEnabled = uEnabled;
+	}
+
 	@Override
 	public String toString() {
-		return "RoleVo [username=" + username + ", name=" + name + ", telephone=" + telephone + ", role="
-				+ Arrays.toString(role) + "]";
+		return "RoleVo [username=" + username + ", name=" + name + ", telephone=" + telephone + ", uEnabled=" + uEnabled
+				+ ", role=" + Arrays.toString(role) + "]";
 	}
 
 }

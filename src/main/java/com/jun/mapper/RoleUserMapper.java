@@ -2,6 +2,7 @@ package com.jun.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -24,7 +25,7 @@ public interface RoleUserMapper {
 	 * @return
 	 */
 	@Insert("insert into role_user(role_id,user_id) values(#{0},#{1})")
-	public int addNewRoleAndUser(Integer uid,Integer roleId);
+	public int addNewRoleAndUser(Integer roleId,Integer uid);
 	
 	
 	/**
@@ -42,4 +43,7 @@ public interface RoleUserMapper {
 	 */
 	@Select("SELECT role.* FROM role,role_user WHERE role.`id`=role_user.`role_id` AND role_user.`user_id`=#{0}")
 	public List<Role> findRolesByUserId(Integer id);
+	
+	@Delete("delete from role_user where user_id=#{0}")
+	public int deleteAllRolesByUserId(Integer id);
 }

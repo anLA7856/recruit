@@ -19,8 +19,15 @@
 	<select id="getLimitUsers" resultType="com.jun.model.User" >
 		select * 
 		from user 
-		where username like "%"#{searchEmail}"%"
-		and name like "%"#{searchName}"%" 
+		<where>
+			 <if test="searchEmail!=''">
+			 	username like "%"#{searchEmail}"%"
+			 </if>
+			 <if test="searchName!=''">
+			 	name like "%"#{searchName}"%"
+			 </if>
+			
+		</where>
 		limit #{start},#{length}
 	</select>
 	
@@ -29,7 +36,14 @@
 	<select id="getAllFilterUsers" resultType="java.lang.Integer" >
 		select count(*) 
 		from user 
-		where username like "%"#{searchEmail}"%"
-		and name like "%"#{searchName}"%" 
+		<where>
+			 <if test="searchEmail!=''">
+			 	username like "%"#{searchEmail}"%"
+			 </if>
+			 <if test="searchName!=''">
+			 	name like "%"#{searchName}"%"
+			 </if>
+			
+		</where>
 	</select>
 </mapper>

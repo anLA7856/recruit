@@ -15,7 +15,6 @@
 		AND rp.`role_id`=r.`id`
 		AND rp.`permission_id`=p.`id`;
 	</select>
-	
 	<select id="findPermissionByRoleAndUserId" resultType="com.jun.model.Permission">
 		SELECT p.* 
 		FROM user u,role r,permission p,role_user ru,role_permission rp

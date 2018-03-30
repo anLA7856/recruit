@@ -128,7 +128,9 @@ public class CommonController {
             throws Exception {
     	
         User user = userMapper.findByUserName(username);
-        InputStream is = new FileInputStream(ResourceUtils.getFile("classpath:static/headPicLocation/"+user.getPic()));
+        request.getServletContext().getRealPath("/");
+       // ResourceUtils.getFile("classpath:/");
+        InputStream is = new FileInputStream(ResourceUtils.getFile(request.getServletContext().getRealPath("/")+"/headPicLocation/"+user.getPic()));
         IoUtils.copyStream(is, os);
     }
     

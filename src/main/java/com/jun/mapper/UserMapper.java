@@ -7,11 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.jun.model.Role;
 import com.jun.model.User;
 
-/**
- * 
+/** 
  * @author jun
  * @date 2018年3月26日 : 下午9:06:26
  *
@@ -22,7 +20,7 @@ public interface UserMapper {
 	 * 通过用户名查找这个用户
 	 * @param username
 	 * @return
-	 */
+	 */        
 	public User findByUserName(String username);
 	/**
 	 * 增加一个用户
@@ -56,6 +54,9 @@ public interface UserMapper {
 	
 	@Update("update user set name=#{0},telephone=#{1} where username=#{2}")
 	public int updateNameAndTelephoneByUserName(String name,String telephone,String username);
+	
+	@Update("update user set name=#{0},telephone=#{1},u_enabled=#{2} where username=#{3}")
+	public int updateNameAndTelephoneAndEnableByUsername(String name,String telephone,Integer uEnabled,String username);
 	
 	/**
 	 * 用于数据库中分页显示。

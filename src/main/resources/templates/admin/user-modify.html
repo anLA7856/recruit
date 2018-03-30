@@ -18,25 +18,36 @@ body {
 </style>
 <script type="text/javascript">
 	function modify() {
-		debugger;
+		
 		var username = $("#username").val();
 		var name = $("#name").val();
 		var telephone = $("#telephone").val();
-		var uEnabled = $("#uEnabled").val();
+		var uEnabled;
 		var role = new Array();
 		
+		$.each($('input:radio:checked'),function(){
+			uEnabled  = $(this).val();
+        });
 		
 		$.each($('input:checkbox:checked'),function(){
-			
 			role.push($(this).val());
         });
+		
+		 var obj = {
+				  'username':username,
+				  'name':name,
+				  'telephone':telephone,
+				  'uEnabled':uEnabled ,
+				  'role':role
+				 };
 		
 		
 		if (name == "" || telephone == null) {
 			alert("请填写完整");
 			return;
 		}
-
+		
+		/*
 		$.post("/admin/save-user-info", {
 			username : username,
 			name : name,
@@ -47,8 +58,26 @@ body {
 			alert(date);
 
 		}
+		*/
+		debugger;
+		// 数组
+		//var data = $('#pimRemindForm').serializeArray();
+		// json
+		var json = JSON.stringify(obj);
+		debugger; 
+		$.ajax({
+			
+			url : "/admin/save-user-info",
+			 type : "POST",
+			 dataType : "JSON",
+			 contentType:"application/json",
+			 data : json, 
+			 success : function () {
+			     console.log(data)
+			 }
+			});
 
-		);
+	
 
 	}
 </script>
@@ -92,12 +121,12 @@ body {
 							<label class="control-label col-md-1" for="pimRemind_description">账户是否可用</label>
 							<div class="col-sm-5">
 								<div class="radio" th:if="${getUser.uEnabled==1}">
-									<label><input type="radio" name="uEnabled" value="1" checked="checked" />可用 </label>
-									<label><input type="radio" name="uEnabled" value="2" />不可用</label>
+									<label><input type="radio" name="uEnabled" class="uEnabled" value="1" checked="checked" />可用 </label>
+									<label><input type="radio" name="uEnabled" class="uEnabled" value="2" />不可用</label>
 								</div>
 								<div class="radio" th:if="${getUser.uEnabled==0}">
-									<input type="radio" name="uEnabled" value="1" id="uEnabled" />可用 
-									<input type="radio" name="uEnabled" value="2" id="uEnabled" checked="checked"/>不可用
+									<input type="radio" name="uEnabled" value="1" class="uEnabled" />可用 
+									<input type="radio" name="uEnabled" value="2" class="uEnabled" checked="checked"/>不可用
 								</div>
 							</div>
 						</div>
@@ -110,8 +139,8 @@ body {
 								<div class="checkbox">
 								
 								    <label th:each="roleDto,roleStat : ${listRole}">
-								    	<input type="checkbox" name="role" id="role" th:value="${roleDto.role.name}" th:text="${roleDto.role.name}" th:if="${roleDto.target==1}" checked="checked"/> 
-								    	<input type="checkbox" name="role" id="role" th:value="${roleDto.role.name}" th:text="${roleDto.role.name}" th:if="${roleDto.target!=1}"/> 
+								    	<input type="checkbox" name="role" id="role" th:value="${roleDto.role.id}" th:text="${roleDto.role.name}" th:if="${roleDto.target==1}" checked="checked"/> 
+								    	<input type="checkbox" name="role" id="role" th:value="${roleDto.role.id}" th:text="${roleDto.role.name}" th:if="${roleDto.target!=1}"/> 
 								    </label>
 								</div>
 								
