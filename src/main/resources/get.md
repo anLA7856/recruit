@@ -15,3 +15,5 @@
 3、thymeleaf中的th:if判断表达式取值
 	注意 <>，不能直接写，要写成lt，gt
 	https://blog.csdn.net/qq_31424825/article/details/79052192
+	
+4、如果发现没有更新即使，记得去clean install一下。
