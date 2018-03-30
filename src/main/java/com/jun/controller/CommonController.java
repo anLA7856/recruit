@@ -1,5 +1,9 @@
 package com.jun.controller;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,8 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.jun.mapper.UserMapper;
+import com.jun.model.User;
 import com.jun.service.LoginService;
 import com.jun.service.UserService;
+import com.jun.utils.IoUtils;
 
 /**
  * 共用页面，用来登录注册，以及查看新闻的。
@@ -35,6 +43,9 @@ public class CommonController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	UserMapper userMapper;
 
 	/**
 	 * 登录直接提交在这里，spring secruity会从WebSecurityConfig中知道这个请求是登录，从而进行前端判断。
@@ -103,6 +114,22 @@ public class CommonController {
     public String login(Model model, HttpServletRequest request,@RequestParam String username,@RequestParam String password){
     	String result = loginService.addUser(username, password);
     	return result;
+    }
+    
+    /**
+     * 获取用户头像
+     * @param username
+     * @param os
+     * @throws Exception
+     */
+    @RequestMapping("/avatar")
+    @ResponseBody
+    public void avatar(@RequestParam("username") String username, OutputStream os,HttpServletRequest request)
+            throws Exception {
+    	
+        User user = userMapper.findByUserName(username);
+        InputStream is = new FileInputStream(ResourceUtils.getFile("classpath:static/headPicLocation/"+user.getPic()));
+        IoUtils.copyStream(is, os);
     }
     
 }

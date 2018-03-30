@@ -1,10 +1,100 @@
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	  xmlns:sect="http://www.springframework.org/security/tags"
+	  >
+<!-- 通用引入头文件的fragment -->
 <head th:fragment="header">
- 	<meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" th:href="@{/css/bootstrap/3.3.1/css/bootstrap.min.css}" ></link>
-    <script type='text/javascript' th:src='@{/js/jquery/1.11.3/jquery.min.js}'></script>
-    <script type='text/javascript' th:src='@{/css/bootstrap/3.3.1/js/bootstrap.min.js}'></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="/common/logo.jpg" type="image/x-icon"/>
+<link rel="stylesheet"
+	th:href="@{/css/bootstrap/3.3.1/css/bootstrap.min.css}"></link>
+<script type='text/javascript'
+	th:src='@{/js/jquery/1.11.3/jquery.min.js}'></script>
+<script type='text/javascript'
+	th:src='@{/css/bootstrap/3.3.1/js/bootstrap.min.js}'></script>
 </head>
+
+<!-- 通用引入左侧菜单文件 -->
+<div th:fragment="menu" class="panel-group col-md-2" id="accordion"
+	role="tablist" aria-multiselectable="true"
+	style="padding-top: 35px; position: fixed;">
+
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="collapse-header-bpm-process"
+			data-toggle="collapse" data-parent="#accordion"
+			href="#collapse-body-bpm-process" aria-expanded="true"
+			aria-controls="collapse-body-bpm-process">
+			<h4 class="panel-title">
+				<i class="glyphicon glyphicon-list"></i> 个人信息
+			</h4>
+		</div>
+		<div id="collapse-body-bpm-process"
+			class="panel-collapse collapse in " role="tabpanel"
+			aria-labelledby="collapse-header-bpm-process">
+			<div class="panel-body">
+				<ul class="nav nav-list">
+					<li><a href="/admin/index"><i
+							class="glyphicon glyphicon-list"></i> 个人信息</a></li>
+					<li><a href="/admin/user-list"><i
+							class="glyphicon glyphicon-list"></i> 人员信息</a></li>
+					<li><a href="/admin/modify-password"><i
+							class="glyphicon glyphicon-list"></i> 修改密码</a></li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+	<footer id="m-footer" class="text-center">
+		<hr></hr>
+		&copy;junbao
+	</footer>
+</div>
+
+<!-- 引入通用头 -->
+<div th:fragment="top" class="navbar navbar-default navbar-fixed-top">
+	<div class="container-fluid">
+		<!-- 左边头 -->
+		<div class="navbar-header">
+			<a class="navbar-brand" th:href="@{/}"> <img
+				src="/common/logo.jpg" class="img-responsive pull-left"
+				style="margin-top: -5px; margin-right: 5px;" /> 首页
+			</a>
+		</div>
+		<!-- 右边头 -->
+		<div class="navbar-collapse collapse">
+			<!-- ul 浮动在右边 -->
+			<ul class="nav navbar-nav navbar-right">
+				<!-- 里面有一个，用于下拉列表 -->
+				<li class="dropdown">
+					<a data-toggle="dropdown"
+						class="dropdown-toggle" href="#"> 
+						<img th:src="${'/common/avatar?username='+user.username}" style="width: 16px; height: 16px;" class="img-circle" /> 
+							<b class="caret"></b>
+					<label th:text="${user.name}"></label>
+					</a>
+					<ul class="dropdown-menu">
+						<li class="text-center">&nbsp;<img th:src="${'/common/avatar?username='+user.username}" style="width: 64px; height: 64px;" class="img-rounded" /></li>
+						
+						<li class="divider"></li>
+						<li>
+							<a th:href="@{/common/view-logout}">
+								<i class="glyphicon glyphicon-list"></i> 
+								退出
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+
+		</div>
+
+
+	</div>
+</div>
+
+
+
+
+
 </html>

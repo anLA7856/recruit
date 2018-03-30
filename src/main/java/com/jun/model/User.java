@@ -19,7 +19,7 @@ public class User implements UserDetails {
 	private String name;
 	private String password;
 	private Integer uEnabled;
-	private String email;
+	private String pic;
 	private String telephone;
 	private List<? extends GrantedAuthority> authorities;
 
@@ -47,8 +47,6 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
-
-
 	public Integer getuEnabled() {
 		return uEnabled;
 	}
@@ -57,12 +55,12 @@ public class User implements UserDetails {
 		this.uEnabled = uEnabled;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getPic() {
+		return pic;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPic(String pic) {
+		this.pic = pic;
 	}
 
 	public String getTelephone() {
@@ -86,14 +84,13 @@ public class User implements UserDetails {
 
 	}
 
-	public User(Integer id, String username, String password, Integer uEnabled, String email, String telephone,
+	public User(Integer id, String username, String password, Integer uEnabled, String telephone,
 			List<? extends GrantedAuthority> authorities) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.uEnabled = uEnabled;
-		this.email = email;
 		this.telephone = telephone;
 		this.authorities = authorities;
 	}
@@ -134,6 +131,5 @@ public class User implements UserDetails {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 
 }
