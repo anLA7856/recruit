@@ -24,7 +24,7 @@ public class WebAccessDecisionManager implements AccessDecisionManager {
 	 * 检查用户是否够权限访问资源
 	 * 参数authentication是从spring的全局缓存SecurityContextHolder中拿到的，里面是用户的权限信息
 	 * 参数object是url
-	 * 参数configAttributes范文某个url所需的权限
+	 * 参数configAttributes访问某个url所需的权限
 	 */
 	@Override
 	public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)

@@ -54,23 +54,6 @@ public class AdminController {
 		return "/admin/index";
 	}
 
-	@RequestMapping(value = "/update-person-info", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-	@ResponseBody
-	public String updatePersonInfo(Model model, HttpServletRequest request, String name, String telephone,
-			String username) {
-		if (!CommonUtil.checkIfNull(name, telephone, username)) {
-			return "error,paramer not null";
-		}
-		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals(username)) {
-			throw new AccessDeniedException("没有权限");
-		}
-		int result = userMapper.updateNameAndTelephoneByUserName(name, telephone, username);
-		if (result == 1) {
-			return "修改成功";
-		} else {
-			return "修改失败";
-		}
-	}
 
 	/**
 	 * 管理员获得用户信息。 默认是20条每页。
@@ -213,97 +196,7 @@ public class AdminController {
 				return "修改失败";
 			}
 		}
-		if ((result1 == result2)&&(result2 == result3)) {
-			return "修改成功";
-		} else {
-			return "修改失败";
-		}
+		return "修改成功";
+		
 	}
-	/**
-	 * 
-	 * @param model
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/modify-password", method = RequestMethod.POST,produces = "text/html; charset=UTF-8")
-	@ResponseBody
-	public String modifyPassword(Model model,HttpServletResponse response, HttpServletRequest request,String oldPassword,String newPassword) {
-		if(!CommonUtil.checkIfNull(oldPassword,newPassword)){
-			return "error";
-		}
-		String concurrentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-		newPassword = MD5Util.encode(newPassword);
-		oldPassword = MD5Util.encode(oldPassword);
-		
-		int result = userMapper.updatePasswordByUsername(newPassword, concurrentUsername, oldPassword);
-		
-		if(result == 1){
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    	if (auth != null){    
-	    	    new SecurityContextLogoutHandler().logout(request, response, auth);
-	    	}
-	    	return "ok";
-		}else{
-			return "修改失败";
-		}
-
-	}
-	
-    @RequestMapping(value="/view-modify-password", method = RequestMethod.GET)
-    public String viewModifyPassword(Model model, HttpServletRequest request){
-    	String concurrentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-		User user = userMapper.findByUserName(concurrentUsername);
-		model.addAttribute("user", user);
-    	return "/admin/view-modify-password";
-    }
-    
-    
-    @RequestMapping(value="/view-change-pic", method = RequestMethod.GET)
-    public String viewChangePic(Model model, HttpServletRequest request){
-    	String concurrentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-		User user = userMapper.findByUserName(concurrentUsername);
-		model.addAttribute("user", user);
-    	return "/admin/view-change-pic";
-    }
-    
-    
-    @RequestMapping(value="/change-pic", method = RequestMethod.POST)
-    public String changePic(Model model, HttpServletRequest request,
-            @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException{
-    	String concurrentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-		User user = userMapper.findByUserName(concurrentUsername);
-		model.addAttribute("user", user);
-		
-        if(!file.isEmpty()) {
-            //上传文件路径
-            String path = request.getServletContext().getRealPath("/headPicLocation/");
-            //上传文件名
-            String filename = file.getOriginalFilename();
-            
-            if(!(filename.endsWith(".jpg")||filename.endsWith("jpeg")||filename.endsWith(".png"))){
-            	model.addAttribute("info", "文件格式不正确！");
-                return "/admin/view-change-pic";
-            }
-            
-            File filepath = new File(path,filename);
-            //判断路径是否存在，如果不存在就创建一个
-            if (!filepath.getParentFile().exists()) { 
-                filepath.getParentFile().mkdirs();
-            }
-            //将上传文件保存到一个目标文件当中
-            file.transferTo(new File(path + File.separator + filename));
-            //往user表中插入一份数据。
-            userMapper.updatePicByUsername(filename, concurrentUsername);
-            return "redirect:/admin/view-change-pic";
-        } else {
-        	model.addAttribute("info", "上传失败！");
-            return "/admin/view-change-pic";
-        }
-		
-    	
-    }
-    
-
-    
-
 }

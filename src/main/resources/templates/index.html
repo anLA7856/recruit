@@ -38,7 +38,7 @@ body {
 		<a th:href="@{/admin/index}" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">user_我的工作台</a>
 		<input  th:value="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"/>
 		
-		<a th:href="@{/admin/info}" th:if="${#authorization.expression('hasRole(''PERMISSION_ADMIN'')')}">PERMISSION_ADMIN_我的工作台</a>
+		<a th:href="@{/info/info}" th:if="${#authorization.expression('hasRole(''PERMISSION_ADMIN'')')}">PERMISSION_ADMIN_我的工作台</a>
 	</div>
 	<h1>这是首页</h1>
 	

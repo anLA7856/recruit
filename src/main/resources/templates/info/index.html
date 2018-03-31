@@ -3,7 +3,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="/common/fragment::header"></head>
 <meta content="text/html;charset=UTF-8" />
-<title>修改密码</title>
+<title>管理员</title>
 
 <!-- jquery -->
 <style type="text/css">
@@ -18,32 +18,22 @@ body {
 </style>
 <script type="text/javascript">
 	function modify() {
-		var oldPassword = $("#oldPassword").val();
-		var newPassword = $("#newPassword").val();
-		var newPassword2 = $("#newPassword2").val();
-		
-		if(newPassword != newPassword2){
-			alert("两次密码输入不一致");
-			return;
-		}
-		
-		if (oldPassword == "" || newPassword == null || newPassword2 ==null) {
+		var username = $("#username").val();
+		var name = $("#name").val();
+		var telephone = $("#telephone").val();
+
+		if (name == "" || telephone == null) {
 			alert("请填写完整");
 			return;
 		}
 
-		$.post("/info/modify-password", {
-			oldPassword:oldPassword,
-			newPassword:newPassword
-		}, function(data) {
-			
-			if(data == 'ok'){
-				alert(data);
-				self.location='/';
-			}else{
-				alert(data);
-			}
-			
+		$.post("/info/update-person-info", {
+			username : username,
+			name : name,
+			telephone : telephone
+		}, function(date) {
+			alert(date);
+
 		}
 
 		);
@@ -59,30 +49,30 @@ body {
 		<section id="m-main" class="col-md-10 col-md-offset-2"
 			style="margin-top: 35px;">
 			<div class="panel panel-default">
-				<div class="panel-heading">修改密码</div>
+				<div class="panel-heading">维护信息</div>
 				<div class="panel-body">
-					<form id="pimRemindForm" method="post" action="/admin/modify-password"
+					<form id="pimRemindForm" method="post" action="my-info-save.do"
 						class="form-horizontal">
 						<div class="form-group">
-							<label class="control-label col-md-1" for="pimRemind_repeatType">原密码</label>
+							<label class="control-label col-md-1" for="pimRemind_repeatType">用户邮箱</label>
 							<div class="col-sm-5">
-								<input id="oldPassword" type="text" name="oldPassword" class="form-control required"
+								<label class="control-label" th:text="${user.username}"></label>
+								<input id="username" type="hidden" th:value="${user.username}" name="username" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-1" for="pimRemind_repeatType">用户姓名</label>
+							<div class="col-sm-5">
+								<input id="name" type="text" name="name"
+									th:value="${user.name}" class="form-control required"
 									minlength="2" maxlength="50" />
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-md-1" for="pimRemind_repeatType">新密码</label>
+							<label class="control-label col-md-1" for="pimRemind_description">用户电话</label>
 							<div class="col-sm-5">
-								<input id="newPassword" type="password" name="newPassword"
-									class="form-control required"
-									minlength="2" maxlength="50" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-md-1" for="pimRemind_description">再次确认新密码</label>
-							<div class="col-sm-5">
-								<input id="newPassword2" type="password" name="newPassword2"
-									 class="form-control required"
+								<input id="telephone" type="text" name="telephone"
+									th:value="${user.telephone}" class="form-control required"
 									minlength="2" maxlength="50" />
 							</div>
 						</div>
