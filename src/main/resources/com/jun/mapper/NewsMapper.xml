@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.jun.mapper.NewsMapper">
+
+
+	<select id="getLimitNewsBesidesContent" resultType="com.jun.model.News">
+		select id,title,content,news_log,news_status,news_type,hitCount,create_time,publish_time,user_name,publish_name,file_name 
+		from news
+		<where>
+			<if test="username !=null and username!=''">
+				user_name = #{username}
+			</if>
+		</where>
+		limit #{start},#{length}
+	</select>
+
+
+	<select id="getLimitNews" resultType="com.jun.model.News">
+		select * from news
+		<where>
+			<if test="username !=null and username != ''">
+				user_name = #{username}
+			</if>
+		</where>
+		limit #{start},#{length}
+	</select>
+
+	<insert id="addNewNews" parameterType="com.jun.model.News">
+		insert into
+		news(title,content,news_type,hitCount,create_time,user_name,file_name)
+		values(#{title},#{content},#{newsType},#{hitCount},#{createTime},#{username},#{fileName})
+	</insert>
+
+	<update id="updateNews" parameterType="com.jun.model.News">
+		update news set
+		title=#{title},content=#{content},news_type=#{newsType}
+		<if test="fileName != null and fileName != ''">
+			,file_name=#{fileName}
+		</if>
+		where id=#{id}
+	</update>
+</mapper>
