@@ -6,15 +6,18 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -56,7 +59,7 @@ public class PublisherController {
 	 * @return
 	 */
 	@RequestMapping(value = "/view-publish-news", method = RequestMethod.GET)
-	public String viewPublishNews(Model model, HttpServletRequest request) {
+	public String viewPublishNews(Model model, HttpServletRequest request,Integer id) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(username);
 		model.addAttribute("user", user);
@@ -64,6 +67,12 @@ public class PublisherController {
 		// 加入newsType
 		List<NewsType> newsTypes = newsTypeMapper.getAllNewsTypes();
 		model.addAttribute("newsTypes", newsTypes);
+		
+		if(id != null){
+			//说明是修改，加入内容。
+			News news = newsMapper.getNewsById(id);
+			model.addAttribute("news", news);
+		}
 
 		return "/publisher/view-publish-news";
 	}
@@ -79,7 +88,7 @@ public class PublisherController {
 	 */
 	@RequestMapping(value = "/save-news", method = RequestMethod.POST)
 	public String saveNews(Model model, HttpServletRequest request, @RequestParam String newsType,
-			@RequestParam String newsTitle, @RequestParam String newsContent, @RequestParam("file") MultipartFile file)
+			@RequestParam String newsTitle, @RequestParam String newsContent, @RequestParam("file") MultipartFile file,@RequestParam String target,@RequestParam Integer id)
 			throws IllegalStateException, IOException {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(username);
@@ -88,11 +97,19 @@ public class PublisherController {
 		// 加入newsType
 		List<NewsType> newsTypes = newsTypeMapper.getAllNewsTypes();
 		model.addAttribute("newsTypes", newsTypes);
-
+		String filename="";
+		if(file != null){
+			filename = file.getOriginalFilename();
+		}
 		// 先保存news
-		String filename = file.getOriginalFilename();
+
+		
+		
 		String storeFileName = System.currentTimeMillis() + "-" + filename;
 		News news = new News();
+		if(id != null){
+			news.setId(id);
+		}
 		news.setContent(newsContent);
 		news.setFileName(storeFileName);
 		news.setCreateTime(CommonUtil.formatDate(new Date()));
@@ -100,21 +117,28 @@ public class PublisherController {
 		news.setNewsType(Integer.parseInt(newsType));
 		news.setUsername(username);
 		news.setTitle(newsTitle);
-		newsMapper.addNewNews(news);
+		if(target != null){
+			newsMapper.updateNews(news);
+		}else{
+			newsMapper.addNewNews(news);
+		}
+		
 
 		// 保存文件
+		if(!filename.equals("")){
+			// 上传文件路径
+			String path = request.getServletContext().getRealPath("/attachment/");
+			// 上传文件名
 
-		// 上传文件路径
-		String path = request.getServletContext().getRealPath("/attachment/");
-		// 上传文件名
-
-		File filepath = new File(path, storeFileName);
-		// 判断路径是否存在，如果不存在就创建一个
-		if (!filepath.getParentFile().exists()) {
-			filepath.getParentFile().mkdirs();
+			File filepath = new File(path, storeFileName);
+			// 判断路径是否存在，如果不存在就创建一个
+			if (!filepath.getParentFile().exists()) {
+				filepath.getParentFile().mkdirs();
+			}
+			// 将上传文件保存到一个目标文件当中
+			file.transferTo(new File(path + File.separator + filename));
 		}
-		// 将上传文件保存到一个目标文件当中
-		file.transferTo(new File(path + File.separator + filename));
+		
 		return "redirect:/publisher/view-news-list";
 	}
 
@@ -123,48 +147,103 @@ public class PublisherController {
 	 * 
 	 * @param model
 	 * @param request
-	 * @param start
+	 * @param startPoint
 	 * @param target
 	 *            0表示上一页，1标识下一页，null标识首页即2表示首页
 	 * @return
 	 */
 	@RequestMapping(value = "/view-news-list", method = RequestMethod.GET)
-	public String viewNewsList(Model model, HttpServletRequest request, Integer start, Integer target) {
-
-		if (start == null) {
-			start = 0;
-		}
-		// 默认一页20个。
-		Integer length = 20;
-		if (target == null) {
-			target = 2;
-		}
-
-		// 判断上一页，下一页
-		switch (target) {
-			case 0:
-				start = start - 20;
-				break;
-			case 1:
-				start = start + 20;
-				break;
-		}
+	public String viewNewsList(Model model, HttpServletRequest request, Integer nowPages, Integer target) {
 
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(username);
+		int start = nowPages == null ? 0 : nowPages * 20;
+		int length = 20;
+		int totalSize = newsMapper.getAllNewsSizeByUsername(username);
+		if (target == null) {
+			target = new Integer(1);// 初始值为1
+		}
+		if (nowPages == null) {
+			nowPages = new Integer(1);
+		}
+		switch (target) {
+		case 1:
+			start = nowPages * 20 - 20;
+			break;
+		case 2:
+			start = nowPages * 20 + 20;
+		case 3:
+			start = 0;
+		case 4:
+			start = totalSize - totalSize % 20;
+			start = start == 0 ? totalSize - 20 : start;
+		default:
+			break;
+		}
+		List<News> news = newsMapper.getLimitNewsBesidesContent(start, length, username);
+		model.addAttribute("list", news);
+		model.addAttribute("nowPages", nowPages);
 		model.addAttribute("user", user);
+		model.addAttribute("totalSize", totalSize);
+		model.addAttribute("startPoint", start + 1);
+		int endPoint = start + length > totalSize ? totalSize : start + length;
+		model.addAttribute("endPoint", endPoint);
+		model.addAttribute("currentPagesSize", endPoint - start);
+
 
 		// 加入newsType
 		List<NewsType> newsTypes = newsTypeMapper.getAllNewsTypes();
 		model.addAttribute("newsTypes", newsTypes);
 
-		List<News> news = newsMapper.getLimitNewsBesidesContent(start, length, username);
-
-		model.addAttribute("news", news);
 
 		model.addAttribute("newsTypeMapper", newsTypeMapper);
 		
+		//nowPages,currentPagesSize,startPoint,endPoint
+
 		return "/publisher/view-news-list";
 	}
+	
+	/**
+	 * 用于删除新闻
+	 * @param model
+	 * @param request
+	 * @param name
+	 * @param telephone
+	 * @param username
+	 * @return
+	 */
+	@RequestMapping(value = "/delete-news", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+	@ResponseBody
+	public String deleteNews(Model model, HttpServletRequest request, Integer id) {
+		if (!CommonUtil.checkIfNull(id)) {
+			return "error,paramer not null";
+		}
+		int result = newsMapper.deleteNewsById(id);
+		if (result == 1) {
+			return "ok";
+		} else {
+			return "删除失败";
+		}
+	}
+	
+	/**
+	 * 用于下载附件
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @param fileName
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/download-attachment/{fileName}", method = RequestMethod.GET)
+	public void deleteNews(Model model, HttpServletRequest request,HttpServletResponse response,@PathVariable String fileName) throws Exception {
+		 //上传文件路径
+        String path = request.getServletContext().getRealPath("/attachment/");
+		//String filePath = path+"pipe.bmp";注意可能每当启动一次，class下面的文件会被清空。
+		String filePath = path+fileName;
+		
+		CommonUtil.download(fileName, filePath, request, response);
+	}
+	
 
+	
 }

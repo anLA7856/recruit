@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.jun.model.News;
 
@@ -46,5 +47,14 @@ public interface NewsMapper {
 	 * @return
 	 */
 	public List<News> getLimitNewsBesidesContent(@Param("start")int start,@Param("length")int length,@Param("username")String username);
+	
+	@Select("select count(*) from news where user_name=#{0}")
+	public int getAllNewsSizeByUsername(String username);
+	
+	@Select("delete from news where id=#{0}")
+	public int deleteNewsById(Integer id);
+	
+	@Select("select * from news where id=#{0}")
+	public News getNewsById(Integer id);
 	
 }

@@ -3,6 +3,7 @@ package com.jun.controller;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.jun.mapper.NewsMapper;
 import com.jun.mapper.UserMapper;
+import com.jun.model.News;
+import com.jun.model.NewsType;
 import com.jun.model.User;
 import com.jun.service.LoginService;
 import com.jun.service.UserService;
@@ -48,6 +52,9 @@ public class CommonController {
 	
 	@Autowired
 	UserMapper userMapper;
+	
+	@Autowired
+	NewsMapper newsMapper;
 
 	/**
 	 * 登录直接提交在这里，spring secruity会从WebSecurityConfig中知道这个请求是登录，从而进行前端判断。
@@ -135,5 +142,13 @@ public class CommonController {
         InputStream is = new FileInputStream(ResourceUtils.getFile(request.getServletContext().getRealPath("/")+"/headPicLocation/"+user.getPic()));
         IoUtils.copyStream(is, os);
     }
+    
+    
+	@RequestMapping(value = "/news-view", method = RequestMethod.GET)
+	public String newsView(Model model, HttpServletRequest request,Integer id) {
+		News news = newsMapper.getNewsById(id);
+		model.addAttribute("news", news);
+		return "/common/news-view";
+	}
     
 }

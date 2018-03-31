@@ -48,7 +48,7 @@ body {
 					<table class="table table-bordered">
 						<tr>
 							<td><label class="control-label ">新闻分类</label></td>
-							<td><select class="form-control" name="newsType">
+							<td><select id="newsType" class="form-control" name="newsType">
 									<option th:value="${item.id}"
 										th:each="item,itemStat : ${newsTypes}"
 										th:text="${item.newsType}">Volvo</option>
@@ -71,6 +71,11 @@ body {
 								</div>
 							</td>
 						</tr>
+						<tr id="oldFile">
+							<td><label class="control-label ">已有附件(重新上传 会覆盖旧附件)</label></td>
+							<td><a id="myOldFile"></a></td>
+						</tr>
+						
 						<tr>
 							<td><label class="control-label ">附件</label></td>
 							<td><input type="file" class="file" name="file"/></td>
@@ -79,6 +84,8 @@ body {
 				</div>
 				<input type="hidden" name="newsId" th:if="${newsId != null}" th:value="${newsId}"/> <!-- 用于标识是新增还是修改 -->
 				<input type="hidden" name="newsContent" id="newsContent"/>                          <!-- 用于存放符文奔内容 -->
+				<input type="hidden" name="target" th:if="${news!=null}" value="modify" />
+				<input type="hidden" name="id" th:if="${news!=null}" th:value="${news.id}" />
 			</form>
 		</section>
 		<!-- end of main -->
@@ -95,4 +102,29 @@ body {
 	editor.customConfig.uploadImgShowBase64 = true
 	editor.create()
 </script>
+<script th:inline="javascript" th:if="${news!=null}">
+	//先隐藏
+	$("#oldFile").hide();
+
+	//说明只有news不为null时候，才能够有这个script脚本
+	var title = [[${news.title}]];
+	var content = [[${news.content}]];
+	var fileName = [[${news.fileName}]];
+	var newsType = [[${news.newsType}]];
+	$("#newsTitle").val(title);
+	$("#newsType").val(newsType);
+	editor.txt.html([[${news.content}]]);
+	debugger;
+	if(fileName){
+		if(fileName != ""){ 
+			$("#myOldFile").text('点击下载');  
+			$("#myOldFile").attr('href','/publisher/download-attachment/'+fileName);
+			$("#oldFile").show();
+		}
+	}
+	
+	
+	
+</script>
+
 </html>
