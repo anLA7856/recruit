@@ -17,3 +17,5 @@
 	https://blog.csdn.net/qq_31424825/article/details/79052192
 	
 4、如果发现没有更新即使，记得去clean install一下。
+5、关于在thymeleaf里面直接调用java方法，直接把它丢到request里面，然后调用就好
+6、关于mybatis里面使用多个参数，一定要用@param注释，如果一个参数就可以不用。

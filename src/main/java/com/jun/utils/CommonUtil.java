@@ -12,7 +12,7 @@ import java.util.UUID;
  */
 public class CommonUtil {
     public static String formatDate(Date date){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:MM:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");
         return sdf.format(date);
     }
 
@@ -28,4 +28,6 @@ public class CommonUtil {
     	}
     	return true;
     }
+    
+
 }
