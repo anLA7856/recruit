@@ -21,3 +21,4 @@
 6、关于mybatis里面使用多个参数，一定要用@param注释，如果一个参数就可以不用。
 7、在thymeleaf中，通过js获取后端传值，一定要加一个inline例如：
 	<script th:inline="javascript" th:if="${news!=null}">
+8、在thymeleaf中，只需要把 & 替换成  &amp;  
