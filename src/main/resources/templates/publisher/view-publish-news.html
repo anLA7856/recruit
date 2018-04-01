@@ -22,7 +22,7 @@ body {
 
 <script type="text/javascript">
 	function modify() {
-		debugger;
+		
 		$("#newsContent").val(editor.txt.html());
 		var t = $("#newsContent").val();
 		$("#pimRemindForm").submit();
@@ -114,7 +114,7 @@ body {
 	$("#newsTitle").val(title);
 	$("#newsType").val(newsType);
 	editor.txt.html([[${news.content}]]);
-	debugger;
+	
 	if(fileName){
 		if(fileName != ""){ 
 			$("#myOldFile").text('点击下载');  
