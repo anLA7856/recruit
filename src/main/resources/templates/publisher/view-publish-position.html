@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="/common/fragment::header"></head>
+<meta content="text/html;charset=UTF-8" />
+<title>管理员</title>
+
+<!-- jquery -->
+<style type="text/css">
+body {
+	padding-top: 50px;
+}
+
+.starter-template {
+	padding: 40px 15px;
+	text-align: center;
+}
+</style>
+<script type="text/javascript">
+	function modify() {
+		var positionName = $("#positionName").val();
+
+		if (positionName == "") {
+			alert("请填写完整");
+			return;
+		}
+
+		$.post("/publisher/save-position-name", {
+				positionName : positionName
+			}, function(date) {
+				if(date == "ok"){
+					alert("新增成功");
+					window.location.href="/publisher/view-position-list";
+				}else{
+					alert("新增失败");
+				}
+				
+			}
+
+		);
+
+	}
+</script>
+
+<body>
+	<div th:replace="/common/fragment::top"></div>
+	<div class="row-fluid">
+		<div th:replace="/common/fragment::menu"></div>
+		<!-- start of main -->
+		<section id="m-main" class="col-md-10 col-md-offset-2"
+			style="margin-top: 35px;">
+			<div class="panel panel-default">
+				<div class="panel-heading">职位信息</div>
+				<div class="panel-body">
+					<form id="pimRemindForm" method="post" action="my-info-save.do"
+						class="form-horizontal">
+						<div class="form-group">
+							<label class="control-label col-md-1" for="pimRemind_repeatType">用户邮箱</label>
+							<div class="col-sm-5">
+								<label class="control-label" th:text="${user.username}"></label>
+								<input id="username" type="hidden" th:value="${user.username}" name="username" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-1" for="pimRemind_repeatType">用户姓名</label>
+							<div class="col-sm-5">
+								<label class="control-label" th:text="${user.name}"></label>
+								<input id="name" type="hidden" name="name"
+									th:value="${user.name}" class="form-control required"
+									minlength="2" maxlength="50" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-1" for="pimRemind_description">职位名称</label>
+							<div class="col-sm-5">
+								<input id="positionName" type="text" name="positionName" class="form-control required"
+									minlength="2" maxlength="50" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-offset-1 col-md-11">
+								<button type="button" class="btn btn-default a-submit" onclick="modify()">
+									保存
+								</button>
+								&nbsp;
+								<button type="button" class="btn btn-link a-cancel"
+									onclick="history.back();">
+									返回
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+			</div>
+
+		</section>
+		<!-- end of main -->
+	</div>
+
+</body>
+</html>
