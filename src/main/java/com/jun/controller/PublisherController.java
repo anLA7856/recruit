@@ -218,12 +218,8 @@ public class PublisherController {
 		if (!CommonUtil.checkIfNull(id)) {
 			return "error,paramer not null";
 		}
-		int result = newsMapper.deleteNewsById(id);
-		if (result == 1) {
-			return "ok";
-		} else {
-			return "删除失败";
-		}
+		newsMapper.deleteNewsById(id);
+		return "ok";
 	}
 	
 	/**
@@ -235,7 +231,7 @@ public class PublisherController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/download-attachment/{fileName}", method = RequestMethod.GET)
-	public void deleteNews(Model model, HttpServletRequest request,HttpServletResponse response,@PathVariable String fileName) throws Exception {
+	public void downloadAttachment(Model model, HttpServletRequest request,HttpServletResponse response,@PathVariable String fileName) throws Exception {
 		 //上传文件路径
         String path = request.getServletContext().getRealPath("/attachment/");
 		//String filePath = path+"pipe.bmp";注意可能每当启动一次，class下面的文件会被清空。

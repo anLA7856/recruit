@@ -19,20 +19,26 @@ body {
 
 <script type="text/javascript">
 	function mdelete(id) {
-
-		$.post("/publisher/delete-news", {
-			id:id
-		}, function(date) {
-			if(date=="ok"){
-				alert("删除成功");
-				　window.location.href="/publisher/view-news-list";
-			}else{
-				alert(date);
+		if(window.confirm('你确定要删除该记录吗？')){
+			$.post("/publisher/delete-news", {
+				id:id
+			}, function(date) {
+				if(date=="ok"){
+					alert("删除成功");
+					　window.location.href="/publisher/view-news-list";
+				}else{
+					alert(date);
+				}
+				
 			}
-			
-		}
 
-		);
+			);
+         }else{
+            return ;
+        }
+		
+		
+
 
 	}
 </script>
@@ -45,7 +51,7 @@ body {
 		<section id="m-main" class="col-md-10 col-md-offset-2"
 			style="margin-top: 35px;">
 			<div class="panel panel-default">
-				
+
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="glyphicon glyphicon-list"></i> 新闻列表
@@ -67,10 +73,14 @@ body {
 
 							<tr th:each="mnew,newStat :${list}">
 								<td th:text="${newStat.index+1}">序号</td>
-								<td><a th:href="${'/common/news-view?id='+mnew.id}" th:text="${mnew.title}">修改</a></td>
-								<td th:text="${newsTypeMapper.getNewsTypeById(mnew.id).newsType}">类别</td>
-								<td><a th:href="${'/publisher/view-publish-news?id='+mnew.id}">修改</a></td>
-								<td><button id="delete" class="btn btn-link" th:onclick="${'mdelete('+mnew.id+')'}">删除</button></td>
+								<td><a th:href="${'/common/news-view?id='+mnew.id}"
+									th:text="${mnew.title}">修改</a></td>
+								<td
+									th:text="${newsTypeMapper.getNewsTypeById(mnew.id).newsType}">类别</td>
+								<td><a
+									th:href="${'/publisher/view-publish-news?id='+mnew.id}">修改</a></td>
+								<td><button id="delete" class="btn btn-link"
+										th:onclick="${'mdelete('+mnew.id+')'}">删除</button></td>
 							</tr>
 						</tbody>
 					</table>

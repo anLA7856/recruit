@@ -52,7 +52,7 @@ public interface NewsMapper {
 	public int getAllNewsSizeByUsername(String username);
 	
 	@Select("delete from news where id=#{0}")
-	public int deleteNewsById(Integer id);
+	public void deleteNewsById(Integer id);
 	
 	@Select("select * from news where id=#{0}")
 	public News getNewsById(Integer id);
