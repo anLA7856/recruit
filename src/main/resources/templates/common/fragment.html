@@ -1,22 +1,20 @@
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
-	  xmlns:sect="http://www.springframework.org/security/tags"
-	  >
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:sect="http://www.springframework.org/security/tags">
 <!-- 通用引入头文件的fragment -->
 <head th:fragment="header">
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" href="/common/logo.jpg" type="image/x-icon"/>
+<link rel="icon" href="/common/logo.jpg" type="image/x-icon" />
 
 <link rel="stylesheet"
 	th:href="@{/css/bootstrap-datepicker/datepicker.css}"></link>
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	th:href="@{/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css}"></link>
 
 <link rel="stylesheet"
 	th:href="@{/css/bootstrap/3.3.1/css/bootstrap.css}"></link>
-<script type='text/javascript'
-	th:src='@{/js/jquery/1.11.3/jquery.js}'></script>
+<script type='text/javascript' th:src='@{/js/jquery/1.11.3/jquery.js}'></script>
 <script type='text/javascript'
 	th:src='@{/css/bootstrap/3.3.1/js/bootstrap.js}'></script>
 </head>
@@ -52,7 +50,7 @@
 				</ul>
 			</div>
 		</div>
-		
+
 		<div class="panel-heading" role="tab" id="collapse-header-bpm-process"
 			data-toggle="collapse" data-parent="#accordion"
 			href="#collapse-body-bpm-process1" aria-expanded="true"
@@ -73,7 +71,7 @@
 				</ul>
 			</div>
 		</div>
-		
+
 		<div class="panel-heading" role="tab" id="collapse-header-bpm-process"
 			data-toggle="collapse" data-parent="#accordion"
 			href="#collapse-body-bpm-process2" aria-expanded="true"
@@ -91,6 +89,29 @@
 							class="glyphicon glyphicon-list"></i> 发布职位</a></li>
 					<li><a href="/publisher/view-position-list"><i
 							class="glyphicon glyphicon-list"></i> 职位列表</a></li>
+				</ul>
+			</div>
+
+
+		</div>
+
+		<div class="panel-heading" role="tab" id="collapse-header-bpm-process"
+			data-toggle="collapse" data-parent="#accordion"
+			href="#collapse-body-bpm-process3" aria-expanded="true"
+			aria-controls="collapse-body-bpm-process3">
+			<h4 class="panel-title">
+				<i class="glyphicon glyphicon-list"></i> 职位操作
+			</h4>
+		</div>
+		<div id="collapse-body-bpm-process3"
+			class="panel-collapse collapse in " role="tabpanel"
+			aria-labelledby="collapse-header-bpm-process1">
+			<div class="panel-body">
+				<ul class="nav nav-list">
+					<li><a href="/user/view-user-apply"><i
+							class="glyphicon glyphicon-list"></i> 申请职位</a></li>
+					<li><a href="/user/view-user-progress"><i
+							class="glyphicon glyphicon-list"></i> 查看进度</a></li>
 				</ul>
 			</div>
 		</div>
@@ -116,25 +137,22 @@
 			<!-- ul 浮动在右边 -->
 			<ul class="nav navbar-nav navbar-right">
 				<!-- 里面有一个，用于下拉列表 -->
-				<li class="dropdown">
-					<a data-toggle="dropdown"
-						class="dropdown-toggle" href="#"> 
-						<img th:src="${'/common/avatar?username='+user.username}" style="width: 16px; height: 16px;" class="img-circle" /> 
-							<b class="caret"></b>
-					<label th:text="${user.name}"></label>
-					</a>
+				<li class="dropdown"><a data-toggle="dropdown"
+					class="dropdown-toggle" href="#"> <img
+						th:src="${'/common/avatar?username='+user.username}"
+						style="width: 16px; height: 16px;" class="img-circle" /> <b
+						class="caret"></b> <label th:text="${user.name}"></label>
+				</a>
 					<ul class="dropdown-menu">
-						<li class="text-center">&nbsp;<img th:src="${'/common/avatar?username='+user.username}" style="width: 64px; height: 64px;" class="img-rounded" /></li>
-						
+						<li class="text-center">&nbsp;<img
+							th:src="${'/common/avatar?username='+user.username}"
+							style="width: 64px; height: 64px;" class="img-rounded" /></li>
+
 						<li class="divider"></li>
-						<li>
-							<a th:href="@{/common/view-logout}">
-								<i class="glyphicon glyphicon-list"></i> 
-								退出
-							</a>
-						</li>
-					</ul>
-				</li>
+						<li><a th:href="@{/common/view-logout}"> <i
+								class="glyphicon glyphicon-list"></i> 退出
+						</a></li>
+					</ul></li>
 			</ul>
 
 		</div>
