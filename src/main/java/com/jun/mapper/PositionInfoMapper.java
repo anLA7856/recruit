@@ -29,4 +29,7 @@ public interface PositionInfoMapper {
 	
 	@Select("update position_info set target=#{0} where id=#{1}")
 	public void updatePositionState(Integer target,Integer id);
+	
+	@Select("select * from position_info where target=1")
+	public List<PositionInfo> getAllEnablePositions();
 }
