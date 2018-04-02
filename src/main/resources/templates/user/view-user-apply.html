@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="/common/fragment::header"></head>
+<meta content="text/html;charset=UTF-8" />
+<title>管理员</title>
+
+<!-- jquery -->
+<style type="text/css">
+body {
+	padding-top: 50px;
+}
+
+.starter-template {
+	padding: 40px 15px;
+	text-align: center;
+}
+</style>
+<link rel="stylesheet"
+	th:href="@{/css/bootstrap-datepicker/datepicker.css}"></link>
+	<link rel="stylesheet"
+	th:href="@{/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css}"></link>
+<script type="text/javascript">
+	function modify() {
+		var username = $("#username").val();
+		var name = $("#name").val();
+		var telephone = $("#telephone").val();
+
+		if (name == "" || telephone == null) {
+			alert("请填写完整");
+			return;
+		}
+
+		$.post("/admin/update-person-info", {
+			username : username,
+			name : name,
+			telephone : telephone
+		}, function(date) {
+			alert(date);
+
+		}
+
+		);
+
+	}
+</script>
+
+<body>
+
+
+	<div id="myModal" class="modal fade" data-keyboard="false"
+		data-backdrop="static" data-role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div id="loading" class="loading">校验中。。。</div>
+	</div>
+
+	<div th:replace="/common/fragment::top"></div>
+	<div class="row-fluid">
+		<div th:replace="/common/fragment::menu"></div>
+		<!-- start of main -->
+		<section id="m-main" class="col-md-10 col-md-offset-2"
+			style="padding-top: 35px;">
+			<ul class="nav nav-tabs">
+				<li role="presentation" class="active"><a href="#form"
+					data-toggle="tab">表单</a></li>
+			</ul>
+			<div id="TabContent" class="tab-content">
+				<div id="form" class="tab-pane fade in active">
+					<br/>
+
+					<div id="Toolbar">
+
+						<button id="confirmStartProcess" type="button"
+							class="btn btn-default nextStep">提交数据</button>
+					</div>
+
+					<form id="xform" method="post"
+						action=""
+						class="xf-form" enctype="multipart/form-data">
+
+
+						<input id="targetUser" type="hidden" name="targetUser"/>
+
+
+
+
+						<div id="form-table">
+							<div id="row-0">
+								<h2 style="text-align: center">个人信息</h2>
+							</div>
+							<div id="row-1">
+								<table class="table table-hover table-bordered">
+
+									<tr>
+										<td width="20%"><label
+											style="text-align: right; margin-bottom: 0px;">专业</label></td>
+										<td width="30%" colspan="3"><select id="specialty"
+											name="specialty" class="form-control"
+											style="padding-left: 0px; margin-bottom: 0px;"
+											onchange="setRules()">
+
+										</select></td>
+									</tr>
+									<tr>
+										<td width="20%"><label
+											style="text-align: right; margin-bottom: 0px;">拟稿人部门</label>
+										</td>
+										<td width="30%"><input type="hidden" name="area_code"/>
+										</td>
+										<td width="20%"><label
+											style="text-align: right; margin-bottom: 0px;">拟稿日期</label></td>
+										<td width="30%"></td>
+									</tr>
+									<tr>
+										<td width="20%"><label
+											style="text-align: right; margin-bottom: 0px;">拟稿人</label></td>
+										<td width="30%"></td>
+										<td width="20%"><label
+											style="text-align: right; margin-bottom: 0px;">联系电话</label></td>
+										<td width="30%"></td>
+									</tr>
+									<tr>
+										<td width="20%"><label
+											style="text-align: right; margin-bottom: 0px;">佣金补提标题</label>
+										</td>
+										<td colspan="3"><input type="text"
+											class="form-control required" name="title"
+											style="margin-bottom: 0px;" value=""/></td>
+									</tr>
+
+
+									<tr>
+										<td width="20%"><label
+											style="text-align: right; margin-bottom: 0px;">补提原因</label></td>
+										<td width="30%"><select id="reasons" name="reasons"
+											class="form-control"
+											style="padding-left: 0px; margin-bottom: 0px;">
+
+												<option value="0">代理商原因</option>
+												<option value="1">联通系统原因</option>
+												<option value="2">联通政策原因</option>
+												<option value="3">联通人为原因</option>
+
+										</select></td>
+										<td width="20%"><label
+											style="text-align: right; margin-bottom: 0px;">原因说明</label></td>
+										<td width="30%"><textarea id="reasons_append" type="text"
+												class="form-control required" name="reasons_append"
+												style="margin-bottom: 0px;" rows="4"></textarea></td>
+									</tr>
+
+
+
+									<tr>
+
+										<td width="20%"><label
+											style="text-align: right; margin-bottom: 0px;">集团属性</label></td>
+										<td width="30%"><select name="group_properties"
+											class="form-control"
+											style="padding-left: 0px; margin-bottom: 0px;">
+
+
+
+												<option value="0">非集团</option>
+												<option value="1">校园</option>
+												<option value="2">商企</option>
+												<option value="3">大客</option>
+
+										</select></td>
+
+										<td width="20%" rowspan="5"><label
+											style="text-align: right; margin-bottom: 0px;">补提内容</label></td>
+										<td width="30%" rowspan="5"><textarea
+												id="commision_content" name="commision_content" type="text"
+												class="form-control required" rows="11"
+												style="margin-bottom: 0px; height: 100%;"></textarea></td>
+									</tr>
+
+
+
+									<tr style="display: none;">
+										<td width="20%"><label
+											style="text-align: right; margin-bottom: 0px;">涉及系统</label></td>
+
+
+										<td width="30%"><select name="system"
+											class="form-control"
+											style="padding-left: 0px; margin-bottom: 0px;">
+												<option value="0">总部系统</option>
+												<option value="1">bss系统</option>
+												<option value="2">本地系统</option>
+										</select></td>
+
+
+
+
+									</tr>
+									<tr>
+										<td width="20%"><label
+											style="text-align: right; margin-bottom: 0px;">佣金类型</label></td>
+										<td width="30%"><select name="commission_properties"
+											class="form-control"
+											style="padding-left: 0px; margin-bottom: 0px;">
+
+
+												<option value="3">固定+话费话费分成本年</option>
+												<option value="4">固定+话费话费分成往年</option>
+												<option value="5">一般追欠佣金</option>
+												<option value="6">代办业务佣金-用户资料</option>
+												<option value="7">固定+话费一次支付</option>
+
+
+										</select></td>
+									</tr>
+									<tr>
+										<td width="20%"><label
+											style="text-align: right; margin-bottom: 0px;">渠道属性</label></td>
+										<td width="30%"><input id="channel_properties_show"
+											class="form-control" type="text" value="请上传代码点"
+											disabled="disabled" /> <select name="channel_properties"
+											class="form-control"
+											style="display: none; padding-left: 0px; margin-bottom: 0px;"
+											id="channel_properties" onclick="stopClick()">
+
+												<option value="0">集团渠道</option>
+												<option value="1">社会渠道</option>
+												<option value="2">电子渠道</option>
+												<option value="3">营业渠道</option>
+												<option value="4">家客渠道</option>
+
+										</select></td>
+									</tr>
+									<tr>
+										<td width="20%"><label
+											style="text-align: right; margin-bottom: 0px;">开始佣金月</label>
+										</td>
+										<td>
+											<div class="input-group date">
+												<input type="text" name="begin_date"
+													class="form-control required" value=""/><span
+													class="input-group-addon"><i
+													class="glyphicon glyphicon-th"></i></span>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td><label style="text-align: right; margin-bottom: 0px;">结束佣金月</label>
+										</td>
+										<td>
+											<div class="input-group date">
+												<input type="text" name="end_date"
+													class="form-control required" value=""/><span
+													class="input-group-addon"><i
+													class="glyphicon glyphicon-th"></i></span>
+											</div>
+										</td>
+									</tr>
+
+									<tr id="otherRules">
+										<td><label style="text-align: right; margin-bottom: 0px;">涉及佣金规则</label>
+										</td>
+
+
+
+
+
+
+										<td colspan="3"><textarea id="rules" type="text"
+												class="form-control required" name="rules"
+												style="margin-bottom: 0px;"></textarea>
+										</td>
+									</tr>
+
+
+
+
+								</table>
+							</div>
+						</div>
+					</form>
+
+
+				</div>
+			</div>
+		</section>
+	</div>
+	<!-- end of main -->
+</body>
+</html>

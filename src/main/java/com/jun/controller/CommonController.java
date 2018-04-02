@@ -143,12 +143,32 @@ public class CommonController {
         IoUtils.copyStream(is, os);
     }
     
-    
+    /**
+     * 用于查看新闻信息
+     * @param model
+     * @param request
+     * @param id
+     * @return
+     */
 	@RequestMapping(value = "/news-view", method = RequestMethod.GET)
 	public String newsView(Model model, HttpServletRequest request,Integer id) {
 		News news = newsMapper.getNewsById(id);
 		model.addAttribute("news", news);
 		return "/common/news-view";
+	}
+    
+	/**
+	 * 用于查看新闻种类信息
+	 * @param model
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/news-catelog", method = RequestMethod.GET)
+	public String newsCatelog(Model model, HttpServletRequest request,Integer id) {
+		News news = newsMapper.getNewsById(id);
+		model.addAttribute("news", news);
+		return "/common/news-catelog";
 	}
     
 }
