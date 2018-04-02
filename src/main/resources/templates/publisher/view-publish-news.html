@@ -66,13 +66,13 @@ body {
 							<td>
 								<div id="editor">
 									<p>
-										欢迎使用 <b>wangEditor</b> 富文本编辑器
+										
 									</p>
 								</div>
 							</td>
 						</tr>
 						<tr id="oldFile">
-							<td><label class="control-label ">已有附件(重新上传 会覆盖旧附件)</label></td>
+							<td><label class="control-label">已有附件(重新上传 会覆盖旧附件)</label></td>
 							<td><a id="myOldFile"></a></td>
 						</tr>
 						
@@ -118,7 +118,7 @@ body {
 	if(fileName){
 		if(fileName != ""){ 
 			$("#myOldFile").text('点击下载');  
-			$("#myOldFile").attr('href','/publisher/download-attachment/'+fileName);
+			$("#myOldFile").attr('href','/common/download-attachment?fileName'+fileName);
 			$("#oldFile").show();
 		}
 	}

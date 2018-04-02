@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,13 +24,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.jun.controller.dto.NewsDto;
 import com.jun.mapper.NewsMapper;
+import com.jun.mapper.NewsTypeMapper;
 import com.jun.mapper.UserMapper;
 import com.jun.model.News;
 import com.jun.model.NewsType;
 import com.jun.model.User;
 import com.jun.service.LoginService;
 import com.jun.service.UserService;
+import com.jun.utils.CommonUtil;
 import com.jun.utils.IoUtils;
 
 /**
@@ -55,6 +59,9 @@ public class CommonController {
 	
 	@Autowired
 	NewsMapper newsMapper;
+	
+	@Autowired
+	NewsTypeMapper newsTypeMapper;
 
 	/**
 	 * 登录直接提交在这里，spring secruity会从WebSecurityConfig中知道这个请求是登录，从而进行前端判断。
@@ -153,7 +160,21 @@ public class CommonController {
 	@RequestMapping(value = "/news-view", method = RequestMethod.GET)
 	public String newsView(Model model, HttpServletRequest request,Integer id) {
 		News news = newsMapper.getNewsById(id);
-		model.addAttribute("news", news);
+		NewsDto dto = new NewsDto();
+		dto.setNews(news);
+		
+		List<NewsType> list = newsTypeMapper.getAllNewsTypes();
+		dto.setNewsTypes(list);
+		
+		User articleUser = userMapper.findByUserName(news.getUsername());
+		dto.setUser(articleUser);
+		
+		model.addAttribute("newsTypeMapper", newsTypeMapper);
+		model.addAttribute("dto", dto);
+		
+		Long hitCountPlus = news.getHitCount()+1;
+		newsMapper.addNewsHitCount(hitCountPlus, news.getId());
+		
 		return "/common/news-view";
 	}
     
@@ -169,6 +190,24 @@ public class CommonController {
 		News news = newsMapper.getNewsById(id);
 		model.addAttribute("news", news);
 		return "/common/news-catelog";
+	}
+	
+	/**
+	 * 用于下载附件
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @param fileName
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/download-attachment", method = RequestMethod.GET)
+	public void downloadAttachment(Model model, HttpServletRequest request,HttpServletResponse response,String fileName) throws Exception {
+		 //上传文件路径
+        String path = request.getServletContext().getRealPath("/attachment/");
+		//String filePath = path+"pipe.bmp";注意可能每当启动一次，class下面的文件会被清空。
+		String filePath = path+fileName;
+		
+		CommonUtil.download(fileName, filePath, request, response);
 	}
     
 }

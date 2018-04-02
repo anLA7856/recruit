@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.jun.model.News;
 
@@ -56,5 +57,8 @@ public interface NewsMapper {
 	
 	@Select("select * from news where id=#{0}")
 	public News getNewsById(Integer id);
+	
+	@Update("update news set hitCount=#{0} where id=#{1}")
+	public void addNewsHitCount(Long hitCount,Integer id);
 	
 }

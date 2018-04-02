@@ -4,18 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.jun.controller.vo.RoleVo;
 import com.jun.mapper.NewsMapper;
 import com.jun.mapper.NewsTypeMapper;
 import com.jun.mapper.PositionInfoMapper;
@@ -230,23 +225,7 @@ public class PublisherController {
 		return "ok";
 	}
 	
-	/**
-	 * 用于下载附件
-	 * @param model
-	 * @param request
-	 * @param response
-	 * @param fileName
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/download-attachment/{fileName}", method = RequestMethod.GET)
-	public void downloadAttachment(Model model, HttpServletRequest request,HttpServletResponse response,@PathVariable String fileName) throws Exception {
-		 //上传文件路径
-        String path = request.getServletContext().getRealPath("/attachment/");
-		//String filePath = path+"pipe.bmp";注意可能每当启动一次，class下面的文件会被清空。
-		String filePath = path+fileName;
-		
-		CommonUtil.download(fileName, filePath, request, response);
-	}
+
 	
 	/**
 	 * 以下是职位信息相关的业务代码
