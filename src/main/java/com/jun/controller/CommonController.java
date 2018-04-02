@@ -3,6 +3,7 @@ package com.jun.controller;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.jun.controller.dto.CatelogDto;
 import com.jun.controller.dto.NewsDto;
 import com.jun.mapper.NewsMapper;
 import com.jun.mapper.NewsTypeMapper;
@@ -159,6 +160,12 @@ public class CommonController {
      */
 	@RequestMapping(value = "/news-view", method = RequestMethod.GET)
 	public String newsView(Model model, HttpServletRequest request,Integer id) {
+		
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userMapper.findByUserName(username);
+		model.addAttribute("user", user);
+		
+		
 		News news = newsMapper.getNewsById(id);
 		NewsDto dto = new NewsDto();
 		dto.setNews(news);
@@ -187,8 +194,30 @@ public class CommonController {
 	 */
 	@RequestMapping(value = "/news-catelog", method = RequestMethod.GET)
 	public String newsCatelog(Model model, HttpServletRequest request,Integer id) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userMapper.findByUserName(username);
+		model.addAttribute("user", user);
+		
+		
 		News news = newsMapper.getNewsById(id);
 		model.addAttribute("news", news);
+		
+		CatelogDto dto = new CatelogDto();
+		List<News> list = new ArrayList<>();
+		if(id == -1){
+			//获取所有新闻
+			list = newsMapper.getAllNewsBesidesContent();
+		}else{
+			list = newsMapper.getAllNewsBesidesContentByTypeId(id);
+		}
+		dto.setNewsList(list);
+		List<NewsType> typeList = newsTypeMapper.getAllNewsTypes();
+		dto.setNewsTypeList(typeList);
+		
+		dto.setNowCatelog(id);
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("newsTypeMapper", newsTypeMapper);
 		return "/common/news-catelog";
 	}
 	

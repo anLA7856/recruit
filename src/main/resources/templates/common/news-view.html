@@ -40,11 +40,12 @@ body {
 
 						<li id="utility-nav">
 							<ul>
-								<a th:href="@{/admin/index}"
-									th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">我的工作台</a>
+								<li id="nav-logout"><a th:href="@{/common/view-login}"
+									th:if="${user==null}">登录</a></li>
+								<li id="nav-logout"><a th:href="@{/admin/index}"
+									th:if="${user!=null}">我的工作台</a></li>
 								<li id="nav-logout"><a th:href="@{/common/view-logout}"
-									th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">注销</a>
-								</li>
+									th:if="${user!=null}">注销</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -117,8 +118,7 @@ body {
 												<div
 													class="menu-block-wrapper menu-block-8 menu-name-menu-news-menu parent-mlid-0 menu-level-2">
 													<ul class="menu">
-														<li><a href="catalog.do?id=0">全部动态</a></li>
-
+														<li><a href="news-catelog?id=-1">全部动态</a></li>
 														<li class=""><a class="active"
 															th:each="type,typeStat :${dto.newsTypes}"
 															th:href="${'news-catelog?id='+type.id}"

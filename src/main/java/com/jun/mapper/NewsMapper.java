@@ -61,4 +61,18 @@ public interface NewsMapper {
 	@Update("update news set hitCount=#{0} where id=#{1}")
 	public void addNewsHitCount(Long hitCount,Integer id);
 	
+	/**
+	 * 用于在种类页面，获取某个种类的新闻
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public List<News> getAllNewsBesidesContentByTypeId(@Param("id") Integer id);
+	
+	/**
+	 * 用于在种类页面，获取所有新闻，不分类。
+	 * @param id
+	 * @return
+	 */
+	public List<News> getAllNewsBesidesContent();
 }

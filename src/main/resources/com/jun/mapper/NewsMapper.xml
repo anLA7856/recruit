@@ -3,6 +3,19 @@
 
 <mapper namespace="com.jun.mapper.NewsMapper">
 
+	
+	
+	
+	<select id="getAllNewsBesidesContent" resultType="com.jun.model.News">
+		select id,title,content,news_log,news_status,news_type,hitCount,create_time,publish_time,user_name,publish_name,file_name 
+		from news
+	</select>
+	
+	
+	<select id="getAllNewsBesidesContentByTypeId" resultType="com.jun.model.News">
+		select id,title,content,news_log,news_status,news_type,hitCount,create_time,publish_time,user_name,publish_name,file_name 
+		from news where news_type=#{id}
+	</select>
 
 	<select id="getLimitNewsBesidesContent" resultType="com.jun.model.News">
 		select id,title,content,news_log,news_status,news_type,hitCount,create_time,publish_time,user_name,publish_name,file_name 

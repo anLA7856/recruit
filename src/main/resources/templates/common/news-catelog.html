@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/common/fragment::header"></head>
 <meta charset="UTF-8" />
-<title>新闻查看</title>
+<title>新闻种类</title>
 
 <!-- 引入首页专用css -->
 <link rel="stylesheet" th:href="@{/css/index/als.css}"></link>
@@ -30,22 +30,22 @@ body {
 			<div class="site-navigation">
 				<!-- begin-editable globalnav-block -->
 				<nav class="global-nav" role="navigation">
-					<h2 class="sr-only element-invisible">全局导航</h2>
 					<ul class="menu">
-						<li><a id="shortcuts-item" href="#">快速导航</a>
+						<li>
 							<ul class="panel">
 								<li class="expanded" id="ath-menu"><a href="/">首页</a></li>
 
-							</ul></li>
+							</ul>
+						</li>
 
 						<li id="utility-nav">
 							<ul>
-								<a th:href="@{/admin/index}"
-									th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">admin_我的工作台</a>
-
-								<li id="nav-search"><a href="/portal/index.do">我的工作台</a></li>
-								<li id="nav-logout"><a href="/j_spring_security_logout">退出</a>
-								</li>
+								<li id="nav-logout"><a th:href="@{/common/view-login}"
+									th:if="${user==null}">登录</a></li>
+								<li id="nav-logout"><a th:href="@{/admin/index}"
+									th:if="${user!=null}">我的工作台</a></li>
+								<li id="nav-logout"><a th:href="@{/common/view-logout}"
+									th:if="${user!=null}">注销</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -72,111 +72,28 @@ body {
 									<div class="region region-content">
 										<div id="block-system-main" class="block block-system">
 											<div class="content">
-												<h2 class="section">类别</h2>
 												<div id="page-content" class="page-content">
-													<h1 class="article-title">标题</h1>
-
-													<div class="article-meta">
-														<p class="date">
-															<a href="/pim/address-list-list.do?username=刘凯">拟稿人</a> •
-															2018-03-30 18:03 &nbsp;点击8&nbsp;
-														</p>
-													</div>
 													<div
 														class="field field-name-body field-type-text-with-summary field-label-hidden">
 														<div class="field-items">
 															<div id="articleContent" class="field-item even"
 																property="content:encoded">
-																<div class="article">
+																<h1 class="article-title">列表</h1>
+
+																<div class="article"
+																	th:each="article,articelState : ${dto.newsList}">
 																	<h5>
-																		<a href="article.do?id=1101355436146688">【党建园地】信息化党支部《厉害了我的国》观影座谈及党课</a>
+																		<a th:href="${'news-view?id='+article.id}"
+																			th:text="${'【'+newsTypeMapper.getNewsTypeById(article.newsType).newsType+'】'+article.title}">【公告】《厉害了我的国》观影座谈及党课</a>
 																	</h5>
 
 
-																	<p class="views-field views-field-created article-info">
-																		龙帆 • 2018-04-02 11:45:01 <span>点击8&nbsp;评论0</span>
+																	<p class="views-field views-field-created article-info"
+																		th:text="${'发布时间：'+article.createTime+'  点击 '+article.hitCount}">
+
 																	</p>
 																</div>
-																<div class="article">
-																	<h5>
-																		<a href="article.do?id=1101355436146688">【党建园地】信息化党支部《厉害了我的国》观影座谈及党课</a>
-																	</h5>
 
-
-																	<p class="views-field views-field-created article-info">
-																		龙帆 • 2018-04-02 11:45:01 <span>点击8&nbsp;评论0</span>
-																	</p>
-																</div>
-																<div class="article">
-																	<h5>
-																		<a href="article.do?id=1101355436146688">【党建园地】信息化党支部《厉害了我的国》观影座谈及党课</a>
-																	</h5>
-
-
-																	<p class="views-field views-field-created article-info">
-																		龙帆 • 2018-04-02 11:45:01 <span>点击8&nbsp;评论0</span>
-																	</p>
-																</div>
-																<div class="article">
-																	<h5>
-																		<a href="article.do?id=1101355436146688">【党建园地】信息化党支部《厉害了我的国》观影座谈及党课</a>
-																	</h5>
-
-
-																	<p class="views-field views-field-created article-info">
-																		龙帆 • 2018-04-02 11:45:01 <span>点击8&nbsp;评论0</span>
-																	</p>
-																</div>
-																<div class="article">
-																	<h5>
-																		<a href="article.do?id=1101355436146688">【党建园地】信息化党支部《厉害了我的国》观影座谈及党课</a>
-																	</h5>
-
-
-																	<p class="views-field views-field-created article-info">
-																		龙帆 • 2018-04-02 11:45:01 <span>点击8&nbsp;评论0</span>
-																	</p>
-																</div>
-																<div class="article">
-																	<h5>
-																		<a href="article.do?id=1101355436146688">【党建园地】信息化党支部《厉害了我的国》观影座谈及党课</a>
-																	</h5>
-
-
-																	<p class="views-field views-field-created article-info">
-																		龙帆 • 2018-04-02 11:45:01 <span>点击8&nbsp;评论0</span>
-																	</p>
-																</div>
-																<div class="article">
-																	<h5>
-																		<a href="article.do?id=1101355436146688">【党建园地】信息化党支部《厉害了我的国》观影座谈及党课</a>
-																	</h5>
-
-
-																	<p class="views-field views-field-created article-info">
-																		龙帆 • 2018-04-02 11:45:01 <span>点击8&nbsp;评论0</span>
-																	</p>
-																</div>
-																<div class="article">
-																	<h5>
-																		<a href="article.do?id=1101355436146688">【党建园地】信息化党支部《厉害了我的国》观影座谈及党课</a>
-																	</h5>
-
-
-																	<p class="views-field views-field-created article-info">
-																		龙帆 • 2018-04-02 11:45:01 <span>点击8&nbsp;评论0</span>
-																	</p>
-																</div>
-																<div class="article">
-																	<h5>
-																		<a href="article.do?id=1101355436146688">【党建园地】信息化党支部《厉害了我的国》观影座谈及党课</a>
-																	</h5>
-
-
-																	<p class="views-field views-field-created article-info">
-																		龙帆 • 2018-04-02 11:45:01 <span>点击8&nbsp;评论0</span>
-																	</p>
-																</div>
 															</div>
 														</div>
 													</div>
@@ -203,17 +120,20 @@ body {
 												<div
 													class="menu-block-wrapper menu-block-8 menu-name-menu-news-menu parent-mlid-0 menu-level-2">
 													<ul class="menu">
-														<li><a href="catalog.do?id=0">全部动态</a></li>
-														<li class=""><a class="" href="catalog.do?id=1">公司新闻</a></li>
-														<li class=""><a class="" href="catalog.do?id=2">人力资源</a></li>
-														<li class=""><a class="" href="catalog.do?id=4">党务公开</a></li>
-														<li class=""><a class="" href="catalog.do?id=5">创新专栏</a></li>
-														<li class="active"><a class="active"
-															href="catalog.do?id=6">工会园地</a></li>
-														<li class=""><a class="" href="catalog.do?id=7">业务通知</a></li>
-														<li class=""><a class="" href="catalog.do?id=8">公文培训</a></li>
-														<li class=""><a class="" href="catalog.do?id=3">公司要闻</a></li>
-														<li class=""><a class="" href="catalog.do?id=9">案件通报</a></li>
+														<li><a class="active" href="news-catelog?id=-1"
+															th:if="${-1==dto.nowCatelog}">全部动态</a></li>
+														<li><a href="news-catelog?id=-1"
+															th:if="${-1!=dto.nowCatelog}">全部动态</a></li>
+
+														<li class=""><a class="active"
+															th:each="type,typeStat :${dto.newsTypeList}"
+															th:href="${'news-catelog?id='+type.id}"
+															th:if="${type.id==dto.nowCatelog}"
+															th:text="${type.newsType}">公司新闻</a></li>
+														<li class=""><a class=""
+															th:each="type,typeStat :${dto.newsTypeList}"
+															th:href="${'news-catelog?id='+type.id}"
+															th:text="${type.newsType}">公司新闻</a></li>
 													</ul>
 												</div>
 											</div>
