@@ -16,10 +16,8 @@ body {
 	text-align: center;
 }
 </style>
-<link rel="stylesheet"
-	th:href="@{/css/bootstrap-datepicker/datepicker.css}"></link>
-	<link rel="stylesheet"
-	th:href="@{/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css}"></link>
+
+
 <script type="text/javascript">
 	function modify() {
 		var username = $("#username").val();
@@ -43,6 +41,19 @@ body {
 		);
 
 	}
+	
+	$(function () { 
+        $("#xform .input-group.date").datepicker({
+            format: "yyyymm",
+            startView: "months",
+            minViewMode: 'months',
+            language:"zh_CN"
+        });
+		
+		
+	})
+	
+	
 </script>
 
 <body>
