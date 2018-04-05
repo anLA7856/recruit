@@ -32,4 +32,7 @@ public interface PositionInfoMapper {
 	
 	@Select("select * from position_info where target=1")
 	public List<PositionInfo> getAllEnablePositions();
+	
+	@Select("select * from position_info where id=#{0}")
+	public PositionInfo getPositionInfoById(Integer id);
 }

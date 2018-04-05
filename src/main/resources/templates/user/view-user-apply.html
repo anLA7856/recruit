@@ -3,7 +3,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="/common/fragment::header"></head>
 <meta content="text/html;charset=UTF-8" />
-<title>管理员</title>
+<title>申请职位</title>
 
 <!-- jquery -->
 <style type="text/css">
@@ -20,40 +20,34 @@ body {
 
 <script type="text/javascript">
 	function modify() {
-		var username = $("#username").val();
-		var name = $("#name").val();
-		var telephone = $("#telephone").val();
-
-		if (name == "" || telephone == null) {
-			alert("请填写完整");
-			return;
-		}
-
-		$.post("/admin/update-person-info", {
-			username : username,
-			name : name,
-			telephone : telephone
-		}, function(date) {
-			alert(date);
-
-		}
-
-		);
+		debugger;
+		// JSON.stringify($('#xform').serializeJSON());
+		var json = JSON.stringify($('#xform').serializeJSON());
+		$.ajax({
+			url : "/user/save-user-apply",
+			type : "POST",
+			dataType : "JSON",
+			contentType : "application/json",
+			data : json,
+			complete : function(XHR, TS) {
+				alert(XHR.responseText);
+				if(XHR.responseText=="ok"){
+					window.location.href="/user/view-user-apply-list";
+				}
+			}
+		});
 
 	}
-	
-	$(function () { 
-        $("#xform .input-group.date").datepicker({
-            format: "yyyymm",
-            startView: "months",
-            minViewMode: 'months',
-            language:"zh_CN"
-        });
-		
-		
+
+	$(function() {
+		$("#xform .input-group.date").datepicker({
+			format : "yyyymm",
+			startView : "months",
+			minViewMode : 'months',
+			language : "zh_CN"
+		});
+
 	})
-	
-	
 </script>
 
 <body>
@@ -77,20 +71,20 @@ body {
 			</ul>
 			<div id="TabContent" class="tab-content">
 				<div id="form" class="tab-pane fade in active">
-					<br/>
+					<br />
 
 					<div id="Toolbar">
 
 						<button id="confirmStartProcess" type="button"
-							class="btn btn-default nextStep">提交数据</button>
+							class="btn btn-default" onclick="modify()">提交数据</button>
 					</div>
 
-					<form id="xform" method="post"
-						action=""
-						class="xf-form" enctype="multipart/form-data">
+					<form id="xform" method="post" action="" class="xf-form"
+						enctype="multipart/form-data">
 
 
-						<input id="targetUser" type="hidden" name="targetUser"/>
+						<input id="username" type="hidden" name="username"
+							th:value="${user.username}" />
 
 
 
@@ -103,188 +97,268 @@ body {
 								<table class="table table-hover table-bordered">
 
 									<tr>
-										<td width="20%"><label
-											style="text-align: right; margin-bottom: 0px;">专业</label></td>
-										<td width="30%" colspan="3"><select id="specialty"
-											name="specialty" class="form-control"
-											style="padding-left: 0px; margin-bottom: 0px;"
-											onchange="setRules()">
-
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">报考职位</label></td>
+										<td width="90%" colspan="5"><select id="positionId"
+											name="positionId" class="form-control"
+											style="padding-left: 0px; margin-bottom: 0px;">
+												<option th:each="position,positionState : ${positions}"
+													th:text="${position.positionName}"
+													th:value="${position.id}"></option>
 										</select></td>
 									</tr>
 									<tr>
-										<td width="20%"><label
-											style="text-align: right; margin-bottom: 0px;">拟稿人部门</label>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">姓名</label></td>
+										<td><input type="text" class="form-control required"
+											name="name" style="margin-bottom: 0px;" value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">性别</label></td>
+										<td><input type="text" class="form-control required"
+											name="sex" style="margin-bottom: 0px;" value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">民族</label></td>
+										<td><input type="text" class="form-control required"
+											name="nation" style="margin-bottom: 0px;" value="" /></td>
+
+									</tr>
+
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">出生年月</label></td>
+										<td>
+											<div class="input-group date">
+												<input type="text" name="birthDate"
+													class="form-control required" value="" /><span
+													class="input-group-addon"><i
+													class="glyphicon glyphicon-th"></i></span>
+											</div>
+
 										</td>
-										<td width="30%"><input type="hidden" name="area_code"/>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">政治面貌</label></td>
+
+
+										<td><select id="face" name="face" class="form-control"
+											style="padding-left: 0px; margin-bottom: 0px;">
+												<option value="中共党员（含预备党员）">中共党员（含预备党员）</option>
+												<option value="共青团员">共青团员</option>
+												<option value="群众">群众</option>
+										</select></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">入团(党)时间</label></td>
+										<td>
+											<div class="input-group date">
+												<input type="text" name="joinPartyTime"
+													class="form-control required" value="" /><span
+													class="input-group-addon"><i
+													class="glyphicon glyphicon-th"></i></span>
+											</div>
+
 										</td>
-										<td width="20%"><label
-											style="text-align: right; margin-bottom: 0px;">拟稿日期</label></td>
-										<td width="30%"></td>
+
 									</tr>
 									<tr>
-										<td width="20%"><label
-											style="text-align: right; margin-bottom: 0px;">拟稿人</label></td>
-										<td width="30%"></td>
-										<td width="20%"><label
-											style="text-align: right; margin-bottom: 0px;">联系电话</label></td>
-										<td width="30%"></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">最高学历</label></td>
+										<td><select id="highestEducation" name="highestEducation"
+											class="form-control"
+											style="padding-left: 0px; margin-bottom: 0px;">
+												<option value="专科">专科</option>
+												<option value="本科">本科</option>
+												<option value="硕士">硕士</option>
+												<option value="博士">博士</option>
+										</select></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">毕业院校</label></td>
+										<td><input type="text" class="form-control required"
+											name="graduatedUniversity" style="margin-bottom: 0px;"
+											value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">毕业时间</label></td>
+										<td>
+											<div class="input-group date">
+												<input type="text" name="graduatedTime"
+													class="form-control required" value="" /><span
+													class="input-group-addon"><i
+													class="glyphicon glyphicon-th"></i></span>
+											</div>
+
+
+										</td>
 									</tr>
 									<tr>
-										<td width="20%"><label
-											style="text-align: right; margin-bottom: 0px;">佣金补提标题</label>
-										</td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">学位</label></td>
+										<td><select id="degree" name="degree"
+											class="form-control"
+											style="padding-left: 0px; margin-bottom: 0px;">
+												<option value="学士">学士</option>
+												<option value="硕士">硕士</option>
+												<option value="博士">博士</option>
+										</select></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">院系</label></td>
+										<td><input type="text" class="form-control required"
+											name="universityDepartment" style="margin-bottom: 0px;"
+											value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">入学前户籍所在地</label></td>
+										<td><input type="text" class="form-control required"
+											name="registrationBeforeUniversity"
+											style="margin-bottom: 0px;" value="" /></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">单位所在地</label></td>
+										<td><input type="text" class="form-control required"
+											name="workPlace" style="margin-bottom: 0px;" value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">单位性质</label></td>
+										<td><input type="text" class="form-control required"
+											name="workProperty" style="margin-bottom: 0px;" value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">工作单位</label></td>
+										<td><input type="text" class="form-control required"
+											name="workName" style="margin-bottom: 0px;" value="" /></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">工作职务</label></td>
 										<td colspan="3"><input type="text"
-											class="form-control required" name="title"
-											style="margin-bottom: 0px;" value=""/></td>
-									</tr>
-
-
-									<tr>
-										<td width="20%"><label
-											style="text-align: right; margin-bottom: 0px;">补提原因</label></td>
-										<td width="30%"><select id="reasons" name="reasons"
-											class="form-control"
-											style="padding-left: 0px; margin-bottom: 0px;">
-
-												<option value="0">代理商原因</option>
-												<option value="1">联通系统原因</option>
-												<option value="2">联通政策原因</option>
-												<option value="3">联通人为原因</option>
-
-										</select></td>
-										<td width="20%"><label
-											style="text-align: right; margin-bottom: 0px;">原因说明</label></td>
-										<td width="30%"><textarea id="reasons_append" type="text"
-												class="form-control required" name="reasons_append"
-												style="margin-bottom: 0px;" rows="4"></textarea></td>
-									</tr>
-
-
-
-									<tr>
-
-										<td width="20%"><label
-											style="text-align: right; margin-bottom: 0px;">集团属性</label></td>
-										<td width="30%"><select name="group_properties"
-											class="form-control"
-											style="padding-left: 0px; margin-bottom: 0px;">
-
-
-
-												<option value="0">非集团</option>
-												<option value="1">校园</option>
-												<option value="2">商企</option>
-												<option value="3">大客</option>
-
-										</select></td>
-
-										<td width="20%" rowspan="5"><label
-											style="text-align: right; margin-bottom: 0px;">补提内容</label></td>
-										<td width="30%" rowspan="5"><textarea
-												id="commision_content" name="commision_content" type="text"
-												class="form-control required" rows="11"
-												style="margin-bottom: 0px; height: 100%;"></textarea></td>
-									</tr>
-
-
-
-									<tr style="display: none;">
-										<td width="20%"><label
-											style="text-align: right; margin-bottom: 0px;">涉及系统</label></td>
-
-
-										<td width="30%"><select name="system"
-											class="form-control"
-											style="padding-left: 0px; margin-bottom: 0px;">
-												<option value="0">总部系统</option>
-												<option value="1">bss系统</option>
-												<option value="2">本地系统</option>
-										</select></td>
-
-
-
-
+											class="form-control required" name="workContent"
+											style="margin-bottom: 0px;" value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">基层工作年限</label></td>
+										<td><input type="text" class="form-control required"
+											name="baseWorkTime" style="margin-bottom: 0px;" value="" /></td>
 									</tr>
 									<tr>
-										<td width="20%"><label
-											style="text-align: right; margin-bottom: 0px;">佣金类型</label></td>
-										<td width="30%"><select name="commission_properties"
-											class="form-control"
-											style="padding-left: 0px; margin-bottom: 0px;">
-
-
-												<option value="3">固定+话费话费分成本年</option>
-												<option value="4">固定+话费话费分成往年</option>
-												<option value="5">一般追欠佣金</option>
-												<option value="6">代办业务佣金-用户资料</option>
-												<option value="7">固定+话费一次支付</option>
-
-
-										</select></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">考生类别</label></td>
+										<td><input type="text" class="form-control required"
+											name="studentProperty" style="margin-bottom: 0px;" value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">婚姻状况</label></td>
+										<td><input type="text" class="form-control required"
+											name="maritalStatus" style="margin-bottom: 0px;" value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">人事档案存放单位</label></td>
+										<td><input type="text" class="form-control required"
+											name="personalFileStorageUnit" style="margin-bottom: 0px;"
+											value="" /></td>
 									</tr>
 									<tr>
-										<td width="20%"><label
-											style="text-align: right; margin-bottom: 0px;">渠道属性</label></td>
-										<td width="30%"><input id="channel_properties_show"
-											class="form-control" type="text" value="请上传代码点"
-											disabled="disabled" /> <select name="channel_properties"
-											class="form-control"
-											style="display: none; padding-left: 0px; margin-bottom: 0px;"
-											id="channel_properties" onclick="stopClick()">
-
-												<option value="0">集团渠道</option>
-												<option value="1">社会渠道</option>
-												<option value="2">电子渠道</option>
-												<option value="3">营业渠道</option>
-												<option value="4">家客渠道</option>
-
-										</select></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">专业</label></td>
+										<td><input type="text" class="form-control required"
+											name="major" style="margin-bottom: 0px;" value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">籍贯</label></td>
+										<td><input type="text" class="form-control required"
+											name="placeOfOrigin" style="margin-bottom: 0px;" value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">户籍所在地</label></td>
+										<td><input type="text" class="form-control required"
+											name="placeOfHouseholdRegistration"
+											style="margin-bottom: 0px;" value="" /></td>
 									</tr>
 									<tr>
-										<td width="20%"><label
-											style="text-align: right; margin-bottom: 0px;">开始佣金月</label>
-										</td>
-										<td>
-											<div class="input-group date">
-												<input type="text" name="begin_date"
-													class="form-control required" value=""/><span
-													class="input-group-addon"><i
-													class="glyphicon glyphicon-th"></i></span>
-											</div>
-										</td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">通讯地址</label></td>
+										<td colspan="3"><input type="text"
+											class="form-control required" name="postalAddress"
+											style="margin-bottom: 0px;" value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">邮政编码</label></td>
+										<td><input type="text" class="form-control required"
+											name="postalNum" style="margin-bottom: 0px;" value="" /></td>
 									</tr>
 									<tr>
-										<td><label style="text-align: right; margin-bottom: 0px;">结束佣金月</label>
-										</td>
-										<td>
-											<div class="input-group date">
-												<input type="text" name="end_date"
-													class="form-control required" value=""/><span
-													class="input-group-addon"><i
-													class="glyphicon glyphicon-th"></i></span>
-											</div>
-										</td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">身份证号</label></td>
+										<td colspan="3"><input type="text"
+											class="form-control required" name="identityNum"
+											style="margin-bottom: 0px;" value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">联系电话</label></td>
+										<td><input type="text" class="form-control required"
+											name="telephone" style="margin-bottom: 0px;" value="" /></td>
 									</tr>
-
-									<tr id="otherRules">
-										<td><label style="text-align: right; margin-bottom: 0px;">涉及佣金规则</label>
-										</td>
-
-
-
-
-
-
-										<td colspan="3"><textarea id="rules" type="text"
-												class="form-control required" name="rules"
-												style="margin-bottom: 0px;"></textarea>
-										</td>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">手机号码</label></td>
+										<td colspan="3"><input type="text"
+											class="form-control required" name="mobilePhone"
+											style="margin-bottom: 0px;" value="" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">E-mail</label></td>
+										<td><input type="text" class="form-control required"
+											name="email" style="margin-bottom: 0px;" value="" /></td>
 									</tr>
-
-
-
-
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">学习经历</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="studyExperience">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">工作经历</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="workExperience">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">奖惩情况</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="rewards">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">既往病史</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="medicalHistory">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">学科成绩</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="academicAchievement">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">论文情况</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="paperSituation">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">实习经历</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="internshipExperience">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">家庭成员情况</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="homeStatus">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">备注</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="other">
+										</textarea></td>
+									</tr>
 								</table>
 							</div>
 						</div>
