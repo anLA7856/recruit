@@ -1,6 +1,7 @@
 package com.jun.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.jun.mapper.ApplicantInfoMapper;
@@ -20,6 +22,7 @@ import com.jun.mapper.UserMapper;
 import com.jun.model.ApplicantInfo;
 import com.jun.model.PositionInfo;
 import com.jun.model.User;
+import com.jun.utils.CommonUtil;
 
 /**
  * 普通用户的controller
@@ -66,11 +69,15 @@ public class UserController {
 	 * @param request
 	 * @param info
 	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
 	 */
 	@RequestMapping(value = "/save-user-apply")
-	public String saveUserApply(Model model, HttpServletRequest request,@RequestBody ApplicantInfo data) {
+	@ResponseBody
+	public String saveUserApply(Model model, HttpServletRequest request,@RequestBody ApplicantInfo data) throws IllegalArgumentException, IllegalAccessException {
 		data.setTarget(-1);
-		applicantInfoMaaper.addNewApplicantInfo(data);
+		Map<String, Object> map = CommonUtil.reflectObject2Map(data);
+		applicantInfoMaaper.addNewApplicantInfo(map);
 		//申请完之后，重定向到职位申请列表结果页面
 		return "ok";
 	}

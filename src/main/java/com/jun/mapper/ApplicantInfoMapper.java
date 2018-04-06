@@ -1,6 +1,7 @@
 package com.jun.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,7 +17,7 @@ public interface ApplicantInfoMapper {
 	 * @param applicantInfo
 	 * @return
 	 */
-	public int addNewApplicantInfo(@Param("applicantInfo") ApplicantInfo applicantInfo);
+	public int addNewApplicantInfo(@Param("map") Map<String, Object> map);
 	
 	/**
 	 * 更新信息
