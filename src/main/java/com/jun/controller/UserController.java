@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.jun.controller.dto.ApplicantInfoDto;
 import com.jun.mapper.ApplicantInfoMapper;
 import com.jun.mapper.PositionInfoMapper;
 import com.jun.mapper.UserMapper;
@@ -88,7 +89,7 @@ public class UserController {
 		User user = userMapper.findByUserName(username);
 		model.addAttribute("user", user);
 		
-		List<ApplicantInfo> list = applicantInfoMaaper.getAllApplicantInfoByUsername(username);
+		List<ApplicantInfoDto> list = applicantInfoMaaper.getAllApplicantInfoByUsername(username);
 		model.addAttribute("list", list);
 		
 		model.addAttribute("positionInfoMapper", positionInfoMapper);

@@ -3,16 +3,19 @@
 
 <mapper namespace="com.jun.mapper.ApplicantInfoMapper">
 
-	
-	<insert id="addNewApplicantInfo" parameterType="java.util.Map" >
+
+	<insert id="addNewApplicantInfo" parameterType="java.util.Map">
 		insert into
 		applicant_info(username,positionId,name,sex,nation,birth_date,face,join_party_time,highest_education,graduated_university,graduated_time,degree,university_department,registration_before_university,work_place,work_property,work_name,work_content,base_work_time,student_property,marital_status,personal_file_storage_unit,major,place_of_origin,place_of_household_registration,postal_address,postal_num,telephone,mobile_phone,email,study_experience,work_experience,rewards,medical_history,academic_achievement,paper_situation,internship_experience,home_status,other,target)
 		values(#{map.username},#{map.positionId},#{map.name},#{map.sex},#{map.nation},#{map.birthDate},#{map.face},#{map.joinPartyTime},#{map.highestEducation},#{map.graduatedUniversity},#{map.graduatedTime},#{map.degree},#{map.universityDepartment},#{map.registrationBeforeUniversity},#{map.workPlace},#{map.workProperty},#{map.workName},#{map.workContent},#{map.baseWorkTime},#{map.studentProperty},#{map.maritalStatus},#{map.personalFileStorageUnit},#{map.major},#{map.placeOfOrigin},#{map.placeOfHouseholdRegistration},#{map.postalAddress},#{map.postalNum},#{map.telephone},#{map.mobilePhone},#{map.email},#{map.studyExperience},#{map.workExperience},#{map.rewards},#{map.medicalHistory},#{map.academicAchievement},#{map.paperSituation},#{map.internshipExperience},#{map.homeStatus},#{map.other},#{map.target})
 	</insert>
 
 
-	<select id="getAllApplicantInfoByUsername" parameterType="java.lang.String">
-		select id,positionId,target from applicant_info where username=#{username}
+	<select id="getAllApplicantInfoByUsername" parameterType="java.lang.String" resultType="com.jun.controller.dto.ApplicantInfoDto">
+		select
+		a.id,a.positionId,a.target,b.position_name as positionName from
+		applicant_info a, position_info b where a.username=#{username} and
+		a.positionId=b.id;
 	</select>
 
 

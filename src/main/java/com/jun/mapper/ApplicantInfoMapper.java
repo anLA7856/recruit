@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import com.jun.controller.dto.ApplicantInfoDto;
 import com.jun.model.ApplicantInfo;
 
 @Mapper
@@ -32,7 +33,7 @@ public interface ApplicantInfoMapper {
 	 * @param username
 	 * @return
 	 */
-	public List<ApplicantInfo> getAllApplicantInfoByUsername(@Param("username")String username);
+	public List<ApplicantInfoDto> getAllApplicantInfoByUsername(@Param("username")String username);
 	
 	@Select("select * from applicant_info where id=#{0}")
 	public ApplicantInfo getApplicantInfoById(Integer id);
