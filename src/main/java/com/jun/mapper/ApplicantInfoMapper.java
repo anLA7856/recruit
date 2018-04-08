@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.jun.controller.dto.ApplicantInfoDto;
+import com.jun.controller.dto.ApplicantInfoDto2;
 import com.jun.model.ApplicantInfo;
 
 @Mapper
@@ -73,4 +74,17 @@ public interface ApplicantInfoMapper {
 	 */
 	@Select("select * from applicant_info a where a.username=#{0} and target=1")
 	public ApplicantInfo getAreadySuccessByUsername(String username);
+	
+	
+	/**
+	 * 用于，职位发布者，去获取所有申请该职位人员。
+	 * @param id
+	 * @return
+	 */
+	@Select("select id,name,target from applicant_info a where a.positionId=#{0} limit #{1},#{2}")
+	public List<ApplicantInfoDto2> getLimitApplicantInfoById(Integer id,Integer start,Integer length);
+	
+	
+	@Select("select count(*) from applicant_info a where a.positionId=#{0}")
+	public int getCountApplicantInfoById(Integer id);
 }

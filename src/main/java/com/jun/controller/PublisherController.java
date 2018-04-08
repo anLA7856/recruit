@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.jun.controller.dto.ApplicantInfoDto2;
+import com.jun.mapper.ApplicantInfoMapper;
 import com.jun.mapper.NewsMapper;
 import com.jun.mapper.NewsTypeMapper;
 import com.jun.mapper.PositionInfoMapper;
@@ -53,6 +56,9 @@ public class PublisherController {
 	
 	@Autowired
 	PositionInfoMapper positionInfoMapper;
+	
+	@Autowired
+	ApplicantInfoMapper applicantInfoMapper;
 
 	/**
 	 * 通过这里进入新闻页面。
@@ -330,6 +336,65 @@ public class PublisherController {
 	}
 	
 	
+	
+	/**
+	 * 用于查看本职位，目前为止申请的人数，并且通过这里进入，能够看
+	 * @param model
+	 * @param request
+	 * @param id
+	 * @param target
+	 * @return
+	 */
+	@RequestMapping(value = "/position-apply-people-list", method = RequestMethod.GET)
+	public String positionApplyPeopleList(Model model, HttpServletRequest request,Integer id,Integer target,Integer nowPages) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userMapper.findByUserName(username);
+		model.addAttribute("user", user);
+
+		//查看权限
+		PositionInfo position = positionInfoMapper.getPositionInfoById(id);
+		if(!position.getUsername().equals(username)){
+			throw new AccessDeniedException("非法访问");
+		}
+		
+		// 获取分页数据
+		
+
+		int start = nowPages == null ? 0 : nowPages * 20;
+		int length = 20;
+		int totalSize = applicantInfoMapper.getCountApplicantInfoById(id);
+		if (target == null) {
+			target = new Integer(1);// 初始值为1
+		}
+		if (nowPages == null) {
+			nowPages = new Integer(1);
+		}
+		switch (target) {
+		case 1:
+			start = nowPages * 20 - 20;
+			break;
+		case 2:
+			start = nowPages * 20 + 20;
+		case 3:
+			start = 0;
+		case 4:
+			start = totalSize - totalSize % 20;
+			start = start == 0 ? totalSize - 20 : start;
+		default:
+			break;
+		}
+		List<ApplicantInfoDto2> positionInfos = applicantInfoMapper.getLimitApplicantInfoById(id, start, length);
+		model.addAttribute("list", positionInfos);
+		model.addAttribute("nowPages", nowPages);
+		model.addAttribute("user", user);
+		model.addAttribute("totalSize", totalSize);
+		model.addAttribute("startPoint", start + 1);
+		int endPoint = start + length > totalSize ? totalSize : start + length;
+		model.addAttribute("endPoint", endPoint);
+		model.addAttribute("currentPagesSize", endPoint - start);
+		
+		return "position-apply-people-list";
+	}
 	
 	
 }
