@@ -131,4 +131,29 @@ public class UserController {
 		return "/user/view-user-apply-list";
 	}
 	
+	/**
+	 * 用于查看，通过审核的页面，一般是不回有的，除非已经通过审核了。
+	 * @param model
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/view-user-apply-result", method = RequestMethod.GET)
+	public String viewUserApplyResult(Model model, HttpServletRequest request,Integer id) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userMapper.findByUserName(username);
+		model.addAttribute("user", user);
+		
+		int countOk = applicantInfoMaaper.getAreadyApplyCount(username);
+		if(countOk != 1){
+			throw new AccessDeniedException("非法访问");
+		}
+		
+		ApplicantInfo info = applicantInfoMaaper.getAreadySuccessByUsername(username);
+		model.addAttribute("info", info);
+		
+		return "/user/view-user-apply-result";
+	}
+	
+	
 }

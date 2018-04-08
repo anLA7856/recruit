@@ -65,4 +65,12 @@ public interface ApplicantInfoMapper {
 	 */
 	@Select("select * from applicant_info a where a.username=#{0} and target=0")
 	public ApplicantInfo getOnVerifyingByUsername(String username);
+	
+	/**
+	 * 查询，通过审核的，只能有一个。
+	 * @param username
+	 * @return
+	 */
+	@Select("select * from applicant_info a where a.username=#{0} and target=1")
+	public ApplicantInfo getAreadySuccessByUsername(String username);
 }

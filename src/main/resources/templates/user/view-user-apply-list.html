@@ -90,13 +90,13 @@ body {
 							<td th:text="${userStat.index+1}">序号</td>
 
 
-							<td th:if="${user.target==1}" th:text="${user.positionName}">修改</td>
-							<td th:if="${user.target==-1}"><a
-								th:href="${'/user/view-user-apply?action=modify&amp;id='+user.id}"
+							<td th:if="${user.target==0}" th:text="${user.positionName}">修改</td>
+							<td th:if="${user.target==1}"><a
+								th:href="${'/user/view-user-apply-result"
 								th:text="${user.positionName}"></a></td>
 
 							<td th:if="${user.target==1}">已审核通过</td>
-							<td th:if="${user.target==-1}">待审核</td>
+							<td th:if="${user.target==0}">待审核</td>
 
 						</tr>
 					</tbody>
