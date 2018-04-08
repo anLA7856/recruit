@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="/common/fragment::header"></head>
+<meta content="text/html;charset=UTF-8" />
+<title>审核成功，请静候佳音</title>
+
+<!-- jquery -->
+<style type="text/css">
+body {
+	padding-top: 50px;
+}
+
+.starter-template {
+	padding: 40px 15px;
+	text-align: center;
+}
+</style>
+
+
+<script type="text/javascript">
+	function modify() {
+		var username = $("#username").val();
+		var name = $("#name").val();
+		var telephone = $("#telephone").val();
+
+		if (name == "" || telephone == null) {
+			alert("请填写完整");
+			return;
+		}
+
+		$.post("/admin/update-person-info", {
+			username : username,
+			name : name,
+			telephone : telephone
+		}, function(date) {
+			alert(date);
+
+		}
+
+		);
+
+	}
+
+	$(function() {
+		$("#xform .input-group.date").datepicker({
+			format : "yyyymm",
+			startView : "months",
+			minViewMode : 'months',
+			language : "zh_CN"
+		});
+
+	})
+</script>
+
+<body>
+
+
+	<div id="myModal" class="modal fade" data-keyboard="false"
+		data-backdrop="static" data-role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div id="loading" class="loading">校验中。。。</div>
+	</div>
+
+	<div th:replace="/common/fragment::top"></div>
+	<div class="row-fluid">
+		<div th:replace="/common/fragment::menu"></div>
+		<!-- start of main -->
+		<section id="m-main" class="col-md-10 col-md-offset-2"
+			style="padding-top: 35px;">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-list"></i> 审核成功，请静候佳音
+
+				</div>
+				<h1>审核成功，请静候佳音</h1>
+			</div>
+
+
+
+		</section>
+	</div>
+	<!-- end of main -->
+</body>
+</html>

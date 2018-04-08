@@ -5,7 +5,12 @@ package com.jun.model;
  * 
  * @author jun
  * @date 2018年4月4日 : 上午11:37:26
- *
+ * target字段，用位运算标识，低两位代表三种状态。
+ * 1：代表审核通过
+ * 0：代表正在审核
+ * 2：代表失败，审批失败。
+ * 其他30位，代表第几批。
+ * 其他代表历史，第几界：代表该职位考试已经过去，即属于历史了。
  */
 public class ApplicantInfo {
 	private Integer id;

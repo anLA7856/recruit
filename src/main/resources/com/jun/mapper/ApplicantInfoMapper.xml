@@ -6,9 +6,45 @@
 
 	<insert id="addNewApplicantInfo" parameterType="java.util.Map">
 		insert into
-		applicant_info(username,positionId,name,sex,nation,birth_date,face,join_party_time,highest_education,graduated_university,graduated_time,degree,university_department,registration_before_university,work_place,work_property,work_name,work_content,base_work_time,student_property,marital_status,personal_file_storage_unit,major,place_of_origin,place_of_household_registration,postal_address,postal_num,telephone,mobile_phone,email,study_experience,work_experience,rewards,medical_history,academic_achievement,paper_situation,internship_experience,home_status,other,target)
-		values(#{map.username},#{map.positionId},#{map.name},#{map.sex},#{map.nation},#{map.birthDate},#{map.face},#{map.joinPartyTime},#{map.highestEducation},#{map.graduatedUniversity},#{map.graduatedTime},#{map.degree},#{map.universityDepartment},#{map.registrationBeforeUniversity},#{map.workPlace},#{map.workProperty},#{map.workName},#{map.workContent},#{map.baseWorkTime},#{map.studentProperty},#{map.maritalStatus},#{map.personalFileStorageUnit},#{map.major},#{map.placeOfOrigin},#{map.placeOfHouseholdRegistration},#{map.postalAddress},#{map.postalNum},#{map.telephone},#{map.mobilePhone},#{map.email},#{map.studyExperience},#{map.workExperience},#{map.rewards},#{map.medicalHistory},#{map.academicAchievement},#{map.paperSituation},#{map.internshipExperience},#{map.homeStatus},#{map.other},#{map.target})
+		applicant_info(username,positionId,name,sex,nation,birth_date,face,
+		join_party_time,highest_education,graduated_university,graduated_time,
+		degree,university_department,registration_before_university,work_place,
+		work_property,work_name,work_content,base_work_time,student_property,
+		marital_status,personal_file_storage_unit,major,place_of_origin,
+		place_of_household_registration,postal_address,postal_num,telephone,
+		mobile_phone,email,study_experience,work_experience,rewards,medical_history,
+		academic_achievement,paper_situation,internship_experience,home_status,other,target)
+		values(#{map.username},#{map.positionId},#{map.name},#{map.sex},
+		#{map.nation},#{map.birthDate},#{map.face},#{map.joinPartyTime},
+		#{map.highestEducation},#{map.graduatedUniversity},#{map.graduatedTime},
+		#{map.degree},#{map.universityDepartment},#{map.registrationBeforeUniversity},
+		#{map.workPlace},#{map.workProperty},#{map.workName},#{map.workContent},
+		#{map.baseWorkTime},#{map.studentProperty},#{map.maritalStatus},
+		#{map.personalFileStorageUnit},#{map.major},#{map.placeOfOrigin},
+		#{map.placeOfHouseholdRegistration},#{map.postalAddress},#{map.postalNum},
+		#{map.telephone},#{map.mobilePhone},#{map.email},#{map.studyExperience},
+		#{map.workExperience},#{map.rewards},#{map.medicalHistory},#{map.academicAchievement},
+		#{map.paperSituation},#{map.internshipExperience},#{map.homeStatus},#{map.other},#{map.target})
 	</insert>
+
+	<update id="updateApplicantInfo" parameterType="java.util.Map">
+		update applicant_info set sex=#{map.set},nation=#{map.nation},
+		birth_date=#{map.birthDate},face=#{map.face},join_party_time=#{map.joinPartyTime},
+		graduated_university=#{map.graduatedUniversity},graduated_time=#{map.graduatedTime},
+		degree=#{map.degree},university_department=#{map.universityDepartment},
+		registration_before_university=#{map.registrationBeforeUniversity},
+		work_place=#{map.workPlace},work_property=#{map.workProperty},work_name=#{map.workName},
+		work_content=#{map.workContent},base_work_time=#{map.baseWorkTime},student_property=#{map.studentProperty},
+		marital_status=#{map.maritalStatus},personal_file_storage_unit=#{map.personalFileStorageUnit},major=#{map.major},
+		place_of_origin=#{map.placeOfOrigin},place_of_household_registration=#{map.placeOfHouseholdRegistration},
+		postal_address=#{map.postalAddress},postal_num=#{map.postalNum},telephone=#{map.telephone},
+		mobile_phone=#{map.mobilePhone},email=#{map.email},study_experience=#{map.studyExperience},
+		work_experience=#{map.workExperience},rewards=#{map.rewards},medical_history=#{map.medicalHistory},
+		academic_achievement=#{map.academicAchievement},paper_situation=#{map.paperSituation},
+		internship_experience=#{map.internshipExperience},home_status=#{map.homeStatus},other=#{map.other},
+		highest_education=#{map.highestEducation}
+		where id=#{map.id}
+	</update>
 
 
 	<select id="getAllApplicantInfoByUsername" parameterType="java.lang.String" resultType="com.jun.controller.dto.ApplicantInfoDto">
