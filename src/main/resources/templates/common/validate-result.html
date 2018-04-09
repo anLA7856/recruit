@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="/common/fragment::header"></head>
+<meta content="text/html;charset=UTF-8" />
+<title>激活成功</title>
+
+<!-- jquery -->
+<style type="text/css">
+body {
+	padding-top: 50px;
+}
+
+.starter-template {
+	padding: 40px 15px;
+	text-align: center;
+}
+</style>
+
+
+<script type="text/javascript">
+
+</script>
+
+<body>
+
+
+	<h1 th:text="${info}">激活成功</h1>
+	<br/>
+	<a th:href="${href}">点击登录</a>
+	<!-- end of main -->
+</body>
+</html>

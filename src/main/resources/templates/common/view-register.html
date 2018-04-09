@@ -23,6 +23,7 @@
 			 var username = $("#username").val();
 			 var password = $("#password").val();
 			 $("#progress").modal('show');
+			 
 			 $.post(
 					 "/common/register",
 			 	{
@@ -70,7 +71,7 @@
 <div class="container">
     <div class="starter-template">
         <h2>注册帐号</h2>
-        <form class="form-signin" role="form" name="form" th:action="@{register}" method="post">
+        <form class="form-signin" role="form" name="form" th:action="@{/common/register}" method="post">
             <div class="message">
             	
             </div>
@@ -82,7 +83,7 @@
                 <label for="password">请输入6～20位密码</label>
                 <input type="password" class="form-control required" name="password" placeholder="密码" id="password"/>
             </div>
-            <input type="button" id="login" value="注册" class="btn btn-primary"/>
+            <input type="submit" id="login" value="注册" class="btn btn-primary"/>
         </form>
     </div>
     

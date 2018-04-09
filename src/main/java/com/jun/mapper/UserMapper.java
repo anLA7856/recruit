@@ -42,7 +42,7 @@ public interface UserMapper {
 	 * @return
 	 */
 	@Update("update user set u_enabled=1 where validate=#{0}")
-	public int updateUserUEnable(String code);
+	public void updateUserUEnable(String code);
 	
 	/**
 	 * 通过validatecode，查询一个用户

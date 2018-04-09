@@ -36,16 +36,13 @@ public class UserService {
 	 * @return
 	 */
 	public String validateAndSetRole(String code) {
-		int validateResult = userMapper.updateUserUEnable(code);
-		if (validateResult == 0) {
-			return "激活失败！";
-		}
+		userMapper.updateUserUEnable(code);
 		User user = userMapper.findByValidate(code);
 		// 赋权操作
 		// 获得普通用户权限
 		Role role = roleUserMapper.findRoleByRoleName(Model.ROLE_USER);
 
-		String result = roleUserMapper.addNewRoleAndUser(user.getId(), role.getId()) == 1 ? "激活成功" : "激活失败，数据库出错";
+		String result = roleUserMapper.addNewRoleAndUser(role.getId(),user.getId()) == 1 ? "激活成功" : "激活失败，数据库出错";
 		return result;
 	}
 }
