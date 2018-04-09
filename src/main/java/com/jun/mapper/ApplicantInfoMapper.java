@@ -87,4 +87,12 @@ public interface ApplicantInfoMapper {
 	
 	@Select("select count(*) from applicant_info a where a.positionId=#{0}")
 	public int getCountApplicantInfoById(Integer id);
+	
+	/**
+	 * 用于更新applicant_info的状态。
+	 * @param target
+	 * @param id
+	 */
+	@Select("update applicant_info set target=#{0} where id=#{1}")
+	public void updateApplicantInfoTargetById(Integer target,Integer id);
 }

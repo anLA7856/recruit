@@ -18,29 +18,42 @@ body {
 </style>
 
 <script type="text/javascript">
-	function mdelete(id) {
-		if(window.confirm('你确定要删除该记录吗？')){
-			$.post("/publisher/delete-news", {
-				id:id
-			}, function(date) {
-				if(date=="ok"){
-					alert("删除成功");
-					　window.location.href="/publisher/view-news-list";
-				}else{
-					alert(date);
+
+	//通过审核
+	function swith(id,state,my){
+		$.post("/publisher/swith", {
+			id:id,
+			state:state
+		}, function(date) {
+			if(date=="ok"){
+				alert("操作成功");
+				if(state == "1"){
+					$(my).parent().parent().children("td").eq(2).text("审核通过");
+					$(my).text("拒绝");
+					var method = "swith("+id+",2,this)";
+					$(my).attr("onclick",method);
+				}else {
+					$(my).parent().parent().children("td").eq(2).text("审核未通过");
+					$(my).text("通过");
+					var method = "swith("+id+",1,this)";
+					$(my).attr("onclick",method);
 				}
-				
+				if($(my).parent().children("button").length == 2){
+					debugger;
+					if($(my).prev().length != 0){
+						//删除前面哪个
+						$(my).prev().remove();
+					}else if($(my).next().length!=0){
+						$(my).next().remove();
+					}
+				}
+			}else{
+				alert(date);
 			}
-
-			);
-         }else{
-            return ;
-        }
-		
-		
-
-
+		});
 	}
+	
+	
 </script>
 
 <body>
@@ -72,18 +85,22 @@ body {
 
 							<tr th:each="mnew,newStat :${list}">
 								<td th:text="${newStat.index+1}">序号</td>
-								<td><a th:href="${'/publisher/position-apply-people-list?id='+mnew.id}"
-									th:text="${mnew.positionName}">职位名称</a></td>
+								<td><a
+									th:href="${'/publisher/position-apply-people-list?id='+mnew.id}"
+									th:text="${mnew.name}">职位名称</a></td>
+
+
 								<td th:if="${mnew.target==1}">审核通过</td>
 								<td th:if="${mnew.target==0}">待审核</td>
 								<td th:if="${mnew.target==2}">审核未通过</td>
-								
+
 								<td th:if="${mnew.target==0}">
-									<button value="通过" onclick="pass()" class="btn"></button>
-									<button value="拒绝" onclick="reject()" class="btn"></button>
+									<button value="通过" th:onclick="${'swith('+mnew.id+',1,this)'}" class="btn">通过</button>
+									<button value="拒绝" th:onclick="${'swith('+mnew.id+',2,this)'}" class="btn">拒绝</button>
 								</td>
 								<td th:if="${mnew.target!=0}">
-									<button th:value="${mnew.target==1}? '拒绝':'通过'" th:onclick="'swith('+mnew.id+')'"></button>
+									<button value="通过" th:if="${mnew.target==2}" th:onclick="${'swith('+mnew.id+',1,this)'}" class="btn">通过</button>
+									<button value="拒绝" th:if="${mnew.target==1}" th:onclick="${'swith('+mnew.id+',2,this)'}" class="btn">拒绝</button>
 								</td>
 							</tr>
 						</tbody>

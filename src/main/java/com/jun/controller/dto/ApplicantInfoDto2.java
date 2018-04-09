@@ -9,8 +9,8 @@ package com.jun.controller.dto;
  */
 public class ApplicantInfoDto2 {
 	private Integer id;
-	private Integer name;
-	private Integer state;
+	private String name;
+	private int target; // state变量不能为integer，这样太使用==则是使用引用！
 
 	public Integer getId() {
 		return id;
@@ -20,25 +20,25 @@ public class ApplicantInfoDto2 {
 		this.id = id;
 	}
 
-	public Integer getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(Integer name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public Integer getState() {
-		return state;
+	public int getTarget() {
+		return target;
 	}
 
-	public void setState(Integer state) {
-		this.state = state;
+	public void setTarget(int target) {
+		this.target = target;
 	}
 
 	@Override
 	public String toString() {
-		return "ApplicantInfoDto2 [id=" + id + ", name=" + name + ", state=" + state + "]";
+		return "ApplicantInfoDto2 [id=" + id + ", name=" + name + ", target=" + target + "]";
 	}
 
 }

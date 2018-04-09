@@ -393,7 +393,23 @@ public class PublisherController {
 		model.addAttribute("endPoint", endPoint);
 		model.addAttribute("currentPagesSize", endPoint - start);
 		
-		return "position-apply-people-list";
+		return "/publisher/position-apply-people-list";
+	}
+	
+	
+	/**
+	 * 用于修改，职位申请者的属性。
+	 * @param model
+	 * @param request
+	 * @param positionName
+	 * @return
+	 */
+	@RequestMapping(value = "/swith", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+	@ResponseBody
+	public String swith(Model model, HttpServletRequest request, Integer id,Integer state) {
+		applicantInfoMapper.updateApplicantInfoTargetById(state, id);
+		return "ok";
+		
 	}
 	
 	
