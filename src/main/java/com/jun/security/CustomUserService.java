@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -36,18 +37,24 @@ public class CustomUserService implements UserDetailsService { //自定义UserDe
 
     public UserDetails loadUserByUsername(String username) {
         com.jun.model.User user = userMapper.findByUserName(username);
+        
         if (user != null) {
-        	//获取用户所有角色
-            List<Role> roles = roleUserMapper.findRolesByUserId(user.getId());
-            List<GrantedAuthority> grantedAuthorities = new ArrayList <>();
-            for (Role role : roles) {
-                if (role != null && role.getName()!=null) {
-                GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getName());
-                grantedAuthorities.add(grantedAuthority);
+        	if(user.getuEnabled()==0){
+            	//未激活
+            	throw new DisabledException("用户未激活");
+            }else{
+            	//获取用户所有角色
+                List<Role> roles = roleUserMapper.findRolesByUserId(user.getId());
+                List<GrantedAuthority> grantedAuthorities = new ArrayList <>();
+                for (Role role : roles) {
+                    if (role != null && role.getName()!=null) {
+	                    GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getName());
+	                    grantedAuthorities.add(grantedAuthority);
+                    }
                 }
+                //返回一个UserDetail，有username，password，以及 grantedAuthorities权限。
+                return new User(user.getUsername(), user.getPassword(), grantedAuthorities);
             }
-            //返回一个UserDetail，有username，password，以及 grantedAuthorities权限。
-            return new User(user.getUsername(), user.getPassword(), grantedAuthorities);
         } else {
             throw new UsernameNotFoundException("admin: " + username + " do not exist!");
         }

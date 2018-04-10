@@ -134,8 +134,14 @@ public class CommonController {
     
     @RequestMapping(value="/login", method = RequestMethod.POST,produces="text/html; charset=UTF-8")
     public String login(Model model, HttpServletRequest request,@RequestParam String username,@RequestParam String password){
-    	String result = loginService.addUser(username, password);
-    	return result;
+    	Integer result = loginService.login(username, password);
+    	if(result != 1){
+    		model.addAttribute("info", result);
+    		return "/common/view-login";
+    	}else{
+    		return "/";
+    	}
+    	
     }
     
     /**

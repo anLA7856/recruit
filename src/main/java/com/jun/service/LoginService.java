@@ -1,5 +1,7 @@
 package com.jun.service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.jun.async.MailTask;
 import com.jun.mapper.UserMapper;
+import com.jun.model.User;
 import com.jun.utils.CommonUtil;
 import com.jun.utils.MD5Util;
 
@@ -53,4 +56,27 @@ public class LoginService {
 
 		return "ok";
 	}
+	
+	
+	/**
+	 * 登录
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+    public int login(String username,String password) {
+    	String tempStr = new StringBuilder(password).append("junbao").toString();
+    	password = MD5Util.encode(tempStr);
+        Map<String,Object> map = new HashMap<>();
+        User user = userMapper.selectUserByUsernameAndPassword(username,password);
+        if(user==null){
+            return 0;
+        }
+        int checkActived = user.getuEnabled();
+        if(checkActived==0){
+            return -1;
+        }
+
+        return 1;
+    }
 }
