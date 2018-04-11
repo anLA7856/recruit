@@ -23,6 +23,7 @@ public class IndexController {
 	@Autowired
 	UserMapper userMapper;
 	
+	
     /**
      * 用于进入系统后，没有后缀的直接映射。
      * @return
