@@ -26,6 +26,7 @@ import com.jun.mapper.NewsMapper;
 import com.jun.mapper.NewsTypeMapper;
 import com.jun.mapper.PositionInfoMapper;
 import com.jun.mapper.UserMapper;
+import com.jun.model.ApplicantInfo;
 import com.jun.model.News;
 import com.jun.model.NewsType;
 import com.jun.model.PositionInfo;
@@ -411,9 +412,28 @@ public class PublisherController {
 	@ResponseBody
 	public String swith(Model model, HttpServletRequest request, Integer id,Integer state) {
 		applicantInfoMapper.updateApplicantInfoTargetById(state, id);
-		return "ok";
-		
+		return "ok";	
 	}
+	
+	
+	/**
+	 * 用于，publisher权限人员，查看申请人员信息。
+	 * @param model
+	 * @param request
+	 * @param id
+	 * @param target
+	 * @return
+	 */
+	@RequestMapping(value = "/position-apply-user-info", method = RequestMethod.GET)
+	public String positionApplyUserInfo(Model model, HttpServletRequest request,Integer id) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userMapper.findByUserName(username);
+		model.addAttribute("user", user);
+		ApplicantInfo info = applicantInfoMapper.getApplicantInfoByIdAndUsername(id,username);
+		model.addAttribute("info", info);
+		return "/publisher/position-apply-user-info";
+	}
+	
 	
 	
 }

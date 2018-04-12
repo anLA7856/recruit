@@ -86,7 +86,7 @@ body {
 							<tr th:each="mnew,newStat :${list}">
 								<td th:text="${newStat.index+1}">序号</td>
 								<td><a
-									th:href="${'/publisher/position-apply-people-list?id='+mnew.id}"
+									th:href="${'/publisher/position-apply-user-info?id='+mnew.id}"
 									th:text="${mnew.name}">职位名称</a></td>
 
 

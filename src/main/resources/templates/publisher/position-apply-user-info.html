@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="/common/fragment::header"></head>
+<meta content="text/html;charset=UTF-8" />
+<title>申请职位</title>
+
+<!-- jquery -->
+<style type="text/css">
+body {
+	padding-top: 50px;
+}
+
+.starter-template {
+	padding: 40px 15px;
+	text-align: center;
+}
+</style>
+
+
+<script type="text/javascript">
+	$(function() {
+		$("#xform .input-group.date").datepicker({
+			format : "yyyymm",
+			startView : "months",
+			minViewMode : 'months',
+			language : "zh_CN"
+		});
+	})
+</script>
+
+<body>
+
+	<div th:replace="/common/fragment::top"></div>
+	<div class="row-fluid">
+		<div th:replace="/common/fragment::menu"></div>
+		<!-- start of main -->
+		<section id="m-main" class="col-md-10 col-md-offset-2"
+			style="padding-top: 35px;">
+			<ul class="nav nav-tabs">
+				<li role="presentation" class="active"><a href="#form"
+					data-toggle="tab">表单</a></li>
+			</ul>
+			<div id="TabContent" class="tab-content">
+				<div id="form" class="tab-pane fade in active">
+					<br />
+
+
+					<form id="xform" method="post" action="" class="xf-form"
+						enctype="multipart/form-data">
+
+
+						<input id="username" type="hidden" name="username"
+							th:value="${user.username}" disabled="disabled" /> <input id="id"
+							type="hidden" name="id" th:value="${info.id}" disabled="disabled" />
+
+
+
+
+						<div id="form-table">
+							<div id="row-0">
+								<h2 style="text-align: center">个人信息</h2>
+							</div>
+							<div id="row-1">
+								<table class="table table-hover table-bordered">
+
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">报考职位</label></td>
+										<td width="90%" colspan="5"><select disabled="disabled"
+											id="positionId" th:if="${info.id!=null}" name="positionId"
+											class="form-control"
+											style="padding-left: 0px; margin-bottom: 0px;">
+												<option th:each="position,positionState : ${positions}"
+													th:text="${position.positionName}"
+													th:value="${position.id}"
+													th:selected="${info.positionId==position.id}?'selected'"
+													disabled="disabled"></option>
+										</select></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">姓名</label></td>
+										<td><input type="text" class="form-control required"
+											name="name" style="margin-bottom: 0px;"
+											th:value="${info.name}" disabled="disabled" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">性别</label></td>
+										<td><input type="text" class="form-control required"
+											name="sex" style="margin-bottom: 0px;" th:value="${info.sex}"
+											disabled="disabled" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">民族</label></td>
+										<td><input type="text" class="form-control required"
+											name="nation" style="margin-bottom: 0px;"
+											th:value="${info.nation}" disabled="disabled" /></td>
+
+									</tr>
+
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">出生年月</label></td>
+										<td>
+											<div class="input-group date">
+												<input type="text" name="birthDate"
+													th:value="${info.birthDate}" class="form-control required"
+													value="" disabled="disabled" /><span
+													class="input-group-addon"><i
+													class="glyphicon glyphicon-th"></i></span>
+											</div>
+										</td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">政治面貌</label></td>
+
+
+										<td><select id="face" name="face" class="form-control"
+											style="padding-left: 0px; margin-bottom: 0px;">
+												<option value="中共党员（含预备党员）"
+													th:selected="${info.face=='中共党员（含预备党员）'}?'selected'">中共党员（含预备党员）</option>
+												<option value="共青团员"
+													th:selected="${info.face=='共青团员'}?'selected'">共青团员</option>
+												<option value="群众"
+													th:selected="${info.face=='群众'}?'selected'">群众</option>
+										</select></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">入团(党)时间</label></td>
+										<td>
+											<div class="input-group date">
+												<input type="text" name="joinPartyTime"
+													th:value="${info.joinPartyTime}"
+													class="form-control required" value="" /><span
+													class="input-group-addon"><i
+													class="glyphicon glyphicon-th"></i></span>
+											</div>
+
+										</td>
+
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">最高学历</label></td>
+										<td><select id="highestEducation" name="highestEducation"
+											class="form-control"
+											style="padding-left: 0px; margin-bottom: 0px;">
+												<option value="专科"
+													th:selected="${info.highestEducation=='专科'}?'selected'">专科</option>
+												<option value="本科"
+													th:selected="${info.highestEducation=='本科'}?'selected'">本科</option>
+												<option value="硕士"
+													th:selected="${info.highestEducation=='硕士'}?'selected'">硕士</option>
+												<option value="博士"
+													th:selected="${info.highestEducation=='博士'}?'selected'">博士</option>
+										</select></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">毕业院校</label></td>
+										<td><input type="text" class="form-control required"
+											name="graduatedUniversity" style="margin-bottom: 0px;"
+											th:value="${info.graduatedUniversity}" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">毕业时间</label></td>
+										<td>
+											<div class="input-group date">
+												<input type="text" name="graduatedTime"
+													class="form-control required"
+													th:value="${info.graduatedTime}" /><span
+													class="input-group-addon"><i
+													class="glyphicon glyphicon-th"></i></span>
+											</div>
+
+
+										</td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">学位</label></td>
+										<td><select id="degree" name="degree"
+											class="form-control"
+											style="padding-left: 0px; margin-bottom: 0px;">
+												<option value="学士"
+													th:selected="${info.degree=='学士'}?'selected'">学士</option>
+												<option value="硕士"
+													th:selected="${info.degree=='硕士'}?'selected'">硕士</option>
+												<option value="博士"
+													th:selected="${info.degree=='博士'}?'selected'">博士</option>
+										</select></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">院系</label></td>
+										<td><input type="text" class="form-control required"
+											name="universityDepartment" style="margin-bottom: 0px;"
+											th:value="${info.universityDepartment}" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">入学前户籍所在地</label></td>
+										<td><input type="text" class="form-control required"
+											name="registrationBeforeUniversity"
+											style="margin-bottom: 0px;"
+											th:value="${info.registrationBeforeUniversity}" /></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">单位所在地</label></td>
+										<td><input type="text" class="form-control required"
+											name="workPlace" style="margin-bottom: 0px;"
+											th:value="${info.workPlace}" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">单位性质</label></td>
+										<td><input type="text" class="form-control required"
+											name="workProperty" style="margin-bottom: 0px;"
+											th:value="${info.workProperty}" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">工作单位</label></td>
+										<td><input type="text" class="form-control required"
+											name="workName" style="margin-bottom: 0px;"
+											th:value="${info.workName}" /></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">工作职务</label></td>
+										<td colspan="3"><input type="text"
+											class="form-control required" name="workContent"
+											style="margin-bottom: 0px;" th:value="${info.workContent}" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">基层工作年限</label></td>
+										<td><input type="text" class="form-control required"
+											name="baseWorkTime" style="margin-bottom: 0px;"
+											th:value="${info.baseWorkTime}" /></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">考生类别</label></td>
+										<td><input type="text" class="form-control required"
+											name="studentProperty" style="margin-bottom: 0px;"
+											th:value="${info.studentProperty}" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">婚姻状况</label></td>
+										<td><input type="text" class="form-control required"
+											name="maritalStatus" style="margin-bottom: 0px;"
+											th:value="${info.maritalStatus}" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">人事档案存放单位</label></td>
+										<td><input type="text" class="form-control required"
+											name="personalFileStorageUnit" style="margin-bottom: 0px;"
+											th:value="${info.personalFileStorageUnit}" /></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">专业</label></td>
+										<td><input type="text" class="form-control required"
+											name="major" style="margin-bottom: 0px;"
+											th:value="${info.major}" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">籍贯</label></td>
+										<td><input type="text" class="form-control required"
+											name="placeOfOrigin" style="margin-bottom: 0px;"
+											th:value="${info.placeOfOrigin}" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">户籍所在地</label></td>
+										<td><input type="text" class="form-control required"
+											name="placeOfHouseholdRegistration"
+											style="margin-bottom: 0px;"
+											th:value="${info.placeOfHouseholdRegistration}" /></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">通讯地址</label></td>
+										<td colspan="3"><input type="text"
+											class="form-control required" name="postalAddress"
+											style="margin-bottom: 0px;" th:value="${info.postalAddress}" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">邮政编码</label></td>
+										<td><input type="text" class="form-control required"
+											name="postalNum" style="margin-bottom: 0px;"
+											th:value="${info.postalNum}" /></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">身份证号</label></td>
+										<td colspan="3"><input type="text"
+											class="form-control required" name="identityNum"
+											style="margin-bottom: 0px;" th:value="${info.identityNum}" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">联系电话</label></td>
+										<td><input type="text" class="form-control required"
+											name="telephone" style="margin-bottom: 0px;"
+											th:value="${info.telephone}" /></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">手机号码</label></td>
+										<td colspan="3"><input type="text"
+											class="form-control required" name="mobilePhone"
+											style="margin-bottom: 0px;" th:value="${info.mobilePhone}" /></td>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">E-mail</label></td>
+										<td><input type="text" class="form-control required"
+											name="email" style="margin-bottom: 0px;"
+											th:value="${info.email}" /></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">学习经历</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="studyExperience"
+												th:text="${info.studyExperience}">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">工作经历</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="workExperience"
+												th:text="${info.workExperience}">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">奖惩情况</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="rewards"
+												th:text="${info.rewards}">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">既往病史</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="medicalHistory"
+												th:text="${info.medicalHistory}">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">学科成绩</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="academicAchievement"
+												th:text="${info.academicAchievement}">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">论文情况</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="paperSituation"
+												th:text="${info.paperSituation}">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">实习经历</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="internshipExperience"
+												th:text="${info.internshipExperience}">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">家庭成员情况</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="homeStatus"
+												th:text="${info.homeStatus}">
+										</textarea></td>
+									</tr>
+									<tr>
+										<td width="10%"><label
+											style="text-align: right; margin-bottom: 0px;">备注</label></td>
+										<td colspan="5"><textarea rows="4" cols="10"
+												class="form-control required" name="other"
+												th:text="${info.other}">
+										</textarea></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</form>
+
+
+				</div>
+			</div>
+		</section>
+	</div>
+	<!-- end of main -->
+</body>
+<script type="text/javascript">
+	$("input").each(function() {
+		$(this).attr("disabled", "disabled");
+	});
+	$("textarea").each(function() {
+		$(this).attr("disabled", "disabled");
+	});
+	$("select").each(function() {
+		$(this).attr("disabled", "disabled");
+	});
+</script>
+</html>

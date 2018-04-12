@@ -38,6 +38,11 @@ public interface ApplicantInfoMapper {
 	 */
 	public List<ApplicantInfoDto> getAllApplicantInfoByUsername(@Param("username") String username);
 
+	/**
+	 * 应该加一个email控制权限的。
+	 * @param id
+	 * @return
+	 */
 	@Select("select * from applicant_info where id=#{0}")
 	public ApplicantInfo getApplicantInfoById(Integer id);
 
@@ -95,4 +100,13 @@ public interface ApplicantInfoMapper {
 	 */
 	@Select("update applicant_info set target=#{0} where id=#{1}")
 	public void updateApplicantInfoTargetById(Integer target,Integer id);
+	
+	/**
+	 * 用于publisher检索，某条数据。
+	 * @param id
+	 * @param username
+	 * @return
+	 */
+	@Select("select * from applicant_info a, user u,position_info p where a.id=#{0} and p.username=u.username and a.positionId=p.id and p.username=#{1}")
+	public ApplicantInfo getApplicantInfoByIdAndUsername(Integer id,String username);
 }
