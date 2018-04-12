@@ -3,30 +3,41 @@
 
 <mapper namespace="com.jun.mapper.NewsMapper">
 
-	
-	
-	
+
+
+
 	<select id="getAllNewsBesidesContent" resultType="com.jun.model.News">
-		select id,title,content,news_log,news_status,news_type,hitCount,create_time,publish_time,user_name,publish_name,file_name 
+		select
+		id,title,content,news_log,news_status,news_type,hitCount,create_time,publish_time,user_name,publish_name,file_name
 		from news
 	</select>
-	
-	
+
+
 	<select id="getAllNewsBesidesContentByTypeId" resultType="com.jun.model.News">
-		select id,title,content,news_log,news_status,news_type,hitCount,create_time,publish_time,user_name,publish_name,file_name 
+		select
+		id,title,content,news_log,news_status,news_type,hitCount,create_time,publish_time,user_name,publish_name,file_name
 		from news where news_type=#{id}
 	</select>
 
 
 	<select id="getFiveNewsByTypeId" resultType="com.jun.controller.dto.NewsPart">
-		select id,title,hitCount,create_time
-		from news where news_type=#{id} ORDER BY create_time ASC limit 5
+		select
+		id,title,hitCount,create_time
+		from news where news_type=#{id} ORDER BY
+		create_time DESC limit 5
+	</select>
+	
+	<select id="getFiveCommonNews" resultType="com.jun.controller.dto.NewsPart">
+		select
+		id,title,hitCount,create_time
+		from news ORDER BY
+		create_time DESC limit 5
 	</select>
 
 
-
 	<select id="getLimitNewsBesidesContent" resultType="com.jun.model.News">
-		select id,title,content,news_log,news_status,news_type,hitCount,create_time,publish_time,user_name,publish_name,file_name 
+		select
+		id,title,content,news_log,news_status,news_type,hitCount,create_time,publish_time,user_name,publish_name,file_name
 		from news
 		<where>
 			<if test="username !=null and username!=''">

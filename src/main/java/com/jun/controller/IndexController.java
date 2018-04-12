@@ -37,9 +37,7 @@ public class IndexController {
     	String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(username);
 		model.addAttribute("user", user);
-
 		model.addAttribute("index",indexService.getNewsDtoPart());
-
         return "index";
     }
 	

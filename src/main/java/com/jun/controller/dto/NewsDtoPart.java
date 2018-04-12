@@ -10,7 +10,16 @@ import java.util.List;
 
 public class NewsDtoPart {
 	private String name;
+	private Integer id;
 	List<NewsPart> list;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -28,6 +37,9 @@ public class NewsDtoPart {
 		this.list = list;
 	}
 
+	@Override
+	public String toString() {
+		return "NewsDtoPart [name=" + name + ", id=" + id + ", list=" + list + "]";
+	}
+
 }
-
-

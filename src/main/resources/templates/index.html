@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="utf-8" />
 <title>首页</title>
@@ -7,6 +8,25 @@
 	title="no title" charset="utf-8" />
 <link rel="stylesheet" href="/css/index/css/index.css" media="screen"
 	title="no title" charset="utf-8" />
+	
+<style type="text/css">
+.spanCreateTime0{
+	color: black;
+	font-size: 10px;
+	padding-left: 111px;
+}
+.spanCreateTime1{
+	color: black;
+	font-size: 10px;
+	padding-left: 49px;
+}
+.spanHitCount{
+	color: black; 
+	float: right; 
+	font-size: 10px;
+}
+
+</style>
 </head>
 <body>
 	<div class="ui red basic segment  topmenu">
@@ -79,170 +99,109 @@
 			</div>
 		</div>
 	</div>
+
+
 	<div class="ui basic segment body container">
 		<div class="ui basic segment container topcontent"
 			style="border: none;">
 			<div class="ui horizontal basic segments"
 				style="border: none; height: 500px;">
 				<div class="ui basic segment topleft">
-					<h6>全部动态</h6>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
+					<h6 th:text="${index.part0.name}">首页</h6>
+					<div class="ui segment bestlast"
+						th:each="item,itemStat :${index.part0.list}">
+						<img src="/css/index/images/index/Triangle.png" alt="" /> <a
+							th:text="${item.title}"
+							th:href="${'/common/news-view?id='+item.id}"></a>
+						<div style="margin-top: 18px;">
+							<span class="spanCreateTime0"
+								th:text="${item.createTime}" ></span> <span
+								class="spanHitCount"
+								th:text="${'阅读量：'+item.hitCount}"></span>
+						</div>
+
 					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<a href="#">更多</a>
+					<a th:href="${'/common/news-catelog?id='+index.part0.id}">更多</a>
 				</div>
 
 
 
 				<div class="ui basic segment topleft">
-					<h6>招考公告</h6>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
+					<h6 th:text="${index.part1.name}">首页</h6>
+					<div class="ui segment bestlast"
+						th:each="item,itemStat :${index.part1.list}">
+						<img src="/css/index/images/index/Triangle.png" alt="" /> <a
+							th:text="${item.title}"
+							th:href="${'/common/news-view?id='+item.id}"></a>
+						<div style="margin-top: 18px;">
+							<span class="spanCreateTime0"
+								th:text="${item.createTime}" ></span> <span
+								class="spanHitCount"
+								th:text="${'阅读量：'+item.hitCount}"></span>
+						</div>
 					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<a href="#">更多</a>
+					<a th:href="${'/common/news-catelog?id='+index.part1.id}">更多</a>
 				</div>
 
 			</div>
 
 
-			<div class="ui horizontal basic segments" style="border: none; height: 500px;">
+			<div class="ui horizontal basic segments"
+				style="border: none; height: 500px;">
 				<div class="ui basic segment topleft"
 					style="padding-left: 0px; width: 240px;">
-					<h6>全部动态</h6>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
+					<h6 th:text="${index.part2.name}">首页</h6>
+					<div class="ui segment bestlast"
+						th:each="item,itemStat :${index.part2.list}">
+						<img src="/css/index/images/index/Triangle.png" alt="" /> <a
+							th:text="${item.title}"
+							th:href="${'/common/news-view?id='+item.id}"></a>
+						<div style="margin-top: 18px;">
+							<span class="spanCreateTime1"
+								th:text="${item.createTime}"></span> <span
+								class="spanHitCount"
+								th:text="${'阅读量：'+item.hitCount}"></span>
+						</div>
 					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<a href="#">更多</a>
+					<a th:href="${'/common/news-catelog?id='+index.part2.id}">更多</a>
 				</div>
 
 
 
 				<div class="ui basic segment topleft"
 					style="padding-left: 0px; width: 240px;">
-					<h6>全部动态</h6>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
+					<h6 th:text="${index.part3.name}">首页</h6>
+					<div class="ui segment bestlast"
+						th:each="item,itemStat :${index.part3.list}">
+						<img src="/css/index/images/index/Triangle.png" alt="" /> <a
+							th:text="${item.title}"
+							th:href="${'/common/news-view?id='+item.id}"></a>
+						<div style="margin-top: 18px;">
+							<span class="spanCreateTime1"
+								th:text="${item.createTime}" ></span> <span
+								class="spanHitCount"
+								th:text="${'阅读量：'+item.hitCount}"></span>
+						</div>
 					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<a href="#">更多</a>
+					<a th:href="${'/common/news-catelog?id='+index.part3.id}">更多</a>
 				</div>
 
 				<div class="ui basic segment topleft"
 					style="padding-left: 0px; width: 240px;">
-					<h6>全部动态</h6>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
+					<h6 th:text="${index.part4.name}">首页</h6>
+					<div class="ui segment bestlast"
+						th:each="item,itemStat :${index.part4.list}">
+						<img src="/css/index/images/index/Triangle.png" alt="" /> <a
+							th:text="${item.title}"
+							th:href="${'/common/news-view?id='+item.id}"></a>
+						<div style="margin-top: 18px;">
+							<span class="spanCreateTime1"
+								th:text="${item.createTime}" ></span> <span
+								class="spanHitCount"
+								th:text="${'阅读量：'+item.hitCount}"></span>
+						</div>
 					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<a href="#">更多</a>
+					<a th:href="${'/common/news-catelog?id='+index.part4.id}">更多</a>
 				</div>
 
 			</div>
@@ -251,105 +210,66 @@
 			<div class="ui horizontal basic segments" style="border: none;">
 				<div class="ui basic segment topleft"
 					style="padding-left: 0px; width: 240px;">
-					<h6>全部动态</h6>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
+					<h6 th:text="${index.part5.name}">首页</h6>
+					<div class="ui segment bestlast"
+						th:each="item,itemStat :${index.part5.list}">
+						<img src="/css/index/images/index/Triangle.png" alt="" /> <a
+							th:text="${item.title}"
+							th:href="${'/common/news-view?id='+item.id}"></a>
+						<div style="margin-top: 18px;">
+							<span class="spanCreateTime1"
+								th:text="${item.createTime}" ></span> <span
+								class="spanHitCount"
+								th:text="${'阅读量：'+item.hitCount}"></span>
+						</div>
 					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<a href="#">更多</a>
+					<a th:href="${'/common/news-catelog?id='+index.part5.id}">更多</a>
 				</div>
 
 
 
 				<div class="ui basic segment topleft"
 					style="padding-left: 0px; width: 240px;">
-					<h6>全部动态</h6>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
+					<h6 th:text="${index.part6.name}">首页</h6>
+					<div class="ui segment bestlast"
+						th:each="item,itemStat :${index.part6.list}">
+						<img src="/css/index/images/index/Triangle.png" alt="" /> <a
+							th:text="${item.title}"
+							th:href="${'/common/news-view?id='+item.id}"></a>
+						<div style="margin-top: 18px;">
+							<span class="spanCreateTime1"
+								th:text="${item.createTime}" ></span> <span
+								class="spanHitCount"
+								th:text="${'阅读量：'+item.hitCount}"></span>
+						</div>
 					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<a href="#">更多</a>
+					<a th:href="${'/common/news-catelog?id='+index.part6.id}">更多</a>
 				</div>
 
 				<div class="ui basic segment topleft"
 					style="padding-left: 0px; width: 240px;">
-					<h6>全部动态</h6>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
+					<h6 th:text="${index.part7.name}">首页</h6>
+					<div class="ui segment bestlast"
+						th:each="item,itemStat :${index.part7.list}">
+						<img src="/css/index/images/index/Triangle.png" alt="" /> <a
+							th:text="${item.title}"
+							th:href="${'/common/news-view?id='+item.id}"></a>
+						<div style="margin-top: 18px;">
+							<span class="spanCreateTime1"
+								th:text="${item.createTime}"></span> <span
+								class="spanHitCount"
+								th:text="${'阅读量：'+item.hitCount}"></span>
+						</div>
 					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<div class="ui segment bestlast">
-						<img src="/css/index/images/index/Triangle.png" alt="" />
-						<p>这部别出心裁的漫画，讲的是阿富汗战争时期不为人知的历史</p>
-						<span>3分钟前</span>
-					</div>
-					<a href="#">更多</a>
+					<a th:href="${'/common/news-catelog?id='+index.part7.id}">更多</a>
 				</div>
 
 			</div>
 		</div>
 	</div>
 
-	<div class="ui basic segment bottomwhite" style="margin-top: 100px;">
-		<p>Designed by junbao</p>
+	<div style="margin-top: 100px;">
+		<p style="text-align: center;font-size: 24px;">Designed by junbao</p>
 
 	</div>
 </body>

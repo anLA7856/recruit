@@ -82,5 +82,11 @@ public interface NewsMapper {
 	 * @param id
 	 * @return
 	 */
-	public List<NewsPart> getFiveNewsByTypeId(Integer id);
+	public List<NewsPart> getFiveNewsByTypeId(@Param("id")Integer id);
+	
+	/**
+	 * 获取所有动态的前五条。
+	 * @return
+	 */
+	public List<NewsPart> getFiveCommonNews();
 }
