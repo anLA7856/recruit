@@ -22,3 +22,6 @@
 7、在thymeleaf中，通过js获取后端传值，一定要加一个inline例如：
 	<script th:inline="javascript" th:if="${news!=null}">
 8、在thymeleaf中，只需要把 & 替换成  &amp;  
+9、idea热部署无效问题：
+   tomcat项目：https://blog.csdn.net/zhenyushao/article/details/53010273
+   spring-boot项目：https://hacpai.com/article/1490191094543
