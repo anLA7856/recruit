@@ -163,7 +163,6 @@ public class PublisherController {
 	 */
 	@RequestMapping(value = "/view-news-list", method = RequestMethod.GET)
 	public String viewNewsList(Model model, HttpServletRequest request, Integer nowPages, Integer target) {
-
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(username);
 		int start = nowPages == null ? 0 : nowPages * 20;
@@ -176,8 +175,12 @@ public class PublisherController {
 			nowPages = new Integer(1);
 		}
 		switch (target) {
-		case 1:
-			start = nowPages * 20 - 20;
+		case 0:         //上一页
+			nowPages--;
+			start = (nowPages-1)*20;
+			break;
+		case 1:     //下一页
+			nowPages++;
 			break;
 		case 2:
 			start = nowPages * 20 + 20;

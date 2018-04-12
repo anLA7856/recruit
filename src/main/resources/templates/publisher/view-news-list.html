@@ -19,27 +19,21 @@ body {
 
 <script type="text/javascript">
 	function mdelete(id) {
-		if(window.confirm('你确定要删除该记录吗？')){
+		if (window.confirm('你确定要删除该记录吗？')) {
 			$.post("/publisher/delete-news", {
-				id:id
+				id : id
 			}, function(date) {
-				if(date=="ok"){
+				if (date == "ok") {
 					alert("删除成功");
-					window.location.href="/publisher/view-news-list";
-				}else{
+					window.location.href = "/publisher/view-news-list";
+				} else {
 					alert(date);
 				}
-				
 			}
-
 			);
-         }else{
-            return ;
-        }
-		
-		
-
-
+		} else {
+			return;
+		}
 	}
 </script>
 
@@ -98,15 +92,15 @@ body {
 
 						<button class="btn btn-default disabled prev" type="button"
 							th:if="${nowPages==1}">/</button>
-						<button class="btn btn-default" type="button"
-							th:if="${nowPages!=1}" onclick="mySubmit(1)">&lt;</button>
+
+						<a class="btn btn-default" th:href="${'/publisher/view-news-list?target=0&amp;nowPages='+nowPages}" th:if="${nowPages!=1}">&lt;</a>
 
 						<button class="btn btn-default" th:text="${nowPages}"></button>
 
 						<button class="btn btn-default disabled prev blue" type="button"
 							th:if="${currentPagesSize lt 20}">/</button>
-						<button class="btn btn-default" type="button"
-							th:if="${nowPages!=1}" onclick="mySubmit(2)">&gt;</button>
+						<a class="btn btn-default" th:href="${'/publisher/view-news-list?target=1&amp;nowPages='+nowPages}" th:if="${(totalSize - endPoint) gt 0}">&gt;</a>
+						
 					</div>
 
 					<div class="clearfix"></div>
