@@ -28,4 +28,14 @@ public class Model {
 	public static final int OPERATION_CLICK_LIKE = 1;
 	public static final int OPERATION_REPLY = 2;
 	public static final int OPERATION_COMMENT = 3;
+
+	//七个栏目,和数据库一一对应
+	public static final int COLLUMN_SHOUYE = 1;
+	public static final int COLLUMN_GONGGAO = 2;
+	public static final int COLLUMN_ZHENGCEFAGUI = 3;
+	public static final int COLLUMN_CHANGJIANWENTI = 4;
+	public static final int COLLUMN_ZHAOKAOZHIWEI = 5;
+	public static final int COLLUMN_XIANGGUANXIAZAI = 6;
+	public static final int COLLUMN_GONGGAOGONGSHI = 7;
+
 }

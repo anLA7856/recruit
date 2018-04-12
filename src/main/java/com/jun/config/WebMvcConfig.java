@@ -3,6 +3,7 @@ package com.jun.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -41,7 +42,18 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
         //viewResolver.setSuffix(".html");  
         viewResolver.setViewClass(JstlView.class);  
         return  viewResolver;  
-    }  
+    }
+
+
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver initCommonsMultipartResolver(){
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setDefaultEncoding("utf-8");
+        resolver.setMaxUploadSize(10240000l);
+        return resolver;
+    }
+
+
     /**
      * 使配置生效
      */

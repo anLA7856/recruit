@@ -17,6 +17,14 @@
 		from news where news_type=#{id}
 	</select>
 
+
+	<select id="getFiveNewsByTypeId" resultType="com.jun.controller.dto.NewsPart">
+		select id,title,hitCount,create_time
+		from news where news_type=#{id} ORDER BY create_time ASC limit 5
+	</select>
+
+
+
 	<select id="getLimitNewsBesidesContent" resultType="com.jun.model.News">
 		select id,title,content,news_log,news_status,news_type,hitCount,create_time,publish_time,user_name,publish_name,file_name 
 		from news

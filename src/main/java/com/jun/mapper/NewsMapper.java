@@ -2,6 +2,7 @@ package com.jun.mapper;
 
 import java.util.List;
 
+import com.jun.controller.dto.NewsPart;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -75,4 +76,11 @@ public interface NewsMapper {
 	 * @return
 	 */
 	public List<News> getAllNewsBesidesContent();
+
+	/**
+	 * 用于获取首页数据，通过id，只获取五条
+	 * @param id
+	 * @return
+	 */
+	public List<NewsPart> getFiveNewsByTypeId(Integer id);
 }
