@@ -76,7 +76,7 @@ body {
 								<td><a th:href="${'/common/news-view?id='+mnew.id}"
 									th:text="${mnew.title}">修改</a></td>
 								<td
-									th:text="${newsTypeMapper.getNewsTypeById(mnew.id).newsType}">类别</td>
+									th:text="${newsTypeMapper.getNewsTypeById(mnew.newsType).newsType}">类别</td>
 								<td><a
 									th:href="${'/publisher/view-publish-news?id='+mnew.id}">修改</a></td>
 								<td><button id="delete" class="btn btn-link"

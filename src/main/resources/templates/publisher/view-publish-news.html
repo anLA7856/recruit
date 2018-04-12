@@ -22,7 +22,6 @@ body {
 
 <script type="text/javascript">
 	function modify() {
-		
 		$("#newsContent").val(editor.txt.html());
 		var t = $("#newsContent").val();
 		$("#pimRemindForm").submit();
@@ -85,7 +84,9 @@ body {
 				<input type="hidden" name="newsId" th:if="${newsId != null}" th:value="${newsId}"/> <!-- 用于标识是新增还是修改 -->
 				<input type="hidden" name="newsContent" id="newsContent"/>                          <!-- 用于存放符文奔内容 -->
 				<input type="hidden" name="target" th:if="${news!=null}" value="modify" />
+				<input type="hidden" name="target" th:if="${news==null}" value="new" />
 				<input type="hidden" name="id" th:if="${news!=null}" th:value="${news.id}" />
+				<input type="hidden" name="id" th:if="${news==null}" value="" />
 			</form>
 		</section>
 		<!-- end of main -->
