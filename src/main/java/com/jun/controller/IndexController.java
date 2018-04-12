@@ -1,5 +1,6 @@
 package com.jun.controller;
 
+import com.jun.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ public class IndexController {
 	
 	@Autowired
 	UserMapper userMapper;
+
+	@Autowired
+	IndexService indexService;
 	
 	
     /**
@@ -33,6 +37,9 @@ public class IndexController {
     	String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(username);
 		model.addAttribute("user", user);
+
+		model.addAttribute("index",indexService.getNewsDtoPart());
+
         return "index";
     }
 	

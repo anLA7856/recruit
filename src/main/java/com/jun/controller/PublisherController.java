@@ -126,7 +126,7 @@ public class PublisherController {
 		news.setNewsType(Integer.parseInt(newsType));
 		news.setUsername(username);
 		news.setTitle(newsTitle);
-		if(target != null){
+		if(target!=null && target.equals("modify")){
 			newsMapper.updateNews(news);
 		}else{
 			newsMapper.addNewNews(news);
