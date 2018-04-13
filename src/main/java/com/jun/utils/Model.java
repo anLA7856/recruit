@@ -12,7 +12,9 @@ public class Model {
 	public static final String ROLE_ADMIN = "ROLE_ADMIN";
 	public static final String ROLE_USER = "ROLE_USER";
 	public static final String ROLE_PUBLISHER = "ROLE_PUBLISHER";
-
+	public static final String ROLE_INFO = "ROLE_INFO";
+	
+	
 	// 第一次默认的图片
 	public static final String DEFAULT_USER_PIC = "/df/headPicLocation/default.png";
 	public static final String USER_HEAD_PICS = "headPicLocation";

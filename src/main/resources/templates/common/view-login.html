@@ -15,10 +15,11 @@
     </style>
 
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#1FE; border-color:#ffffff;">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">公务员报考系统</a>
+            <a class="navbar-brand" href="/common/view-register">注册帐号</a>
         </div>
         
     </div>
@@ -30,11 +31,13 @@
         <form class="form-signin" role="form" name="form" th:action="@{/common/view-login}" method="post">
             <div class="form-group">
                 <label for="username">账号</label>
-                <input type="text" class="form-control" name="username" value="" placeholder="账号"/>
+                <div style="height:30px; line-height:30px;">
+                <input style="width: 50%; margin:0 auto;" type="text" class="form-control" name="username" value="" placeholder="账号"/>
+                </div>
             </div>
             <div class="form-group">
                 <label for="password">密码</label>
-                <input type="password" class="form-control" name="password" placeholder="密码"/>
+                <input style="width: 50%; margin:0 auto;" type="password" class="form-control" name="password" placeholder="密码"/>
             </div>
             <input type="submit" id="login" value="Login" class="btn btn-primary"/>
         </form>

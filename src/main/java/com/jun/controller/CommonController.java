@@ -81,7 +81,7 @@ public class CommonController {
      * @param request
      * @return
      */
-    @RequestMapping(value="/veiw-register", method = RequestMethod.GET)
+    @RequestMapping(value="/view-register", method = RequestMethod.GET)
     public ModelAndView viewRegister(Model model, HttpServletRequest request){
     	return new ModelAndView("/common/view-register");
     }

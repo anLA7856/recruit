@@ -41,8 +41,9 @@ public class UserService {
 		// 赋权操作
 		// 获得普通用户权限
 		Role role = roleUserMapper.findRoleByRoleName(Model.ROLE_USER);
-
-		String result = roleUserMapper.addNewRoleAndUser(role.getId(),user.getId()) == 1 ? "激活成功" : "激活失败，数据库出错";
+		Role role1 = roleUserMapper.findRoleByRoleName(Model.ROLE_INFO);
+		roleUserMapper.addNewRoleAndUser(role1.getId(), user.getId());
+		String result = roleUserMapper.addNewRoleAndUser(role.getId(), user.getId()) == 1 ? "激活成功" : "激活失败，数据库出错";
 		return result;
 	}
 }
