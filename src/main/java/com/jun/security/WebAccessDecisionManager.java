@@ -34,7 +34,7 @@ public class WebAccessDecisionManager implements AccessDecisionManager {
 		}
 		ConfigAttribute c;
 		String needRole;    //需要的角色。
-		for (Iterator<ConfigAttribute> iter = configAttributes.iterator(); iter.hasNext();) {
+		for (Iterator<ConfigAttribute> iter = configAttributes.iterator(); iter.hasNext();) {  //
 			c = iter.next();
 			needRole = c.getAttribute();
 			for (GrantedAuthority ga : authentication.getAuthorities()) {  //看当前用户拥有的权限

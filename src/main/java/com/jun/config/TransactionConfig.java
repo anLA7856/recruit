@@ -12,6 +12,8 @@ import javax.sql.DataSource;
 
 /**
  * 
+ * 简单定义事务管理员。
+ * 
  * @author jun
  * @date 2018年3月26日 : 下午9:16:06
  *

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 /**
+ * 配置sqlSessionFactory的。
  * 
  * @author jun
  * @date 2018年3月26日 : 下午9:16:24

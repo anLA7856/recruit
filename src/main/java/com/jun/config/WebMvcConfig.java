@@ -12,6 +12,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+/**
+ * 是Spring 配置生效
+ * @author jun
+ *
+ */
 @Configuration
 @EnableWebMvc
 @Controller
@@ -20,15 +25,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/home").setViewName("/home");
 	}
-	
-//	@Bean(name="stringHttpMessageConverter")
-//	public StringHttpMessageConverter stringHttpMessageConverter(){
-//		StringHttpMessageConverter stringHttpMessageConverter = new StringHttpMessageConverter();
-//		List<MediaType> list = new ArrayList<>();
-//		//list.add(new MediaType("text html; charset=UTF-8"));
-//		stringHttpMessageConverter.setSupportedMediaTypes(list);
-//		return stringHttpMessageConverter;
-//	}
 	
 	
 	/**

@@ -17,7 +17,7 @@ import com.jun.utils.MD5Util;
 
 
 /**
- * 
+ * Spring Security配置
  * @author jun
  * @date 2018年3月26日 : 下午9:15:50
  *
@@ -46,8 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/common/view-login")  //指定登录页是"/login"
-                .defaultSuccessUrl("/")  //登录成功后默认跳转到"list"
+                .loginPage("/common/view-login")  //指定登录页是"/view-login"
+                .defaultSuccessUrl("/")  //登录成功后默认跳转到
                 .and()
                 .logout()
                 .logoutUrl("/common/view-logout")
@@ -61,12 +61,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(customerUserService).passwordEncoder(new PasswordEncoder() {
         	/**
         	 * 小写。
+        	 * 用于加密rawPassword。
         	 */
             @Override
             public String encode(CharSequence rawPassword) {
                 return MD5Util.encode((String) rawPassword);
             }
 
+            /**
+             * 用来匹配加密后密码时候一致。
+             */
             @Override
             public boolean matches(CharSequence rawPassword, String encodedPassword) {
                 return encodedPassword.equals(MD5Util.encode((String) rawPassword));

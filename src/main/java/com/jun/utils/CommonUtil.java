@@ -21,15 +21,22 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 public class CommonUtil {
+	
 	public static String formatDate(Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");
 		return sdf.format(date);
 	}
-
+/*
+ *  创建一个随机码，用于激活用户
+ */
 	public static String createActivateCode() {
 		return new Date().getTime() + UUID.randomUUID().toString().replace("-", "");
 	}
-
+/**
+ * 检查args数组是否有一个为空
+ * @param args
+ * @return
+ */
 	public static boolean checkIfNull(Object... args) {
 		for (Object o : args) {
 			if (o == null) {
@@ -39,6 +46,14 @@ public class CommonUtil {
 		return true;
 	}
 
+ /**
+  * 用于下载头像流
+  * @param fileName
+  * @param filePath
+  * @param request
+  * @param response
+  * @throws Exception
+  */
 	public static void download(String fileName, String filePath, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		// 设置响应头和客户端保存文件名

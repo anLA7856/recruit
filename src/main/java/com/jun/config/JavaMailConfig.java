@@ -7,9 +7,14 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-
+/**
+ * 配置javamail，以及taskExecutor线程池。
+ * 
+ * @author jun
+ *
+ */
 @Configuration
-@PropertySource("classpath:jun.properties")
+@PropertySource("classpath:jun.properties")   //读取jun.properties的文件
 public class JavaMailConfig {
 	
 	@Autowired

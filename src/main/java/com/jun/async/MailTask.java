@@ -8,7 +8,11 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 
 import com.jun.utils.Model;
 
-
+/**
+ * 一个邮件的异步任务，也就是线程
+ * @author jun
+ *
+ */
 public class MailTask implements Runnable {
 
     private String code;
@@ -29,12 +33,13 @@ public class MailTask implements Runnable {
             @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 System.out.println("开始发邮件...");
-                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true,"UTF-8");
-                mimeMessageHelper.setFrom(Model.MAIL_FROM);
-                mimeMessageHelper.setTo(email);
-                mimeMessageHelper.setSubject("一封激活邮件");
+                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true,"UTF-8");    //设置字符集
+                mimeMessageHelper.setFrom(Model.MAIL_FROM);                                              //设置邮件发送方
+                mimeMessageHelper.setTo(email);                                                          //邮件目的方
+                mimeMessageHelper.setSubject("一封激活邮件");                                        //设置标题
                 StringBuilder sb  = new StringBuilder();
-                sb.append("<html><head></head><body>");
+                //以下是拼凑html串，即一个带a标签的串
+                sb.append("<html><head></head><body>");                                      
 
                 if(operation==1){
                     sb.append("<a href="+Model.DOMAIN_NAME+"/common/activate.do?code=");

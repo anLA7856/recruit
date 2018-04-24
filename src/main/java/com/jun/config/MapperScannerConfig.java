@@ -17,6 +17,7 @@ public class MapperScannerConfig {
 	public MapperScannerConfigurer mapperScannerConfigurer() {
 		MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
 		mapperScannerConfigurer.setBasePackage("com.jun.mapper");
+		//相当于去spring bean管家中拿到这个名字为sqlSessionFactory这个bean
 		mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
 		return mapperScannerConfigurer;
 	}

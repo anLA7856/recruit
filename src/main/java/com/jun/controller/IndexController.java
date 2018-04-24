@@ -16,7 +16,7 @@ import com.jun.model.User;
 
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/")//对类的匹配
 @EnableWebMvc
 @Transactional
 public class IndexController {
@@ -32,7 +32,7 @@ public class IndexController {
      * 用于进入系统后，没有后缀的直接映射。
      * @return
      */
-    @RequestMapping(value="/", method = RequestMethod.GET)
+    @RequestMapping(value="/", method = RequestMethod.GET)//对方法的匹配
     public String index(Model model){
     	String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(username);

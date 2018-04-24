@@ -7,7 +7,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
+/**
+ * 用来上传文件的，主要是上传头像
+ * @author jun
+ *
+ */
 public class IoUtils {
     private static final int DEFAULT_BUFFER_SIZE = 1024;
 
@@ -31,7 +35,12 @@ public class IoUtils {
 
         return text;
     }
-
+/**
+ * 把文件作为响应流传给网页
+ * @param fileLocation
+ * @param os
+ * @throws IOException
+ */
     public static void copyFileToOutputStream(String fileLocation,
             OutputStream os) throws IOException {
         FileInputStream fis = new FileInputStream(fileLocation);

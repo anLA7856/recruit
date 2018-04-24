@@ -1,8 +1,6 @@
 package com.jun.utils;
 
-/**
- * Created by yangyibo on 17/2/7.
- */
+
 import java.security.MessageDigest;
 
 /**
@@ -12,29 +10,12 @@ import java.security.MessageDigest;
 public class MD5Util {
 
     private static final String SALT = "junbao";
-   
-    private static final String WECAHT_SALT="yy_aa";
-    
+  
     public static String encode(String password) {
         password = password + SALT;
         return processEncode(password);
     }
     
-    /**
-     * 与微信模块约定的加密模块
-     * */
-    public static String wechatEncode(String password){
-    	password = password + WECAHT_SALT;
-        return processEncode(password);
-    }
-    
-    public static boolean wehcatValidation(String str, String token){
-		boolean flag = false;
-		if(wechatEncode(str).equals(token)){
-			flag = true;
-		}
-		return flag;
-	}
 
     public static String processEncode(String password) {
         MessageDigest md5 = null;
@@ -62,8 +43,5 @@ public class MD5Util {
     }
 
     	
-    public static void main(String[] args) {
-        System.out.println(MD5Util.encode("abel"));
-        System.out.println(MD5Util.encode("admin"));
-    }
+
 }

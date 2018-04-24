@@ -23,7 +23,10 @@ public class IndexService {
 
 	@Autowired
 	NewsMapper newsMapper;
-
+	/**
+	 * 获取新闻首页数据的dto。
+	 * @return
+	 */
 	public IndexDto getNewsDtoPart(){
 		IndexDto dto = new IndexDto();
 		dto.setPart0(getCommonNews());

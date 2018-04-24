@@ -22,7 +22,7 @@ import com.jun.model.Permission;
 import com.jun.model.Role;
 
 /**
- * 
+ * 初始化权限各种表关系。
  * @author jun
  * @date 2018年3月28日 : 下午11:10:49
  *
@@ -58,7 +58,7 @@ public class WebInvocationSecurityMetadataSourceService implements FilterInvocat
 			//把url的所有role都翻到list中
 			for(Role role : needRoles){
 				array = new ArrayList<>();
-				cfg = new SecurityConfig(role.getName());
+				cfg = new SecurityConfig(role.getName());   //包装一个SecurityConfig。加到array里面。
 				array.add(cfg);
 			}
 			//一条记录是，一个url，多个Role。

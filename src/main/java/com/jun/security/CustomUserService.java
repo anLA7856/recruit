@@ -35,27 +35,31 @@ public class CustomUserService implements UserDetailsService { //自定义UserDe
     @Autowired
     RoleUserMapper roleUserMapper;
 
+    /**
+     *通过用户名去加载用户。
+     */
     public UserDetails loadUserByUsername(String username) {
-        com.jun.model.User user = userMapper.findByUserName(username);
+        com.jun.model.User user = userMapper.findByUserName(username);     //从数据库中获取用户名对应的user
         
-        if (user != null) {
-        	if(user.getuEnabled()==0){
+        if (user != null) {    //当user不为null
+        	if(user.getuEnabled()==0){         //当用户未激活，也就是没有点击邮箱中的链接。
             	//未激活
             	throw new DisabledException("用户未激活");
-            }else{
+            }else{     //已激活。
             	//获取用户所有角色
                 List<Role> roles = roleUserMapper.findRolesByUserId(user.getId());
-                List<GrantedAuthority> grantedAuthorities = new ArrayList <>();
-                for (Role role : roles) {
+                List<GrantedAuthority> grantedAuthorities = new ArrayList <>();  //角色集合
+                for (Role role : roles) {                //把该用户对应的所有角色，放入到grantedAuthorities/里面。
                     if (role != null && role.getName()!=null) {
 	                    GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getName());
 	                    grantedAuthorities.add(grantedAuthority);
                     }
                 }
                 //返回一个UserDetail，有username，password，以及 grantedAuthorities权限。
-                return new User(user.getUsername(), user.getPassword(), grantedAuthorities);
+                return new User(user.getUsername(), user.getPassword(), grantedAuthorities);   //把username和grantedAuthorities绑定起来。  
             }
         } else {
+        	//没找到对应用户。
             throw new UsernameNotFoundException("admin: " + username + " do not exist!");
         }
     }

@@ -11,7 +11,7 @@ import org.springframework.core.env.Environment;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 /**
- * 
+ * 主要用来配置数据源
  * @author jun
  * @date 2018年3月26日 : 下午9:16:40
  *
