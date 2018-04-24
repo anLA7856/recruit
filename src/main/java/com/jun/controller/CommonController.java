@@ -109,13 +109,14 @@ public class CommonController {
      * @param password
      * @return
      */
-    @RequestMapping(value="/register", method = RequestMethod.POST)
+    @RequestMapping(value="/register", method = RequestMethod.POST,produces="text/html; charset=UTF-8")
+	@ResponseBody
     public String register(Model model, HttpServletRequest request,@RequestParam String username,@RequestParam String password){
     	String result = loginService.addUser(username, password);
-    	model.addAttribute("info", "请进入邮箱验证！");
-    	model.addAttribute("href", com.jun.utils.Model.DOMAIN_NAME);
-    	model.addAttribute("result", result);
-    	return "/common/validate-result";
+//    	model.addAttribute("info", "请进入邮箱验证！");
+//    	model.addAttribute("href", com.jun.utils.Model.DOMAIN_NAME);
+//    	model.addAttribute("result", result);
+    	return result;
     }
     /**
      * 用于激活帐号
