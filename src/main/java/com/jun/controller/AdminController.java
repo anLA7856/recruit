@@ -11,11 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.jun.controller.dto.RoleDto;
@@ -119,8 +115,8 @@ public class AdminController {
 	 * @param username
 	 * @return
 	 */
-	@RequestMapping(value = "/user-modify/{username}", method = RequestMethod.GET)
-	public String userModify(Model model, HttpServletRequest request, @PathVariable String username) {
+	@RequestMapping(value = "/user-modify", method = RequestMethod.GET)
+	public String userModify(Model model, HttpServletRequest request, @RequestParam String username) {
 		String concurrentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(concurrentUsername);
 
