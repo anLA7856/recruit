@@ -94,7 +94,7 @@ body {
 								<td th:text="${user.name}">用户姓名</td>
 								<td th:text="${user.username}">邮箱</td>
 								<td th:text="${user.telephone}">电话号码</td>
-								<td><a th:href="${'/admin/user-modify/'+user.username}">设置</a></td>
+								<td><a th:href="${'/admin/user-modify?username='+user.username}">设置</a></td>
 							</tr>
 						</tbody>
 					</table>
