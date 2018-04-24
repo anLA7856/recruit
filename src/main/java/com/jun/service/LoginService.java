@@ -31,6 +31,7 @@ public class LoginService {
 		// 校验邮箱格式
 		Pattern p = Pattern.compile("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$");
 		Matcher m = p.matcher(username);
+		boolean b = m.matches();
 		if (!m.matches()) {
 			return "邮箱格式有问题啊~";
 		}
@@ -51,8 +52,6 @@ public class LoginService {
 		userMapper.addNewUser(username, password, validate);
 		// 发送邮件
 		taskExecutor.execute(new MailTask(validate, username, javaMailSender, 1));
-
-		
 
 		return "ok";
 	}
