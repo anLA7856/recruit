@@ -16,32 +16,10 @@ body {
 	text-align: center;
 }
 </style>
-<script type="text/javascript">
-	function modify() {
-		var username = $("#username").val();
-		var name = $("#name").val();
-		var telephone = $("#telephone").val();
 
-		if (name == "" || telephone == null) {
-			alert("请填写完整");
-			return;
-		}
-
-		$.post("/admin/update-person-info", {
-			username : username,
-			name : name,
-			telephone : telephone
-		}, function(date) {
-			alert(date);
-
-		}
-
-		);
-
-	}
-</script>
 
 <body>
+<!-- 引用thymeleaf的标签库的replace标签 -->
 	<div th:replace="/common/fragment::top"></div>
 	<div class="row-fluid">
 		<div th:replace="/common/fragment::menu"></div>
@@ -56,6 +34,7 @@ body {
 						<div class="form-group">
 							<label class="control-label col-md-1" for="pimRemind_repeatType">用户头像</label>
 							<div class="col-sm-5">
+							<!-- th:src 代表src属性，但是可以去获取后台传过来的值 -->
 								<img th:src="${'/common/avatar?username='+user.username}" style="width: 320px; height: 320px;" class="img-circle" /> 
 							</div>
 						</div>

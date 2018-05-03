@@ -92,14 +92,10 @@ body {
 										<td width="10%"><label
 											style="text-align: right; margin-bottom: 0px;">报考职位</label></td>
 										<td width="90%" colspan="5">
-										<select disabled="disabled" id="positionId" 
-											name="positionId" class="form-control"
-											style="padding-left: 0px; margin-bottom: 0px;">
-												<option th:each="position,positionState : ${positions}"
-													th:text="${position.positionName}"
-													th:value="${position.id}" th:selected="${info.positionId==position.id}?'selected'"></option>
-										</select>
 										
+										<input disabled="disabled" type="text" class="form-control required"
+											name="positionName" style="margin-bottom: 0px;" th:value="${positionName}" /></td>
+										<td width="10%">
 										</td>
 									</tr>
 									<tr>

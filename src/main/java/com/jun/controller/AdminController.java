@@ -30,7 +30,7 @@ public class AdminController {
 	@Autowired
 	UserMapper userMapper;
 	@Autowired
-	RolePermissionMapper rolePermissionMapper;
+	RolePermissionMapper rolePermissionMapper;//角色权限匹配
 	@Autowired
 	RoleUserMapper roleUserMapper;
 
@@ -80,11 +80,14 @@ public class AdminController {
 			break;
 		case 2:
 			start = nowPages * 20 + 20;
+			break;
 		case 3:
 			start = 0;
+			break;
 		case 4:
 			start = totalSize - totalSize % 20;
 			start = start == 0 ? totalSize - 20 : start;
+			break;
 		default:
 			break;
 		}

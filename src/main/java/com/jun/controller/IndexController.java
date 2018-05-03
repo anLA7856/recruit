@@ -34,6 +34,7 @@ public class IndexController {
      */
     @RequestMapping(value="/", method = RequestMethod.GET)//对方法的匹配
     public String index(Model model){
+    	//Spring Security提供的获取登录用户的方法
     	String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(username);
 		model.addAttribute("user", user);
@@ -42,13 +43,5 @@ public class IndexController {
     }
 	
 	
-	
-    /**
-     * 用于登录成功后的跳转
-     * @return
-     */
-    @RequestMapping(value="/index.do", method = RequestMethod.GET)
-    public String getHomePage(){
-        return "index";
-    }
+
 }

@@ -201,7 +201,7 @@ public class CommonController {
 	 * 用于查看新闻种类信息
 	 * @param model
 	 * @param request
-	 * @param id
+	 * @param id  
 	 * @return
 	 */
 	@RequestMapping(value = "/news-catelog", method = RequestMethod.GET)
@@ -209,7 +209,6 @@ public class CommonController {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(username);
 		model.addAttribute("user", user);
-		
 		
 		News news = newsMapper.getNewsById(id);
 		model.addAttribute("news", news);
@@ -245,7 +244,7 @@ public class CommonController {
 	public void downloadAttachment(Model model, HttpServletRequest request,HttpServletResponse response,String fileName) throws Exception {
 		 //上传文件路径
         String path = request.getServletContext().getRealPath("/attachment/");
-		//String filePath = path+"pipe.bmp";注意可能每当启动一次，class下面的文件会被清空。
+		
 		String filePath = path+fileName;
 		
 		CommonUtil.download(fileName, filePath, request, response);

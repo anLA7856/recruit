@@ -164,15 +164,15 @@ public class PublisherController {
 	 */
 	@RequestMapping(value = "/view-news-list", method = RequestMethod.GET)
 	public String viewNewsList(Model model, HttpServletRequest request, Integer nowPages, Integer target) {
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		User user = userMapper.findByUserName(username);
-		int start = nowPages == null ? 0 : nowPages * 20;
-		int length = 20;
-		int totalSize = newsMapper.getAllNewsSizeByUsername(username);
-		if (target == null) {
-			target = new Integer(1);// 初始值为1
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();         //获得username
+		User user = userMapper.findByUserName(username);           //通过username获取user实体
+		int start = nowPages == null ? 0 : nowPages * 20;         //当nowPages为null，从第0行开始，
+		int length = 20;          //20条记录
+		int totalSize = newsMapper.getAllNewsSizeByUsername(username);               //获取当前用户所发布的所有新闻总数
+		if (target == null) {                         //初始target
+			target = new Integer(3);			// 初始值为1
 		}
-		if (nowPages == null) {
+		if (nowPages == null) {          //默认值
 			nowPages = new Integer(1);
 		}
 		switch (target) {
@@ -185,11 +185,14 @@ public class PublisherController {
 			break;
 		case 2:
 			start = nowPages * 20 + 20;
+			break;
 		case 3:
 			start = 0;
+			break;
 		case 4:
 			start = totalSize - totalSize % 20;
 			start = start == 0 ? totalSize - 20 : start;
+			break;
 		default:
 			break;
 		}

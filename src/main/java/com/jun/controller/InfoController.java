@@ -123,6 +123,7 @@ public class InfoController {
     
     @RequestMapping(value="/view-change-pic", method = RequestMethod.GET)
     public String viewChangePic(Model model, HttpServletRequest request){
+    	//获取当前用户用户名
     	String concurrentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(concurrentUsername);
 		model.addAttribute("user", user);

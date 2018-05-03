@@ -3,6 +3,7 @@ package com.jun.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.crypto.spec.PSource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,7 +152,8 @@ public class UserController {
 		
 		ApplicantInfo info = applicantInfoMaaper.getAreadySuccessByUsername(username);
 		model.addAttribute("info", info);
-		
+		String positionName = positionInfoMapper.getPositionInfoById(info.getPositionId()).getPositionName();
+		model.addAttribute("positionName", positionName);
 		return "/user/view-user-apply-result";
 	}
 	

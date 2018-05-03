@@ -26,7 +26,7 @@ body {
 			alert("请填写完整");
 			return;
 		}
-
+//$代表jQuery的异步请求
 		$.post("/info/update-person-info", {
 			username : username,
 			name : name,
@@ -42,7 +42,7 @@ body {
 </script>
 
 <body>
-	<div th:replace="/common/fragment::top"></div>
+	<div th:replace="/common/fragment::top"></div>//通用头
 	<div class="row-fluid">
 		<div th:replace="/common/fragment::menu"></div>
 		<!-- start of main -->

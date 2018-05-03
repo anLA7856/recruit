@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<!-- 引入thymeleaf模板的方法 -->
+<html xmlns:th="http://www.thymeleaf.org"   
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="utf-8" />
@@ -41,22 +42,22 @@
 				<a href="/">首页</a>
 			</div>
 			<div class="item" style="margin-right: 10px;">
-				<a href="/">招考公告</a>
+				<a href="/common/news-view?id=2">招考公告</a>
 			</div>
 			<div class="item" style="margin-right: 10px;">
-				<a href="/">政策法规</a>
+				<a href="/common/news-view?id=3">政策法规</a>
 			</div>
 			<div class="item" style="margin-right: 10px;">
-				<a href="/">常见问题</a>
+				<a href="/common/news-view?id=4">常见问题</a>
 			</div>
 			<div class="item" style="margin-right: 10px;">
-				<a href="/">招考职位</a>
+				<a href="/common/news-view?id=5">招考职位</a>
 			</div>
 			<div class="item" style="margin-right: 10px;">
-				<a href="/">相关下载</a>
+				<a href="/common/news-view?id=6">相关下载</a>
 			</div>
 			<div class="item" style="margin-right: 10px;">
-				<a href="/">公告公示</a>
+				<a href="/common/news-view?id=7">公告公示</a>
 			</div>
 
 
@@ -100,13 +101,14 @@
 		</div>
 	</div>
 
-
+<!-- 引用了bootstrap的相关样式 -->
 	<div class="ui basic segment body container">
 		<div class="ui basic segment container topcontent"
 			style="border: none;">
 			<div class="ui horizontal basic segments"
 				style="border: none; height: 500px;">
 				<div class="ui basic segment topleft">
+				<!-- $表示从model里取值 -->
 					<h6 th:text="${index.part0.name}"></h6>
 					<div class="ui segment bestlast"
 						th:each="item,itemStat :${index.part0.list}">
