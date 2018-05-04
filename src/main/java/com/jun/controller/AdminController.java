@@ -51,7 +51,7 @@ public class AdminController {
 	 * @param nowPages
 	 *            当前页数
 	 * @param target
-	 *            标志变量，1代表前一页，2代表后一页，3代表首页，4代表尾页。
+	 *            标志变量，0代表前一页，1代表后一页
 	 * @return
 	 */
 	@RequestMapping(value = "/user-list")
@@ -63,30 +63,29 @@ public class AdminController {
 		if (searchName == null) {
 			searchName = "";
 		}
+		int length = 20;
+
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(username);
-		int start = nowPages == null ? 0 : nowPages * 20;
-		int length = 20;
+		int start = nowPages == null ? 0 : nowPages * length;
+
 		int totalSize = userMapper.getAllFilterUsers(searchEmail, searchName);
 		if (target == null) {
-			target = new Integer(1);// 初始值为1
+			target = new Integer(3);// 初始值为3
 		}
 		if (nowPages == null) {
 			nowPages = new Integer(1);
 		}
 		switch (target) {
-		case 1:
-			start = nowPages * 20 - 20;
+		case 0:         //上一页
+			nowPages--;
+			start = (nowPages-1)*length;
 			break;
-		case 2:
-			start = nowPages * 20 + 20;
+		case 1:     //下一页
+			nowPages++;
 			break;
 		case 3:
 			start = 0;
-			break;
-		case 4:
-			start = totalSize - totalSize % 20;
-			start = start == 0 ? totalSize - 20 : start;
 			break;
 		default:
 			break;
