@@ -117,7 +117,7 @@ body {
 
 					<button class="btn btn-default" th:text="${nowPages}"></button>
 					<button class="btn btn-default disabled prev blue" type="button"
-							th:if="${currentPagesSize lt 2}">/</button>
+							th:if="${currentPagesSize lt length}">/</button>
 					<a class="btn btn-default" th:href="${'/admin/user-list?target=1&amp;nowPages='+nowPages}" th:if="${(totalSize - endPoint) gt 0}">&gt;</a>
 
 				</div>

@@ -283,31 +283,31 @@ public class PublisherController {
 	
 	@RequestMapping(value = "/view-position-list", method = RequestMethod.GET)
 	public String viewPositionList(Model model, HttpServletRequest request, Integer nowPages, Integer target) {
-
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userMapper.findByUserName(username);
-		int start = nowPages == null ? 0 : nowPages * 20;
+
 		int length = 20;
+		int start = nowPages == null ? 0 : nowPages * length;
 		int totalSize = positionInfoMapper.getAllSizePositionInfosByUsername(username);
 		if (target == null) {
-			target = new Integer(1);// 初始值为1
+			target = new Integer(3);// 初始值为3
 		}
 		if (nowPages == null) {
 			nowPages = new Integer(1);
 		}
 		switch (target) {
-		case 1:
-			start = nowPages * 20 - 20;
-			break;
-		case 2:
-			start = nowPages * 20 + 20;
-		case 3:
-			start = 0;
-		case 4:
-			start = totalSize - totalSize % 20;
-			start = start == 0 ? totalSize - 20 : start;
-		default:
-			break;
+			case 0:         //上一页
+				nowPages--;
+				start = (nowPages-1)*length;
+				break;
+			case 1:     //下一页
+				nowPages++;
+				break;
+			case 3:
+				start = 0;
+				break;
+			default:
+				break;
 		}
 		List<PositionInfo> positionInfos = positionInfoMapper.getLimitPositionInfos(username, start, length);
 		model.addAttribute("list", positionInfos);
@@ -318,7 +318,10 @@ public class PublisherController {
 		int endPoint = start + length > totalSize ? totalSize : start + length;
 		model.addAttribute("endPoint", endPoint);
 		model.addAttribute("currentPagesSize", endPoint - start);
-		
+
+
+
+
 		return "/publisher/view-position-list";
 	}
 	

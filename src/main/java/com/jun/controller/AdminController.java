@@ -100,6 +100,7 @@ public class AdminController {
 		int endPoint = start + length > totalSize ? totalSize : start + length;
 		model.addAttribute("endPoint", endPoint);
 		model.addAttribute("currentPagesSize", endPoint - start);
+		model.addAttribute("length",length);
 		if (searchEmail != null) {
 			model.addAttribute("searchEmail", searchEmail);
 		}
