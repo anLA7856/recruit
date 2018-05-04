@@ -18,7 +18,7 @@ import com.jun.model.PositionInfo;
 @Mapper
 public interface PositionInfoMapper {
 
-	@Insert("insert into position_info(username,position_name) value(#{0},#{1})")
+	@Insert("insert into position_info(username,position_name,target) value(#{0},#{1},0)")
 	public int addNewPostionInfo(String username, String positionName);
 
 	@Select("select * from position_info where username=#{0} limit #{1},#{2}")
